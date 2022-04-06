@@ -1,0 +1,27 @@
+a{
+    text-decoration: none;
+}
+header{
+    background-color: #2B2929;
+    color: #ffffff;
+    .logo{
+        cursor: pointer;
+    }
+    nav{
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 20px 0 20px;
+    }
+    ul{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    li{
+        cursor: pointer;
+        margin-right: 10px;
+        list-style: none;
+    }
+}

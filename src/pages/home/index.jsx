@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from '../../components/header';
 import api from "../../service/api";
 import './index.scss'
 
@@ -25,17 +26,20 @@ function App() {
 
     return (
         <>
-            <h1>Buscar Filmes</h1>
-            <input type="text" onChange={getNameFilm} placeholder="Nome do filme" />
-            <button onClick={loadDados} >Buscar</button>
-            {resultFilms.map(e => {
+            <Header />
+            <h1>Seu site favorito para busca de filmes</h1>
+            <div>
+                <input type="text" onChange={getNameFilm} placeholder="Nome do filme" />
+                <button onClick={loadDados} >Buscar</button>
+            </div>
+            {/* {resultFilms.map(e => {
                 return (
                     <div key={e.id}>
                         <img src={`https://image.tmdb.org/t/p/original${e.backdrop_path}`} alt={e.title} />
                         <p>{e.title}</p>
                     </div>
                 )
-            })}
+            })} */}
         </>
     )
 }
