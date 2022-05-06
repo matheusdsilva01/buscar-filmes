@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from '../../components/header';
 import api from "../../service/api";
-import './index.scss'
+import './index.css'
 
 function App() {
     const [resultFilms, setResultFilms] = useState([]);
