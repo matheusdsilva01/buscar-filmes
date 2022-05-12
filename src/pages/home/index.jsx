@@ -32,14 +32,16 @@ function App() {
                 <input type="text" onChange={getNameFilm} placeholder="Nome do filme" />
                 <button onClick={loadDados} >Buscar</button>
             </div>
-            {/* {resultFilms.map(e => {
+            {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */}
+            {resultFilms.map(e => {
+                console.log(e.poster_path)
                 return (
                     <div key={e.id}>
-                        <img src={`https://image.tmdb.org/t/p/original${e.backdrop_path}`} alt={e.title} />
+                        <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} alt={e.title} />
                         <p>{e.title}</p>
                     </div>
                 )
-            })} */}
+            })}
         </>
     )
 }
