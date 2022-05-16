@@ -1,14 +1,16 @@
 import React from 'react';
+import logo from '../../assets/icons/logo.svg';
+import { ChevronDoubleDownIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <header>
-            <nav>
-            <div className='logo'><Link to="/">logo</Link></div>
-                <ul>
-                    <li>Home</li>
-                    <li>Recentes</li>
+        <header className='bg-white'>
+            <nav className='w-full flex justify-between p-5'>
+            <div className='logo'><Link to="/"><img src={logo} alt="" /></Link></div>
+                <ul className='flex items-center text-2xl '>
+                    <li className=''>Home</li>
+                    <li className='ml-6 flex items-center'>Recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
                 </ul>
             </nav>
         </header>

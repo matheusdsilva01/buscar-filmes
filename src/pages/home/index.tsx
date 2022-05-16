@@ -1,27 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/header";
 import api from "../../service/api";
 
 export interface Film {
-    adult:             boolean;
-    backdrop_path:     string;
-    genre_ids:         number[];
-    id:                number;
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[];
+    id: number;
     original_language: string;
-    original_title:    string;
-    overview:          string;
-    popularity:        number;
-    poster_path:       string;
-    release_date:      Date;
-    title:             string;
-    video:             boolean;
-    vote_average:      number;
-    vote_count:        number;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: Date;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
 }
 
 function App() {
     const [resultFilms, setResultFilms] = useState<Film[]>([]);
     const [film, setFilm] = useState<string>("");
+    const [filmCover, setFilmCover] = useState<Film>();
+
+    useEffect(() => {
+        async function chama() {
+            var response = await api.get("/3/search/movie", { params: { query: "Shang-Chi and the Legend of the Ten Rings" } })
+            setFilmCover(response.data.results[0])
+        }
+        chama()
+    }, [])
 
 
 
@@ -37,15 +46,17 @@ function App() {
         }
     }
 
+    {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */}
     return (
         <>
             <Header />
             <h1>Seu site favorito para busca de filmes</h1>
-            <div>
+            {/* <div
+            style={{backgroundImage: `url(https://image.tmdb.org/t/p/w500${filmCover?.backdrop_path})`}}
+            className="w-full h-screen bg-cover">
                 <input type="text" onChange={(e) => setFilm(e.target.value)} placeholder="Nome do filme" />
                 <button onClick={loadDados} >Buscar</button>
             </div>
-            {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */}
             {resultFilms.map(e => {
                 return (
                     <div key={e.id}>
@@ -54,6 +65,7 @@ function App() {
                     </div>
                 )
             })}
+             */}
         </>
     )
 }
