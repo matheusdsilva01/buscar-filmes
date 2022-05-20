@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Header from "../../components/header";
 import api from "../../service/api";
 
@@ -34,7 +34,8 @@ function App() {
 
 
 
-    const loadDados = async () => {
+    const loadDados = async (e: FormEvent) => {
+        e.preventDefault()
         if (film) {
             try {
                 var response = await api.get("/3/search/movie", { params: { query: `${film}` } })
@@ -46,17 +47,22 @@ function App() {
         }
     }
 
-    {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */}
+    {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */ }
     return (
         <>
             <Header />
-            <h1>Seu site favorito para busca de filmes</h1>
-            {/* <div
-            style={{backgroundImage: `url(https://image.tmdb.org/t/p/w500${filmCover?.backdrop_path})`}}
-            className="w-full h-screen bg-cover">
-                <input type="text" onChange={(e) => setFilm(e.target.value)} placeholder="Nome do filme" />
-                <button onClick={loadDados} >Buscar</button>
-            </div>
+            <form
+                onSubmit={(e) => loadDados(e)}
+                style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${filmCover?.backdrop_path})` }}
+                className="flex items-center justify-center w-full h-screen bg-cover">
+                <div className="max-w-[1096px] h-[105px] rounded-[20px] bg-gradient-to-b from-white/50 to-transparent w-full flex items-center justify-center">
+                    <input
+                        className="max-w-[810px] w-full py-4 h-[64px] px-9 text-[26px] font-light text-black rounded-[10px] font-merri"
+                        type="text"
+                        onChange={(e) => setFilm(e.target.value)}
+                        placeholder="Procure por um filme..." />
+                </div>
+            </form>
             {resultFilms.map(e => {
                 return (
                     <div key={e.id}>
@@ -65,7 +71,7 @@ function App() {
                     </div>
                 )
             })}
-             */}
+
         </>
     )
 }
