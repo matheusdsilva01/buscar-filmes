@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.tsx", './node_modules/tw-elements/dist/js/**/*.js'],
+  content: ["./src/**/*.tsx"],
   theme: {
     extend: {
       fontFamily: {
@@ -7,7 +7,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('tw-elements/dist/plugin')
-  ],
+  plugins: [],
 }
