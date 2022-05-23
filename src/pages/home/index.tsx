@@ -24,12 +24,10 @@ function App() {
     const [resultFilms, setResultFilms] = useState<Film[]>([]);
     const [film, setFilm] = useState<string>("");
     const [filmCover, setFilmCover] = useState<Film>();
-    console.log(filmCover)
 
     useEffect(() => {
         api.get("/search/movie", { params: { query: "Shang-Chi and the Legend of the Ten Rings" } }).then((response) =>{
             setFilmCover(response.data.results[0])
-            console.log(response.data)
         })
     }, [])
 

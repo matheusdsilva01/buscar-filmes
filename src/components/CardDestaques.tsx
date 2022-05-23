@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import api from '../service/api';
+import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/solid';
 import CardFilm from './CardFilm';
 
 interface Film {
@@ -19,46 +20,72 @@ interface Film {
   vote_count: number;
 }
 const CardDestaques = () => {
-  const [filmsDestaques, setFilmDestaques] = useState<Film[]>([])
+  const [filmsDestaques, setFilmDestaques] = useState<Film[][]>();
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     api.get('/discover/movie?sort_by=popularity.desc').then((response) => {
-      setFilmDestaques(response.data.results)
+      separar(response.data.results, 3)
     }).catch(err => {
       console.log(err)
     })
   }, [])
+
+  const separar = (base: [], maximo: number) => {
+    var resultado: Film[][] = [[]];
+    var grupo = 0;
+
+    for (var indice = 0; indice < base.length; indice++) {
+      if (resultado[grupo] === undefined) {
+        resultado[grupo] = [];
+      }
+      resultado[grupo].push(base[indice]);
+
+      if ((indice + 1) % maximo === 0) {
+        grupo = grupo + 1;
+      }
+    }
+    setFilmDestaques(resultado)
+  }
+
   /***
    * add poster_path em card film e title
    */
+
   return (
     <>
       <h1 className='text-[32px] font-light pt-16 px-9'>Em destaques</h1>
-      <div id="carouselExampleControls" className="carousel slide relative variant-dark" data-bs-ride="carousel">
-        <div className="carousel-inner relative w-full overflow-hidden ">
-          {filmsDestaques.map((film) => (
-            <CardFilm title={film.title} image={film.poster_path} />
+      <div className='relative'>
+        <div className='w-full flex items-center overflow-x-auto snap-mandatory snap-x' ref={ref}>
+          {filmsDestaques?.map((film, index) => (
+            <div key={index} className="w-full flex-none flex snap-center justify-evenly">
+              {film.map((film) => (
+                <CardFilm key={film.id} title={film.title} image={film.poster_path} />
+              ))}
+            </div>
           )
           )}
+          <button
+          onClick={() => {
+            ref.current?.scrollBy({
+              left: 1,
+              behavior: 'smooth'
+            })
+          }}
+          className='absolute right-2 top-1/2'>
+            <ChevronRightIcon className='h-10 w-10' />
+          </button>
+          <button
+          onClick={() => {
+            ref.current?.scrollBy({
+              left: -1,
+              behavior: 'smooth'
+            })
+          }}
+          className='absolute left-5 top-1/2'>
+            <ChevronLeftIcon className='h-10 w-10' />
+          </button>
         </div>
-        <button
-          className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button>
       </div>
     </>
   )
