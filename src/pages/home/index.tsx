@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
+import CardDestaques from "../../components/CardDestaques";
 import Header from "../../components/header";
 import api from "../../service/api";
 
-export interface Film {
+interface Film {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
@@ -23,13 +24,13 @@ function App() {
     const [resultFilms, setResultFilms] = useState<Film[]>([]);
     const [film, setFilm] = useState<string>("");
     const [filmCover, setFilmCover] = useState<Film>();
+    console.log(filmCover)
 
     useEffect(() => {
-        async function chama() {
-            var response = await api.get("/3/search/movie", { params: { query: "Shang-Chi and the Legend of the Ten Rings" } })
+        api.get("/search/movie", { params: { query: "Shang-Chi and the Legend of the Ten Rings" } }).then((response) =>{
             setFilmCover(response.data.results[0])
-        }
-        chama()
+            console.log(response.data)
+        })
     }, [])
 
 
@@ -38,7 +39,7 @@ function App() {
         e.preventDefault()
         if (film) {
             try {
-                var response = await api.get("/3/search/movie", { params: { query: `${film}` } })
+                var response = await api.get("/search/movie", { params: { query: `${film}` } })
                 console.log(response)
                 setResultFilms(response.data.results)
             } catch (e) {
@@ -71,7 +72,7 @@ function App() {
                     </div>
                 )
             })}
-
+            <CardDestaques />
         </>
     )
 }

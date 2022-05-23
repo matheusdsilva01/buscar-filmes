@@ -1,11 +1,13 @@
 module.exports = {
-  content: ["./src/**/*.tsx"],
+  content: ["./src/**/*.tsx", './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
     extend: {
       fontFamily: {
         'merri': ['Merriweather', 'serif']
-      }
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 }

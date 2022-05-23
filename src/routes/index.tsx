@@ -7,7 +7,7 @@ const Index = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="film" element={<FilmDetails/>}/>
+        <Route path="/film" element={<FilmDetails/>}/>
       </Routes>
     </BrowserRouter>
   )
