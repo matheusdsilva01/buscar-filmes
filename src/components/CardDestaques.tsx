@@ -55,8 +55,8 @@ const CardDestaques = () => {
   return (
     <>
       <h1 className='text-[32px] font-light pt-16 px-9'>Em destaques</h1>
-      <div className='relative'>
-        <div className='w-full flex items-center overflow-x-auto snap-mandatory snap-x' ref={ref}>
+      <div className='relative w-100'>
+        <div className='w-full flex items-center snap-mandatory snap-x overflow-x-hidden' ref={ref}>
           {filmsDestaques?.map((film, index) => (
             <div key={index} className="w-full flex-none flex snap-center justify-evenly">
               {film.map((film) => (
@@ -66,23 +66,23 @@ const CardDestaques = () => {
           )
           )}
           <button
-          onClick={() => {
-            ref.current?.scrollBy({
-              left: 1,
-              behavior: 'smooth'
-            })
-          }}
-          className='absolute right-2 top-1/2'>
+            onClick={() => {
+              ref.current?.scrollBy({
+                left: 1,
+                behavior: 'smooth'
+              })
+            }}
+            className='absolute right-2 top-1/2'>
             <ChevronRightIcon className='h-10 w-10' />
           </button>
           <button
-          onClick={() => {
-            ref.current?.scrollBy({
-              left: -1,
-              behavior: 'smooth'
-            })
-          }}
-          className='absolute left-5 top-1/2'>
+            onClick={() => {
+              ref.current?.scrollBy({
+                left: -1,
+                behavior: 'smooth'
+              })
+            }}
+            className='absolute left-5 top-1/2'>
             <ChevronLeftIcon className='h-10 w-10' />
           </button>
         </div>
