@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/header";
-import FilmDetails from '../pages/filmDetails';
-import Home from '../pages/home';
+import Home from '../pages/Home';
+import ResultSearch from "../pages/ResultSearch";
 
 const Index = () => {
   return (
@@ -9,7 +9,7 @@ const Index = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/film/:query" element={<FilmDetails />} />
+        <Route path="/film/:query" element={<ResultSearch />} />
       </Routes>
     </BrowserRouter>
   )

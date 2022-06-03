@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../service/api";
+import api from "../service/api";
 
 interface IFilm {
   adult: boolean;

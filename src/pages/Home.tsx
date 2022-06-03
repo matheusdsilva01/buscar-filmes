@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CardDestaques from "../../components/CardDestaques";
-import api from "../../service/api";
+import CardDestaques from "../components/CardDestaques";
+import api from "../service/api";
 
 interface Film {
     adult: boolean;
@@ -26,7 +26,7 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get("/search/movie", { params: { query: "Shang-Chi and the Legend of the Ten Rings" } }).then((response) => {
+        api.get("/movie/popular").then((response) => {
             setFilmCover(response.data.results[0])
         })
     }, [])
