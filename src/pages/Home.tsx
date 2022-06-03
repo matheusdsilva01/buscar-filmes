@@ -37,10 +37,10 @@ function App() {
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
-                    navigate(`/film/${query}`)
+                    navigate(`film/${query}`)
                 }}
                 style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500${filmCover?.backdrop_path})` }}
-                className="flex items-center justify-center w-full h-screen bg-cover">
+                className="flex items-center bg-center justify-center w-full h-screen bg-cover">
                 <div className="max-w-[1096px] h-[105px] rounded-[20px] bg-gradient-to-b from-white/50 to-transparent w-full flex items-center justify-center">
                     <input
                         className="max-w-[810px] w-full py-4 h-[64px] px-9 text-[26px] font-light text-black rounded-[10px] font-merri"

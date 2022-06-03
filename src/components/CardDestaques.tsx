@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../service/api';
-import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/solid';
 import CardFilm from './CardFilm';
 
 interface Film {
@@ -22,7 +22,7 @@ interface Film {
 const CardDestaques = () => {
   const [filmsDestaques, setFilmDestaques] = useState<Film[][]>();
   const ref = useRef<HTMLDivElement>(null)
-
+  
   useEffect(() => {
     api.get('/discover/movie?sort_by=popularity.desc').then((response) => {
       separar(response.data.results, 3)
@@ -48,10 +48,6 @@ const CardDestaques = () => {
     setFilmDestaques(resultado)
   }
 
-  /***
-   * add poster_path em card film e title
-   */
-
   return (
     <>
       <h1 className='text-[32px] font-light pt-16 px-9'>Em destaques</h1>
@@ -60,7 +56,7 @@ const CardDestaques = () => {
           {filmsDestaques?.map((film, index) => (
             <div key={index} className="w-full flex-none flex snap-center justify-evenly">
               {film.map((film) => (
-                <CardFilm key={film.id} title={film.title} image={film.poster_path} />
+                <CardFilm key={film.id} film={film} />
               ))}
             </div>
           )
@@ -82,7 +78,7 @@ const CardDestaques = () => {
                 behavior: 'smooth'
               })
             }}
-            className='absolute left-5 top-1/2'>
+            className='absolute left-2 top-1/2'>
             <ChevronLeftIcon className='h-10 w-10' />
           </button>
         </div>
