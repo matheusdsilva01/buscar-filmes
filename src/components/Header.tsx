@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/icons/logo.svg';
+import logo from '../assets/icons/logo.svg';
 import { ChevronDoubleDownIcon } from '@heroicons/react/solid'
 import { Link } from 'react-router-dom';
 
