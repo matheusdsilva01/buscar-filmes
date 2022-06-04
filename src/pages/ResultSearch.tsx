@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import imgError from "../assets/icons/imgError.svg";
+import { useParams } from "react-router-dom";
+import FilmResult from "../components/FilmResult";
 import api from "../service/api";
 
 interface IFilm {
@@ -24,9 +24,11 @@ export default function ResultSearch() {
     const input = useRef<HTMLInputElement>(null);
     const [resultFilms, setResultFilms] = useState<IFilm[]>([]);
     const [search, setSearch] = useState(query);
-    const navigate = useNavigate();
 
     useEffect((() => {
+        /* Query com paginação a aplicar:
+            https://api.themoviedb.org/3/search/movie?api_key=0caef4704a61b607b5b3b22d56a0056b&page=2&language=pt-BR&query=Batman
+        */
         api.get("/search/movie", { params: { query: search } }).then(response => {
             setResultFilms(response.data.results)
         })
@@ -34,38 +36,20 @@ export default function ResultSearch() {
 
     return (
         <>
-            <form onSubmit={(e) => {
+            <form className="w-full px-8 mb-8 mt-8"
+                onSubmit={(e) => {
                     e.preventDefault();
                     setSearch(input.current?.value);
-                }}
-                className="w-full px-8 mb-8 mt-8">
-                <input
-                    ref={input}
+                }}>
+                <input ref={input}
                     type="text"
                     placeholder="Pesquise um filme"
                     className="w-full p-2 rounded-lg shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500" />
             </form>
             <section className="flex flex-col gap-y-5 px-10">
-                {
-                    resultFilms.map(item => (
-                        <div key={item.id}
-                         onClick={() => navigate(`/filmDetails/${item.id}`)}
-                         className="bg-white flex cursor-pointer rounded-lg transition-colors shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px]">
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-                                alt={`Capa do filme ${item.title}`}
-                                className="w-[112px] object-cover rounded-l-[5px]"
-                                onError={({ currentTarget }) => {
-                                    currentTarget.onerror = null; // prevents looping
-                                    currentTarget.src = imgError;
-                                }} />
-                            <div className="ml-2 py-3">
-                                <h1 className="text-2xl font-medium">{item.title}</h1>
-                                <p className="font-normal">{item.overview}</p>
-                            </div>
-                        </div>
-                    ))
-                }
+                {resultFilms.map(film => (
+                    <FilmResult film={film} />
+                ))}
             </section>
         </>
     )
