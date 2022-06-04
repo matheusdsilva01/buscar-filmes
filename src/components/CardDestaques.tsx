@@ -54,7 +54,7 @@ const CardDestaques = () => {
       <div className='relative w-100'>
         <div className='w-full flex items-center snap-mandatory snap-x overflow-x-hidden' ref={ref}>
           {filmsDestaques?.map((film, index) => (
-            <div key={index} className="w-full flex-none flex snap-center justify-evenly">
+            <div key={index} className="w-full flex-none flex snap-center justify-evenly mb-1">
               {film.map((film) => (
                 <CardFilm key={film.id} film={film} />
               ))}
