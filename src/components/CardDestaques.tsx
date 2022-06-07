@@ -1,12 +1,12 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
-import React, { useEffect, useRef, useState } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon, CurrencyBangladeshiIcon } from '@heroicons/react/solid';
+import React, { ButtonHTMLAttributes, useEffect, useRef, useState } from 'react';
 import { IFilm } from '../interfaces/Film';
 import api from '../service/api';
 import CardFilm from './CardFilm';
 
 const CardDestaques = () => {
   const [filmsDestaques, setFilmDestaques] = useState<IFilm[][]>();
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     api.get('/discover/movie?sort_by=popularity.desc').then((response) => {
@@ -32,12 +32,13 @@ const CardDestaques = () => {
     }
     setFilmDestaques(resultado)
   }
-
+  
+  
   return (
     <>
       <h1 className='text-[32px] font-light pt-16 px-9'>Em destaques</h1>
       <div className='relative w-100'>
-        <div className='w-full flex items-center snap-mandatory snap-x overflow-x-hidden' ref={ref}>
+        <div className='w-full flex items-center snap-mandatory snap-x overflow-x-auto scroll' onScroll={(e) => console.log(e.target)} ref={ref}>
           {filmsDestaques?.map((film, index) => (
             <div key={index} className="w-full flex-none flex snap-center justify-evenly mb-1">
               {film.map((film) => (
@@ -53,7 +54,7 @@ const CardDestaques = () => {
                 behavior: 'smooth'
               })
             }}
-            className='absolute right-2 top-1/2'>
+            className='absolute right-2 top-1/2 disabled:bg-red'>
             <ChevronRightIcon className='h-10 w-10' />
           </button>
           <button
@@ -63,7 +64,8 @@ const CardDestaques = () => {
                 behavior: 'smooth'
               })
             }}
-            className='absolute left-2 top-1/2'>
+            disabled={ref.current?.scrollLeft === 0}
+            className='absolute left-2 top-1/2 disabled:bg-red-600'>
             <ChevronLeftIcon className='h-10 w-10' />
           </button>
         </div>
