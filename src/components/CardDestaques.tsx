@@ -1,28 +1,13 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import React, { useEffect, useRef, useState } from 'react';
+import { IFilm } from '../interfaces/Film';
 import api from '../service/api';
 import CardFilm from './CardFilm';
 
-interface Film {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: Date;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
 const CardDestaques = () => {
-  const [filmsDestaques, setFilmDestaques] = useState<Film[][]>();
+  const [filmsDestaques, setFilmDestaques] = useState<IFilm[][]>();
   const ref = useRef<HTMLDivElement>(null)
-  
+
   useEffect(() => {
     api.get('/discover/movie?sort_by=popularity.desc').then((response) => {
       separar(response.data.results, 3)
@@ -32,7 +17,7 @@ const CardDestaques = () => {
   }, [])
 
   const separar = (base: [], maximo: number) => {
-    var resultado: Film[][] = [[]];
+    var resultado: IFilm[][] = [[]];
     var grupo = 0;
 
     for (var indice = 0; indice < base.length; indice++) {

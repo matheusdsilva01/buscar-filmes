@@ -1,34 +1,10 @@
-import { CurrencyBangladeshiIcon } from "@heroicons/react/solid";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { IFilmDetails } from "../interfaces/Film";
 import api from "../service/api";
 
-interface IFilm {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: Date;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  tagline: string;
-  production_companies: IProductonCompanies[]
-}
-interface IProductonCompanies {
-  id: number
-  logo_path: string
-  name: string
-  origin_country: string
-}
-
 export default function FilmDetails() {
-  const [film, setFilm] = useState<IFilm>();
+  const [film, setFilm] = useState<IFilmDetails>();
   const { id } = useParams();
 
   useEffect((() => {
