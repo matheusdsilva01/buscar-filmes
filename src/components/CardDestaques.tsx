@@ -18,7 +18,7 @@ const CardDestaques = () => {
   return (
     <>
       <h1 className='text-[32px] font-light pt-16 px-9'>Em destaques</h1>
-      <Carousel items={filmsDestaques} visibleItemsNumber={window.innerWidth ? 3 : 1}/>
+      <Carousel items={filmsDestaques} visibleItemsNumber={window.innerWidth > 950 ? 3 : 1}/>
     </>
   )
 }
