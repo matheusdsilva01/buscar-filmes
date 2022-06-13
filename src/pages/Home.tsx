@@ -18,7 +18,7 @@ function App() {
 
     {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */ }
     return (
-        <>
+        <div className="mb-6">
             <form
                 onSubmit={(e) => {
                     e.preventDefault()
@@ -35,7 +35,7 @@ function App() {
                 </div>
             </form>
             <CardDestaques />
-        </>
+        </div>
     )
 }
 
