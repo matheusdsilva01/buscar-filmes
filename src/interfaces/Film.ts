@@ -1,4 +1,4 @@
-interface IFilm {
+export interface IFilm {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
@@ -15,7 +15,7 @@ interface IFilm {
     vote_count: number;
 }
 
-interface IFilmDetails {
+export interface IFilmDetails {
     adult:                 boolean;
     backdrop_path:         string;
     belongs_to_collection: BelongsToCollection;
@@ -73,5 +73,3 @@ interface SpokenLanguage {
     name:         string;
 }
 
-
-export type { IFilm, IFilmDetails };

@@ -1,12 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { PlayIcon } from '@heroicons/react/solid';
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IFilmDetails } from "../interfaces/Film";
 import { Providers } from "../interfaces/Providers";
 import api from "../service/api";
 
+interface IVideos {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: Date;
+  id: string;
+}
+
 export default function FilmDetails() {
   const [film, setFilm] = useState<IFilmDetails>();
   const [providersFilm, setProvidersFilm] = useState<Providers>();
+  const [videos, setVideos] = useState<IVideos[]>([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -17,7 +32,11 @@ export default function FilmDetails() {
     api.get(`/movie/${id}/watch/providers`).then(response => {
       setProvidersFilm(response.data.results.BR);
     })
+    api.get(`/movie/${id}/videos`).then(response => {
+      setVideos(response.data.results);
+    })
   }), [])
+  console.log(videos);
 
   return (
     <>
@@ -30,6 +49,9 @@ export default function FilmDetails() {
               <h6>{film?.tagline} </h6>
             </div>
             <p className="text-xl mt-4">{film?.overview}</p>
+            {videos?.length > 0 ? <button className="bg-gray-400 rounded-md hover:bg-gradient-to-tr from-slate-50 to-slate-700">
+              <a href={`https://www.youtube.com/watch?v=${videos[0].key}`} className="w-full h-full flex items-center gap-1" target="_blank" rel="noopener noreferrer"><PlayIcon width={20} height={20} />Assistir trailer</a>
+            </button> : null}
           </div>
         </section>
         <section>
@@ -39,7 +61,7 @@ export default function FilmDetails() {
               <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
             </li>
             <li>
-              <strong>Duração:</strong> {film?.runtime} minutos
+              <strong>Duração:</strong> {film?.runtime && `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
             </li>
             <li>
               <strong>Gênero:</strong> {film?.genres.map(genre => genre.name).join(", ")}
