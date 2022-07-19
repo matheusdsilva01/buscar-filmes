@@ -13,7 +13,7 @@ const FilmResult = ({ film }: FilmResultProps) => {
     return (
         <div key={film.id}
             onClick={() => navigate(`/filmDetails/${film.id}`)}
-            className="bg-white flex cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px] duration-200">
+            className="bg-black-bright text-white flex cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px] duration-200">
             <img
                 src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
                 alt={`Capa do filme ${film.title}`}

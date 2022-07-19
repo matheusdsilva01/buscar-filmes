@@ -37,7 +37,7 @@ export default function ResultSearch() {
                 <input ref={input}
                     type="text"
                     placeholder="Pesquise um filme"
-                    className="w-full p-2 rounded-lg shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500" />
+                    className="w-full p-2 rounded-lg bg-black-bright text-white shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500" />
             </form>
             <section className="flex flex-col gap-y-5 px-10">
                 {resultFilms?.results.map(film => (

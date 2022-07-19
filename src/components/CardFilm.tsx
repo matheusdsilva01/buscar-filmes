@@ -12,9 +12,9 @@ const CardFilm = ({ film }: cardFilmProps) => {
   return (
     <div
       onClick={() => navigate(`filmDetails/${film.id}`)}
-      className='w-[258px] pb-3 bg-gray-50 cursor-pointer hover:shadow-[0_1px_5px] shadow-slate-700 duration-200'>
-      <img src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} alt={`Poster do filme: ${film.title}`} className='w-full h-[367px] object-cover' />
-      <p className='pt-[10px] px-[10px]'>{film.title}</p>
+      className='w-[258px] pb-3 bg-black-bright cursor-pointer rounded-md hover:shadow-[0_1px_5px] shadow-slate-700 duration-200'>
+      <img src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} alt={`Poster do filme: ${film.title}`} className='w-full h-[367px] rounded-t-md object-cover' />
+      <p className='pt-[10px] px-[10px] text-white'>{film.title}</p>
     </div>
   )
 }

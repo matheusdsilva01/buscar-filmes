@@ -2,6 +2,12 @@ module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      backgroundColor: {
+        "black": {
+          DEFAULT: "#232222",
+          bright: '#3B3B3B',
+        }
+      },
       fontFamily: {
         'merri': ['Merriweather', 'serif']
       },
@@ -10,6 +16,9 @@ module.exports = {
       },
       borderWidth: {
         '1': '1px'
+      },
+      text: {
+        'white': '#E8E6E3'
       }
     }
   },

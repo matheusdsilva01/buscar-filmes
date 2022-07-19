@@ -41,14 +41,14 @@ const Carousel = ({ items, visibleItemsNumber }: CarouselProps) => {
                 <button
                     onClick={() => onPrevClick()}
                     disabled={start === 0}
-                    className='absolute left-2 top-1/2 disabled:opacity-20 duration-150'>
-                    <ChevronLeftIcon className='h-10 w-10' />
+                    className='absolute left-2 top-1/2 disabled:opacity-10 duration-150'>
+                    <ChevronLeftIcon color="white" className='h-10 w-10' />
                 </button>
                 <button
                     disabled={start + visibleItemsNumber >= items.length}
                     onClick={() => onNextClick()}
                     className='absolute right-2 top-1/2 disabled:opacity-20 duration-150'>
-                    <ChevronRightIcon className='h-10 w-10' />
+                    <ChevronRightIcon color="white" className='h-10 w-10' />
                 </button>
             </div>
         </>
