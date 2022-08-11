@@ -17,7 +17,7 @@ function App() {
         })
     }, [])
 
-    {/* get imagem de filme usar https://image.tmdb.org/t/p/w500/ */ }
+    {/* get imagem de filme usar https://image.tmdb.org/t/p/original/ */ }
     return (
         <div className="mb-6">
             <form
@@ -38,7 +38,7 @@ function App() {
             <div className="h-min text-white md:flex w-full justify-evenly">
                 <section className="text-4xl items-center flex flex-col md:items-start">
                     <h3>Filme mais assistido da semana</h3>
-                    <img className="w-80" src={`https://image.tmdb.org/t/p/w500${filmCover?.poster_path}`} />
+                    <img className="w-80" src={`https://image.tmdb.org/t/p/original/${filmCover?.poster_path}`} />
                 </section>
                 <section className="flex flex-col justify-between p-5 items-center md:items-start">
                     <div className="md:max-w-sm">

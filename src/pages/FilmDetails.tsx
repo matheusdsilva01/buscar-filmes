@@ -41,7 +41,7 @@ export default function FilmDetails() {
     <>
       <div className="px-14 pt-5 min-h-screen text-white">
         <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center">
-          <img className="w-96 object-cover flex" src={`https://image.tmdb.org/t/p/w500${film?.poster_path}`} alt={`Poster do filme: ${film?.title}`} />
+          <img className="w-96 object-cover flex" src={`https://image.tmdb.org/t/p/original${film?.poster_path}`} alt={`Poster do filme: ${film?.title}`} />
           <div className="ml-0 lg:ml-4">
             <div>
               <h1 className="text-3xl lg:text-5xl">{film?.title}</h1>
@@ -75,7 +75,7 @@ export default function FilmDetails() {
             {providersFilm?.rent ? providersFilm?.rent.map(provider => (
               <li key={provider.provider_id} className="flex flex-row">
                 <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/w500${provider.logo_path}`} alt={provider.provider_name} />
+                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
                 </a>
               </li>
             )) : <li>Nenhum provedor para aluguel disponível</li>}
@@ -85,7 +85,7 @@ export default function FilmDetails() {
             {providersFilm?.flatrate ? providersFilm?.flatrate.map(provider => (
               <li key={provider.provider_id} className="flex flex-row">
                 <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/w500${provider.logo_path}`} alt={provider.provider_name} />
+                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
                 </a>
               </li>
             )) : <li>Não há stream disponível</li>}
@@ -95,7 +95,7 @@ export default function FilmDetails() {
             {providersFilm?.buy ? providersFilm?.buy.map(provider => (
               <li key={provider.provider_id} className="flex flex-row">
                 <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/w500${provider.logo_path}`} alt={provider.provider_name} />
+                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
                 </a>
               </li>
             )) : <li>Não há provedores para compra</li>}
@@ -108,7 +108,7 @@ export default function FilmDetails() {
           <div className="flex items-center flex-wrap flex-row w-full p-2 gap-x-8 bg-black-bright">
             {film?.production_companies.map(companie => (
               companie.logo_path != null ?
-                <img key={companie.id} className="object-contain max-h-[80px] w-full max-w-[100px]" src={`https://image.tmdb.org/t/p/w500${companie.logo_path}`} alt="" /> : <p key={companie.id}>{companie.name}</p>
+                <img key={companie.id} className="object-contain max-h-[80px] w-full max-w-[100px]" src={`https://image.tmdb.org/t/p/original${companie.logo_path}`} alt="" /> : <p key={companie.id}>{companie.name}</p>
             ))}
           </div>
         </section>
