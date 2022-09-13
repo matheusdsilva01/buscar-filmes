@@ -1,4 +1,4 @@
-import { PlayIcon } from '@heroicons/react/solid';
+import { PlayIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IFilmDetails } from "../interfaces/Film";
