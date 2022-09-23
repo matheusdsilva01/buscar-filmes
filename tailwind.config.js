@@ -12,7 +12,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        'merri': ['Merriweather', 'serif']
+        'sans': ['Inter', 'serif']
       },
       width: {
         '24': '94px'
