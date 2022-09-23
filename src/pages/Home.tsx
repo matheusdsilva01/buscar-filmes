@@ -29,8 +29,8 @@ function App() {
                     </section>
                     <section className="flex flex-col justify-between p-5 items-center md:items-start">
                         <div className="md:max-w-sm">
-                            <h2 className="text-4xl font-bold font-merri mb-2">{filmCover?.title}</h2>
-                            <p>{filmCover?.overview}</p>
+                            <h2 className="text-4xl font-bold mb-2">{filmCover?.title}</h2>
+                            <p className="font-light">{filmCover?.overview}</p>
                         </div>
                         <button onClick={() => navigate(`filmDetails/${filmCover?.id}`)} className="border-1 rounded-md bg flex items-center"><Film className='h-10 w-10' />Ver mais detalhes</button>
                     </section>

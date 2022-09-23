@@ -47,14 +47,14 @@ export default function FilmDetails() {
               <h1 className="text-3xl lg:text-5xl">{film?.title}</h1>
               <h6>{film?.tagline} </h6>
             </div>
-            <p className="text-xl mt-4">{film?.overview}</p>
+            <p className="text-xl mt-4 font-thin">{film?.overview}</p>
             {videos?.length > 0 ? <button className="bg-gray-400 rounded-md hover:bg-gradient-to-tr from-slate-50 to-slate-700">
               <a href={`https://www.youtube.com/watch?v=${videos[0].key}`} className="w-full h-full flex items-center gap-1" target="_blank" rel="noopener noreferrer"><PlayIcon width={20} height={20} />Assistir trailer</a>
             </button> : null}
           </div>
         </section>
-        <section>
-          <h1>Informações:</h1>
+        <section className='mt-8'>
+          <h1 className='text-2xl'>Informações:</h1>
           <ul>
             <li>
               <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
@@ -63,13 +63,13 @@ export default function FilmDetails() {
               <strong>Duração:</strong> {film?.runtime && `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
             </li>
             <li>
-              <strong>Gênero:</strong> {film?.genres.map(genre => genre.name).join(", ")}
+              <strong>Gênero:</strong> {film?.genres.map(genre => genre.name).join(", ") }.
             </li>
           </ul>
         </section>
 
-        <section>
-          <h1>Onde assistir</h1>
+        <section className='mt-8'>
+          <h1 className='text-2xl'>Onde assistir: </h1>
           <strong><h3>Alugar:</h3></strong>
           <ul className="flex flex-row gap-5">
             {providersFilm?.rent ? providersFilm?.rent.map(provider => (
