@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import FilmResult from "../components/FilmResult";
+import Pagination from "../components/Pagination";
 import { IFilm } from "../interfaces/Film";
 import api from "../service/api";
 
@@ -16,7 +17,7 @@ export default function ResultSearch() {
     const input = useRef<HTMLInputElement>(null);
     const [resultFilms, setResultFilms] = useState<IResultResponse | null>();
     const [search, setSearch] = useState<string | undefined>(query);
-    const [page, setPage] = useState<number>(1)
+    const [page, setPage] = useState<number>(1);
 
     useEffect((() => {
         /* Query com paginação a aplicar:
@@ -32,6 +33,7 @@ export default function ResultSearch() {
             <form className="w-full px-8 mb-8 mt-8"
                 onSubmit={(e) => {
                     e.preventDefault();
+                    setPage(1);
                     setSearch(input.current?.value);
                 }}>
                 <input ref={input}
@@ -39,21 +41,13 @@ export default function ResultSearch() {
                     placeholder="Pesquise um filme"
                     className="w-full p-2 rounded-lg bg-black-bright text-white shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500" />
             </form>
+            <Pagination onChangePage={setPage} page={page} total_page={resultFilms?.total_pages} />
             <section className="flex flex-col gap-y-5 px-10">
                 {resultFilms?.results.map(film => (
                     <FilmResult key={film.id} film={film} />
                 ))}
-                <button
-                    disabled={page === 1}
-                    className="bg-slate-400"
-                    onClick={() => setPage(state => Math.max(1, state - 1))}
-                > previus </button>
-                <button
-                    disabled={page === resultFilms?.total_pages}
-                    className="bg-slate-400"
-                    onClick={() => setPage((state) => Math.max(resultFilms?.total_pages ? resultFilms.total_pages : 0, state + 1))}
-                > next </button>
             </section>
+            <Pagination onChangePage={setPage} page={page} total_page={resultFilms?.total_pages} />
         </>
     )
 }
