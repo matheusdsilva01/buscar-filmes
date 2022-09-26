@@ -1,56 +1,58 @@
-import ChevronLeftIcon from "@heroicons/react/solid/ChevronLeftIcon";
-import ChevronRightIcon from "@heroicons/react/solid/ChevronRightIcon";
-import { useState } from "react";
+import ChevronLeftIcon from "@heroicons/react/20/solid/ChevronLeftIcon";
+import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import { EffectFade, Navigation } from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { IFilm } from "../interfaces/Film";
 import CardFilm from "./CardFilm";
 
+import 'swiper/css';
+import "swiper/css/navigation";
+import { useRef } from "react";
+
 interface CarouselProps {
     items: IFilm[];
-    visibleItemsNumber: number;
 }
 
 
-const Carousel = ({ items, visibleItemsNumber }: CarouselProps) => {
-
-    const [start, setStart] = useState(0);
-
-    const isControlsVisible = items?.length > visibleItemsNumber;
-
-    const visibleItems = isControlsVisible
-        ? items
-            .concat(items.slice(0, visibleItemsNumber))
-            .slice(start, start + visibleItemsNumber)
-        : items;
-
-    const onNextClick = () => {
-        setStart(start + visibleItemsNumber >= items.length ? items.length : start + visibleItemsNumber);
-    };
-
-    const onPrevClick = () => {
-        setStart(start - visibleItemsNumber >= 0 ? start - visibleItemsNumber : 0);
-    };
+const Carousel = ({ items }: CarouselProps) => {
+    const swiperF = useSwiper();
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
 
     return (
         <>
-            <div className='relative w-100'>
-                <div className='w-full flex items-center justify-evenly'>
-                    {visibleItems.map((item, index) => (
+            <Swiper
+                modules={[Navigation]}
+                navigation={{
+                    prevEl: prevRef?.current,
+                    nextEl: nextRef?.current
+
+                }}
+                breakpoints={{
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                        slidesPerGroup: 2,
+                        speed: 500
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                        slidesPerGroup: 3,
+                        speed: 700
+                    },
+                }}
+                slidesPerGroup={1}
+                slidesPerView={1}
+            >
+                {items.map((item, index) => (
+                    <SwiperSlide key={item.id}>
                         <CardFilm key={index} film={item} />
-                    ))}
-                </div>
-                <button
-                    onClick={() => onPrevClick()}
-                    disabled={start === 0}
-                    className='absolute left-2 top-1/2 disabled:opacity-10 duration-150'>
-                    <ChevronLeftIcon color="white" className='h-10 w-10' />
-                </button>
-                <button
-                    disabled={start + visibleItemsNumber >= items.length}
-                    onClick={() => onNextClick()}
-                    className='absolute right-2 top-1/2 disabled:opacity-20 duration-150'>
-                    <ChevronRightIcon color="white" className='h-10 w-10' />
-                </button>
-            </div>
+                    </SwiperSlide>
+                ))}
+                <button ref={prevRef} className="w-auto swiper-button-prev after:content-none" onClick={() => swiperF.slidePrev(10)}><ChevronLeftIcon width={48} color="white" /></button>
+                <button ref={nextRef} className="w-auto swiper-button-next after:content-none" onClick={() => swiperF.slideNext(10)}><ChevronRightIcon width={48} color="white" /></button>
+            </Swiper>
         </>
     )
 }
