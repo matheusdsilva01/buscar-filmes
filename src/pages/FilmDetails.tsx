@@ -1,6 +1,6 @@
-import { PlayIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import imgError from "../assets/icons/imgError.svg";
 import { IFilmDetails } from "../interfaces/Film";
 import { Providers } from "../interfaces/Providers";
 import api from "../service/api";
@@ -40,66 +40,87 @@ export default function FilmDetails() {
   return (
     <>
       <div className="px-14 pt-5 min-h-screen text-white">
-        <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center">
-          <img className="w-96 object-cover flex" src={`https://image.tmdb.org/t/p/original${film?.poster_path}`} alt={`Poster do filme: ${film?.title}`} />
+        <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center lg:justify-start">
+          <img
+            className="w-96 object-cover flex"
+            src={`https://image.tmdb.org/t/p/original${film?.poster_path}`}
+            alt={`Poster do filme: ${film?.title}`}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src = imgError;
+            }}
+          />
           <div className="ml-0 lg:ml-4">
             <div>
               <h1 className="text-3xl lg:text-5xl">{film?.title}</h1>
-              <h6>{film?.tagline} </h6>
+              <h6 className='italic'>{film?.tagline}</h6>
             </div>
-            <p className="text-xl mt-4 font-thin">{film?.overview}</p>
-            {videos?.length > 0 ? <button className="bg-gray-400 rounded-md hover:bg-gradient-to-tr from-slate-50 to-slate-700">
-              <a href={`https://www.youtube.com/watch?v=${videos[0].key}`} className="w-full h-full flex items-center gap-1" target="_blank" rel="noopener noreferrer"><PlayIcon width={20} height={20} />Assistir trailer</a>
-            </button> : null}
+            <div>
+              <p className="text-xl mt-4 font-thin">{film?.overview}</p>
+              {videos?.length > 0 ? (
+                <div className='mt-8 flex justify-center md:justify-start'>
+                  <iframe
+                    className='aspect-video w-full max-w-screen-md'
+                    src={`https://www.youtube.com/embed/${videos[0].key}`}
+                    frameBorder="0"
+                    allowFullScreen
+                    title={`Trailer ${film?.title}`} >
+                  </iframe>
+                </div>
+              ) : null}
+            </div>
           </div>
         </section>
-        <section className='mt-8'>
-          <h1 className='text-2xl'>Informações:</h1>
-          <ul>
-            <li>
-              <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
-            </li>
-            <li>
-              <strong>Duração:</strong> {film?.runtime && `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
-            </li>
-            <li>
-              <strong>Gênero:</strong> {film?.genres.map(genre => genre.name).join(", ") }.
-            </li>
-          </ul>
-        </section>
+        <section className='flex flex-col md:flex-row md:justify-between'>
 
-        <section className='mt-8'>
-          <h1 className='text-2xl'>Onde assistir: </h1>
-          <strong><h3>Alugar:</h3></strong>
-          <ul className="flex flex-row gap-5">
-            {providersFilm?.rent ? providersFilm?.rent.map(provider => (
-              <li key={provider.provider_id} className="flex flex-row">
-                <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
-                </a>
+          <section className='mt-8'>
+            <h1 className='text-2xl'>Informações:</h1>
+            <ul>
+              <li>
+                <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
               </li>
-            )) : <li>Nenhum provedor para aluguel disponível</li>}
-          </ul>
-          <strong><h3>Stream:</h3></strong>
-          <ul className="flex flex-row gap-5">
-            {providersFilm?.flatrate ? providersFilm?.flatrate.map(provider => (
-              <li key={provider.provider_id} className="flex flex-row">
-                <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
-                </a>
+              <li>
+                <strong>Duração:</strong> {film?.runtime && `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
               </li>
-            )) : <li>Não há stream disponível</li>}
-          </ul>
-          <strong><h3>Comprar:</h3></strong>
-          <ul className="flex flex-row gap-5">
-            {providersFilm?.buy ? providersFilm?.buy.map(provider => (
-              <li key={provider.provider_id} className="flex flex-row">
-                <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
-                  <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
-                </a>
+              <li>
+                <strong>Gênero:</strong> {film?.genres.map(genre => genre.name).join(", ")}.
               </li>
-            )) : <li>Não há provedores para compra</li>}
-          </ul>
+            </ul>
+          </section>
+
+          <section className='mt-8'>
+            <h1 className='text-2xl'>Onde assistir: </h1>
+            <strong><h3>Alugar:</h3></strong>
+            <ul className="flex flex-row gap-10">
+              {providersFilm?.rent ? providersFilm?.rent.map(provider => (
+                <li key={provider.provider_id} className="flex flex-row">
+                  <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
+                    <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
+                  </a>
+                </li>
+              )) : <li>Nenhum provedor para aluguel disponível</li>}
+            </ul>
+            <strong><h3>Stream:</h3></strong>
+            <ul className="flex flex-row gap-10">
+              {providersFilm?.flatrate ? providersFilm?.flatrate.map(provider => (
+                <li key={provider.provider_id} className="flex flex-row">
+                  <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
+                    <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
+                  </a>
+                </li>
+              )) : <li>Não há stream disponível</li>}
+            </ul>
+            <strong><h3>Comprar:</h3></strong>
+            <ul className="flex flex-row gap-10">
+              {providersFilm?.buy ? providersFilm?.buy.map(provider => (
+                <li key={provider.provider_id} className="flex flex-row">
+                  <a href={providersFilm.link} target="_blank" rel="noopener noreferrer">
+                    <img className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md" src={`https://image.tmdb.org/t/p/original${provider.logo_path}`} alt={provider.provider_name} />
+                  </a>
+                </li>
+              )) : <li>Não há provedores para compra</li>}
+            </ul>
+          </section>
         </section>
 
 
