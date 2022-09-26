@@ -1,13 +1,13 @@
 import ChevronLeftIcon from "@heroicons/react/20/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import { EffectFade, Navigation } from 'swiper';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { IFilm } from "../interfaces/Film";
 import CardFilm from "./CardFilm";
 
+import { useRef } from "react";
 import 'swiper/css';
 import "swiper/css/navigation";
-import { useRef } from "react";
 
 interface CarouselProps {
     items: IFilm[];
@@ -15,9 +15,8 @@ interface CarouselProps {
 
 
 const Carousel = ({ items }: CarouselProps) => {
-    const swiperF = useSwiper();
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
+    const prevRef = useRef<HTMLButtonElement>(null);
+    const nextRef = useRef<HTMLButtonElement>(null);
 
     return (
         <>
@@ -50,8 +49,8 @@ const Carousel = ({ items }: CarouselProps) => {
                         <CardFilm key={index} film={item} />
                     </SwiperSlide>
                 ))}
-                <button ref={prevRef} className="w-auto swiper-button-prev after:content-none" onClick={() => swiperF.slidePrev(10)}><ChevronLeftIcon width={48} color="white" /></button>
-                <button ref={nextRef} className="w-auto swiper-button-next after:content-none" onClick={() => swiperF.slideNext(10)}><ChevronRightIcon width={48} color="white" /></button>
+                <button ref={prevRef} className="w-auto swiper-button-prev after:content-none"><ChevronLeftIcon width={48} color="white" /></button>
+                <button ref={nextRef} className="w-auto swiper-button-next after:content-none"><ChevronRightIcon width={48} color="white" /></button>
             </Swiper>
         </>
     )
