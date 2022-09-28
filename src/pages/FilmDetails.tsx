@@ -148,6 +148,7 @@ export default function FilmDetails() {
             modules={[Navigation, Scrollbar]}
             scrollbar={{
               hide: false,
+              dragClass: "swiper-scrollbar-drag-white"
             }}
             lazy={true}
             navigation={true}
