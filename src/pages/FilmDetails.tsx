@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 import imgError from "../assets/icons/imgError.svg";
 import { IFilmDetails } from "../interfaces/Film";
+import { Iimages } from "../interfaces/Images";
 import { Providers } from "../interfaces/Providers";
 import api from "../service/api";
+import { translateStatusEnToPt } from "../util/translateStatusFilm";
+import { Navigation, Scrollbar } from 'swiper';
+
+
+import 'swiper/css';
+import "swiper/css/navigation";
+import "swiper/css/scrollbar";
+
 
 interface IVideos {
   iso_639_1: string;
@@ -22,6 +32,7 @@ export default function FilmDetails() {
   const [film, setFilm] = useState<IFilmDetails>();
   const [providersFilm, setProvidersFilm] = useState<Providers>();
   const [videos, setVideos] = useState<IVideos[]>([]);
+  const [images, setImages] = useState<Iimages>();
   const { id } = useParams();
 
   useEffect((() => {
@@ -33,6 +44,13 @@ export default function FilmDetails() {
     })
     api.get(`/movie/${id}/videos`).then(response => {
       setVideos(response.data.results);
+    })
+    api.get(`/movie/${id}/images`, {
+      params: {
+        'language': ''
+      }
+    }).then(response => {
+      setImages(response.data);
     })
   }), [])
   console.log(videos);
@@ -76,6 +94,9 @@ export default function FilmDetails() {
           <section className='mt-8'>
             <h1 className='text-2xl'>Informações:</h1>
             <ul>
+              <li>
+                <strong>Status:</strong> {translateStatusEnToPt(film?.status)}
+              </li>
               <li>
                 <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
               </li>
@@ -122,7 +143,39 @@ export default function FilmDetails() {
             </ul>
           </section>
         </section>
-
+        <section>
+          <Swiper
+            modules={[Navigation, Scrollbar]}
+            scrollbar={{
+              hide: false,
+            }}
+            lazy={true}
+            navigation={true}
+            slidesPerView={2.3}
+            spaceBetween={20}
+            breakpoints={{
+              768: {
+                slidesPerView: 2.3,
+                spaceBetween: 20,
+                speed: 500
+              },
+              1024: {
+                slidesPerView: 3.3,
+                spaceBetween: 30,
+                slidesPerGroup: 3,
+                speed: 700
+              },
+            }}
+          >
+            {images && images.backdrops.map(bd => (
+              <SwiperSlide
+                key={bd.file_path}>
+                <img src={`https://image.tmdb.org/t/p/w500/${bd.file_path}`} alt="Image backdrop" />
+              </SwiperSlide>
+            ))
+            }
+          </Swiper>
+        </section>
 
         <section className="mt-6">
           <h3>Produzido por: </h3>
