@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .swiper-scrollbar-drag-white {
+    .swiper-scrollbar-drag-custom-white {
         @apply h-full w-full relative bg-white rounded-xl left-0 top-0;
     }
 }

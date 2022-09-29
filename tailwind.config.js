@@ -22,6 +22,9 @@ module.exports = {
       },
       text: {
         'white': '#E8E6E3'
+      },
+      dropShadow: {
+        'sm': "1px 2px 2px #000"
       }
     }
   },

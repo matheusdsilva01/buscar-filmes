@@ -35,12 +35,31 @@ const Header = () => {
                         onClick={() => navigate('/')}>Home</li>
                     <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
                 </ul>
+
                 <section className='MOBILE-MENU flex lg:hidden'>
                     <div>
                         {isNavOpen ? <XMarkIcon className='w-8' onClick={() => setIsNavOpen(false)} /> : <Bars3Icon className='w-8' onClick={() => setIsNavOpen(prev => !prev)} />}
                     </div>
-                    <div className={isNavOpen ? 'block absolute top-16 right-0 bg-black w-full h-screen z-50' : 'hidden'}>
-                        sdnaklsndlksa
+                    <div className={isNavOpen ? 'flex absolute top-16 right-0 bg-black w-full h-screen z-50' : 'hidden'}>
+                        <ul className='flex m-auto flex-col gap-10 items-center '>
+                            <li>                    {!regex.test(location.pathname) ? <li>
+                                <form action="submit"
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        navigate(`film/${query}`)
+                                    }}>
+                                    <input
+                                        id='input'
+                                        name='input'
+                                        className="w-[250px] py-1 pl-9 pr-2 font-light bg-black-bright text-white rounded-sm outline-none border-1 border-transparent bg-search-icon bg-no-repeat bg-[center_left_5px] hover:shadow-md focus:border-white"
+                                        type="text"
+                                        onChange={(e) => setQuery(e.target.value)}
+                                        placeholder="Busca..." />
+                                </form>
+                            </li> : null}</li>
+                            <li className='cursor-pointer hover:underline' onClick={() => navigate('/')}>Home</li>
+                            <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
+                        </ul>
                     </div>
                 </section>
             </nav>

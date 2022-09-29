@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import imgError from "../assets/icons/imgError.svg";
@@ -33,6 +34,8 @@ export default function FilmDetails() {
   const [providersFilm, setProvidersFilm] = useState<Providers>();
   const [videos, setVideos] = useState<IVideos[]>([]);
   const [images, setImages] = useState<Iimages>();
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
   const { id } = useParams();
 
   useEffect((() => {
@@ -143,15 +146,19 @@ export default function FilmDetails() {
             </ul>
           </section>
         </section>
-        <section>
+        <section className="my-8">
           <Swiper
             modules={[Navigation, Scrollbar]}
             scrollbar={{
               hide: false,
-              dragClass: "swiper-scrollbar-drag-white"
+              draggable: true,
+              dragClass: "swiper-scrollbar-drag-custom-white"
             }}
             lazy={true}
-            navigation={true}
+            navigation={{
+              nextEl: nextRef?.current,
+              prevEl: prevRef?.current
+            }}
             slidesPerView={2.3}
             spaceBetween={20}
             breakpoints={{
@@ -175,15 +182,17 @@ export default function FilmDetails() {
               </SwiperSlide>
             ))
             }
+            <button ref={prevRef} className="w-auto swiper-button-prev after:content-none drop-shadow-sm shadow-black"><ChevronLeftIcon width={48} color="white" /></button>
+            <button ref={nextRef} className="w-auto swiper-button-next after:content-none drop-shadow-sm shadow-black"><ChevronRightIcon width={48} color="white" /></button>
           </Swiper>
         </section>
 
-        <section className="mt-6">
+        <section className="my-6">
           <h3>Produzido por: </h3>
-          <div className="flex items-center flex-wrap flex-row w-full p-2 gap-x-8 bg-black-bright">
+          <div className="flex items-center flex-wrap flex-row w-full py-6 px-3 gap-x-8 bg-black-bright">
             {film?.production_companies.map(companie => (
               companie.logo_path != null ?
-                <img key={companie.id} className="object-contain max-h-[80px] w-full max-w-[100px]" src={`https://image.tmdb.org/t/p/original${companie.logo_path}`} alt="" /> : <p key={companie.id}>{companie.name}</p>
+                <img key={companie.id} className="object-contain max-h-[80px] w-full max-w-[100px]" src={`https://image.tmdb.org/t/p/original${companie.logo_path}`} alt={companie.name} /> : <p key={companie.id}>{companie.name}</p>
             ))}
           </div>
         </section>
