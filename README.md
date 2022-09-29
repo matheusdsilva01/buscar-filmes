@@ -5,6 +5,7 @@ Projeto feito e react, consumindo a API de filmes da www.themoviedb.org/ com int
 
 ## Projeto desenvolvido utilizando as seguintes tecnologias
   - React
+  - Typescript
   - Tailwind css
   - Axios
   - Swiper
