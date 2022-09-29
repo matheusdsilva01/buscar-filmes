@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import imgError from "../assets/icons/imgError.svg";
@@ -14,6 +14,7 @@ import { Navigation, Scrollbar } from 'swiper';
 import 'swiper/css';
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
+import { ContextRecents } from "../context/recents";
 
 
 interface IVideos {
@@ -37,6 +38,7 @@ export default function FilmDetails() {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const { id } = useParams();
+  const context = useContext(ContextRecents);
 
   useEffect((() => {
     api.get(`/movie/${id}`).then(response => {
@@ -57,6 +59,10 @@ export default function FilmDetails() {
     })
   }), [])
   console.log(videos);
+
+  useEffect(() => {
+    film ? context.addFilm(film) : null
+  }, [film])
 
   return (
     <>

@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardDestaques from "../components/CardDestaques";
 import { IFilm } from "../interfaces/Film";
 import Film from '@heroicons/react/20/solid/FilmIcon'
 import api from "../service/api";
+import { ContextRecents } from "../context/recents";
 
 
 function App() {
     const [filmCover, setFilmCover] = useState<IFilm>();
     const navigate = useNavigate();
+    const context = useContext(ContextRecents);
 
     useEffect(() => {
         api.get("/movie/popular").then((response) => {

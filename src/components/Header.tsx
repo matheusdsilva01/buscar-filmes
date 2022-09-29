@@ -42,7 +42,7 @@ const Header = () => {
                     </div>
                     <div className={isNavOpen ? 'flex absolute top-16 right-0 bg-black w-full h-screen z-50' : 'hidden'}>
                         <ul className='flex m-auto flex-col gap-10 items-center '>
-                            <li>                    {!regex.test(location.pathname) ? <li>
+                            {!regex.test(location.pathname) ? <li>
                                 <form action="submit"
                                     onSubmit={(e) => {
                                         e.preventDefault()
@@ -56,7 +56,7 @@ const Header = () => {
                                         onChange={(e) => setQuery(e.target.value)}
                                         placeholder="Busca..." />
                                 </form>
-                            </li> : null}</li>
+                            </li> : null}
                             <li className='cursor-pointer hover:underline' onClick={() => navigate('/')}>Home</li>
                             <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
                         </ul>
