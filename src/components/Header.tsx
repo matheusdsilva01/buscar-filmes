@@ -1,6 +1,7 @@
 import { Bars3Icon, ChevronDoubleDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import * as Tooltip from '@radix-ui/react-tooltip';
 import logo from '../assets/icons/logo.svg';
 
 const Header = () => {
@@ -33,7 +34,19 @@ const Header = () => {
                     </li> : null}
                     <li className='cursor-pointer hover:underline'
                         onClick={() => navigate('/')}>Home</li>
-                    <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
+                    <Tooltip.Provider>
+                        <Tooltip.Root>
+                            <Tooltip.Trigger asChild>
+                                <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
+                            </Tooltip.Trigger>
+                            <Tooltip.Portal >
+                                <Tooltip.Content className='z-50 px-4 py-3 bg-white rounded select-none' side="bottom">
+                                    Em desenvolvimento...
+                                    <Tooltip.Arrow fill='white' />
+                                </Tooltip.Content>
+                            </Tooltip.Portal>
+                        </Tooltip.Root>
+                    </Tooltip.Provider>
                 </ul>
 
                 <section className='MOBILE-MENU flex lg:hidden'>
@@ -58,7 +71,19 @@ const Header = () => {
                                 </form>
                             </li> : null}
                             <li className='cursor-pointer hover:underline' onClick={() => navigate('/')}>Home</li>
-                            <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
+                            <Tooltip.Provider>
+                                <Tooltip.Root>
+                                    <Tooltip.Trigger asChild>
+                                        <li className='cursor-pointer flex items-center hover:underline'>Busca recentes <ChevronDoubleDownIcon className='ml-1' width={24} height={24} /></li>
+                                    </Tooltip.Trigger>
+                                    <Tooltip.Portal >
+                                        <Tooltip.Content className='z-50 px-4 py-3 bg-white rounded select-none' side="bottom">
+                                            Em desenvolvimento...
+                                            <Tooltip.Arrow fill='white' />
+                                        </Tooltip.Content>
+                                    </Tooltip.Portal>
+                                </Tooltip.Root>
+                            </Tooltip.Provider>
                         </ul>
                     </div>
                 </section>
