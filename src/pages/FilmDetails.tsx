@@ -61,7 +61,7 @@ export default function FilmDetails() {
   console.log(videos);
 
   useEffect(() => {
-    film ? context.addFilm(film) : null
+    film && context.addFilm(film);
   }, [film])
 
   return (
@@ -84,7 +84,7 @@ export default function FilmDetails() {
             </div>
             <div>
               <p className="text-xl mt-4 font-thin">{film?.overview}</p>
-              {videos?.length > 0 ? (
+              {videos?.length > 0 && (
                 <div className='mt-8 flex justify-center md:justify-start'>
                   <iframe
                     className='aspect-video w-full max-w-screen-md'
@@ -94,7 +94,7 @@ export default function FilmDetails() {
                     title={`Trailer ${film?.title}`} >
                   </iframe>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
         </section>
@@ -107,7 +107,7 @@ export default function FilmDetails() {
                 <strong>Status:</strong> {translateStatusEnToPt(film?.status)}
               </li>
               <li>
-                <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : null}
+                <strong>Lançamento:</strong> {film?.release_date ? new Date(film?.release_date).toLocaleDateString() : "Sem data prevista"}
               </li>
               <li>
                 <strong>Duração:</strong> {film?.runtime && `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
