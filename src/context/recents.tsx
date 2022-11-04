@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useEffect, useReducer } from "react";
-import { IFilm, IFilmDetails } from "../interfaces/Film";
+import { createContext, ReactNode, useReducer } from "react";
+import { IFilmDetails } from "../interfaces/Film";
 import recentsReducer from "./reducerRecents";
 
 const initialState: any = [];

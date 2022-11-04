@@ -2,18 +2,18 @@ import { Bars3Icon, ChevronDoubleDownIcon, XMarkIcon } from '@heroicons/react/20
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import logo from '../assets/icons/logo.svg';
 
 const Header = () => {
     const [query, setQuery] = useState("");
     const [isNavOpen, setIsNavOpen] = useState(false);
     const navigate = useNavigate();
+    // eslint-disable-next-line no-restricted-globals
     const inHomePage = new RegExp("/film/*/").test(location.pathname)
 
     return (
         <header className='bg-black shadow-[0_1px_5px] shadow-slate-700 text-white sticky top-0 z-40 lg:relative'>
             <nav className='w-full flex items-center justify-between px-3 py-5 lg:p-[19px]'>
-                <div className='logo w-44 lg:w-fit'><Link to="/"><img src={logo} alt="logo site" /></Link></div>
+                <div className='logo w-44 lg:w-fit'><Link to="/"><img src="/logo.svg" alt="logo site" /></Link></div>
                 <ul className='DESKTOP-MENU items-center text-2xl gap-6 font-light hidden lg:flex'>
                     {!inHomePage && <li>
                         <form action="submit"

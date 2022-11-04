@@ -57,12 +57,12 @@ export default function FilmDetails() {
     }).then(response => {
       setImages(response.data);
     })
-  }), [])
+  }), [id])
   console.log(videos);
 
   useEffect(() => {
     film && context.addFilm(film);
-  }, [film])
+  }, [context, film])
 
   return (
     <>
@@ -184,7 +184,7 @@ export default function FilmDetails() {
             {images && images.backdrops.map(bd => (
               <SwiperSlide
                 key={bd.file_path}>
-                <img src={`https://image.tmdb.org/t/p/w500/${bd.file_path}`} alt="Image backdrop" />
+                <img src={`https://image.tmdb.org/t/p/w500/${bd.file_path}`} alt="backdrop" />
               </SwiperSlide>
             ))
             }

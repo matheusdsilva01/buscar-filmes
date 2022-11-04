@@ -6,7 +6,6 @@ export default function recentsReducer(
 ) {
   switch (action.type) {
     case "ADD": {
-      const oldState = [...state];
       const data = localStorage.getItem("recents");
       const oldData = data ? JSON.parse(data) : [];
       const newData = [
