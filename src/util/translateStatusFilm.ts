@@ -4,7 +4,7 @@ const statusEn = [
   "In Production",
   "Post Production",
   "Released",
-  "Canceled",
+  "Canceled"
 ];
 
 const statusPt = [
@@ -13,12 +13,12 @@ const statusPt = [
   "Em produção",
   "Pós-produção",
   "Lançado",
-  "Cancelado",
+  "Cancelado"
 ];
 
 export function translateStatusEnToPt(status: undefined | string) {
   if (!status) return null;
-  const original = statusEn.filter((en) => en === status).toString();
+  const original = statusEn.filter(en => en === status).toString();
   const positionIntoEn = statusEn.indexOf(original);
   return statusPt[positionIntoEn];
 }

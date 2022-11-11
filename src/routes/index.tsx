@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { RecentsMoviesContext } from "../context/recents";
 import FilmDetails from "../pages/FilmDetails";
-import Home from '../pages/Home';
+import Home from "../pages/Home";
 import ResultSearch from "../pages/ResultSearch";
 
 const Index = () => {
@@ -19,7 +19,7 @@ const Index = () => {
         <Footer />
       </RecentsMoviesContext>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default Index;

@@ -39,23 +39,23 @@ export default function FilmDetails() {
   const { addFilm } = useContext(ContextRecents);
 
   useEffect(() => {
-    api.get(`/movie/${id}`).then((response) => {
+    api.get(`/movie/${id}`).then(response => {
       setFilm(response.data);
       addFilm(response.data);
     });
-    api.get(`/movie/${id}/watch/providers`).then((response) => {
+    api.get(`/movie/${id}/watch/providers`).then(response => {
       setProvidersFilm(response.data.results.BR);
     });
-    api.get(`/movie/${id}/videos`).then((response) => {
+    api.get(`/movie/${id}/videos`).then(response => {
       setVideos(response.data.results);
     });
     api
       .get(`/movie/${id}/images`, {
         params: {
-          language: "",
-        },
+          language: ""
+        }
       })
-      .then((response) => {
+      .then(response => {
         setImages(response.data);
       });
   }, [id]);
@@ -114,7 +114,7 @@ export default function FilmDetails() {
               </li>
               <li>
                 <strong>Gênero:</strong>{" "}
-                {film?.genres.map((genre) => genre.name).join(", ")}.
+                {film?.genres.map(genre => genre.name).join(", ")}.
               </li>
             </ul>
           </section>
@@ -126,7 +126,7 @@ export default function FilmDetails() {
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.rent ? (
-                providersFilm?.rent.map((provider) => (
+                providersFilm?.rent.map(provider => (
                   <li key={provider.provider_id} className="flex flex-row">
                     <a
                       href={providersFilm.link}
@@ -150,7 +150,7 @@ export default function FilmDetails() {
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.flatrate ? (
-                providersFilm?.flatrate.map((provider) => (
+                providersFilm?.flatrate.map(provider => (
                   <li key={provider.provider_id} className="flex flex-row">
                     <a
                       href={providersFilm.link}
@@ -174,7 +174,7 @@ export default function FilmDetails() {
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.buy ? (
-                providersFilm?.buy.map((provider) => (
+                providersFilm?.buy.map(provider => (
                   <li key={provider.provider_id} className="flex flex-row">
                     <a
                       href={providersFilm.link}
@@ -201,12 +201,12 @@ export default function FilmDetails() {
             scrollbar={{
               hide: false,
               draggable: true,
-              dragClass: "swiper-scrollbar-drag-custom-white",
+              dragClass: "swiper-scrollbar-drag-custom-white"
             }}
             lazy={true}
             navigation={{
               nextEl: nextRef?.current,
-              prevEl: prevRef?.current,
+              prevEl: prevRef?.current
             }}
             slidesPerView={2.3}
             spaceBetween={20}
@@ -214,18 +214,18 @@ export default function FilmDetails() {
               768: {
                 slidesPerView: 2.3,
                 spaceBetween: 20,
-                speed: 500,
+                speed: 500
               },
               1024: {
                 slidesPerView: 3.3,
                 spaceBetween: 30,
                 slidesPerGroup: 3,
-                speed: 700,
-              },
+                speed: 700
+              }
             }}
           >
             {images &&
-              images.backdrops.map((bd) => (
+              images.backdrops.map(bd => (
                 <SwiperSlide key={bd.file_path}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${bd.file_path}`}
@@ -251,7 +251,7 @@ export default function FilmDetails() {
         <section className="my-6">
           <h3>Produzido por: </h3>
           <div className="flex items-center flex-wrap flex-row w-full py-6 px-3 gap-x-8 bg-black-bright">
-            {film?.production_companies.map((companie) =>
+            {film?.production_companies.map(companie =>
               companie.logo_path != null ? (
                 <img
                   key={companie.id}

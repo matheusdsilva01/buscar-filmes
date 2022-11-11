@@ -13,7 +13,7 @@ export default function recentsReducer(
         oldData.filter((el: IFilmDetails) => el.id === action.payload.id)
           .length > 0
           ? null
-          : { ...action.payload },
+          : { ...action.payload }
       ];
       localStorage.setItem("recents", JSON.stringify(newData.filter(Boolean)));
 
