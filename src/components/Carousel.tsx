@@ -6,8 +6,8 @@ import { IFilm } from "../interfaces/Film";
 import CardFilm from "./CardFilm";
 
 import { useRef } from "react";
-import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/swiper.min.css";
+import "swiper/modules/pagination/pagination.min.css";
 
 interface CarouselProps {
   items: IFilm[];

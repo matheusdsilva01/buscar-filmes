@@ -26,7 +26,7 @@ const FilmResult = ({ film }: FilmResultProps) => {
       />
       <div className="ml-2 py-3 flex-1">
         <h1 className="text-2xl font-bold">{film.title}</h1>
-        <p className="text-sm md:text-base">
+        <p className="text-sm md:text-base" data-testid="overview">
           {film.overview ? film.overview : "Este filme não contem descrição :("}
         </p>
       </div>
