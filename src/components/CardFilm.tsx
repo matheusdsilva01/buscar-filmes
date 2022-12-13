@@ -1,5 +1,6 @@
+import { useRouter } from "next/dist/client/router";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { IFilm } from "../interfaces/Film";
 
 interface cardFilmProps {
@@ -7,11 +8,11 @@ interface cardFilmProps {
 }
 
 const CardFilm = ({ film }: cardFilmProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div
-      onClick={() => navigate(`filmDetails/${film.id}`)}
+      onClick={() => router.push(`film/${film.id}`)}
       className="w-[258px] m-auto pb-3 bg-black-bright cursor-pointer rounded-md hover:shadow-[0_1px_5px] shadow-slate-700 duration-200"
     >
       <img

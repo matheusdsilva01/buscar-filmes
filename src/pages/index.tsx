@@ -1,19 +1,20 @@
-import Film from "@heroicons/react/20/solid/FilmIcon";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import Film from "@heroicons/react/20/solid/FilmIcon";
+
 import CardDestaques from "../components/CardDestaques";
 import { IFilm } from "../interfaces/Film";
 import api from "../service/api";
 
-function App() {
-  const [filmCover, setFilmCover] = useState<IFilm>();
-  const navigate = useNavigate();
+interface HomeProps {
+  filmCover: IFilm;
+}
 
-  useEffect(() => {
-    api.get("/movie/popular").then(response => {
-      setFilmCover(response.data.results[0]);
-    });
-  }, []);
+const Home = ({ filmCover }: HomeProps) => {
+  const router = useRouter();
+
   const backgroundImage = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${filmCover?.backdrop_path})`
   };
@@ -39,7 +40,7 @@ function App() {
               <p className="font-light">{filmCover?.overview}</p>
             </div>
             <button
-              onClick={() => navigate(`filmDetails/${filmCover?.id}`)}
+              onClick={() => router.push(`film/${filmCover?.id}`)}
               className="border-1 rounded-md bg flex items-center"
             >
               <Film className="h-10 w-10" />
@@ -51,6 +52,17 @@ function App() {
       <CardDestaques />
     </div>
   );
-}
+};
 
-export default App;
+export const getServerSideProps: GetServerSideProps = async () => {
+  const filmCover = await api
+    .get("/movie/popular")
+    .then(response => response.data.results[0]);
+  return {
+    props: {
+      filmCover
+    }
+  };
+};
+
+export default Home;

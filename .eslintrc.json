@@ -20,7 +20,8 @@
     "react",
     "@typescript-eslint",
     "prettier",
-    "eslint-plugin-testing-library"
+    "eslint-plugin-testing-library",
+    "eslint-plugin-import-helpers"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
@@ -42,6 +43,23 @@
           "logRoles": true,
           "logDOM": true
         }
+      }
+    ],
+    "import-helpers/order-imports": [
+      "warn",
+      {
+          "newlinesBetween": "always",
+          "groups": [
+              ["/^react/", "/^next/"],
+              "/^@stiches/",
+              "module",
+              ["/^styles/", "/./*.styles/"],
+              ["parent", "sibling", "index"]
+          ],
+          "alphabetize": {
+              "order": "asc",
+              "ignoreCase": true
+          }
       }
     ]
   }

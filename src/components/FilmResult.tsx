@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import imgError from "../assets/icons/imgError.svg";
+import { useRouter } from "next/router";
+
 import { IFilm } from "../interfaces/Film";
 
 interface FilmResultProps {
@@ -7,12 +7,12 @@ interface FilmResultProps {
 }
 
 const FilmResult = ({ film }: FilmResultProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div
       key={film.id}
-      onClick={() => navigate(`/filmDetails/${film.id}`)}
+      onClick={() => router.push(`/film/${film.id}`)}
       className="bg-black-bright text-white flex flex-col md:flex-row cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px] duration-200"
     >
       <img
@@ -21,7 +21,7 @@ const FilmResult = ({ film }: FilmResultProps) => {
         className="w-56 mx-auto md:w-32 md:max-w-[128px] object-cover rounded-l-[5px]"
         onError={({ currentTarget }) => {
           currentTarget.onerror = null;
-          currentTarget.src = imgError;
+          currentTarget.src = "/icons/imgError.svg";
         }}
       />
       <div className="ml-2 py-3 flex-1">

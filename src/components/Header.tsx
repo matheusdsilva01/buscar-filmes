@@ -1,23 +1,25 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
 import {
   Bars3Icon,
   ChevronDoubleDownIcon,
   XMarkIcon
 } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import * as Tooltip from "@radix-ui/react-tooltip";
 
 const Header = () => {
   const [query, setQuery] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const navigate = useNavigate();
-  const inHomePage = new RegExp("/film/*/").test(location.pathname);
+  const router = useRouter();
+  const inHomePage = new RegExp("/search/*/").test(router.pathname);
 
   return (
     <header className="bg-black shadow-[0_1px_5px] shadow-slate-700 text-white sticky top-0 z-40 lg:relative">
       <nav className="w-full flex items-center justify-between px-3 py-5 lg:p-[19px]">
         <div className="logo w-44 lg:w-fit">
-          <Link to="/">
+          <Link href="/">
             <img src="/logo.svg" alt="logo site" />
           </Link>
         </div>
@@ -28,7 +30,7 @@ const Header = () => {
                 action="submit"
                 onSubmit={e => {
                   e.preventDefault();
-                  navigate(`film/${query}`);
+                  router.push(`/search/${query}`);
                 }}
               >
                 <label
@@ -47,17 +49,14 @@ const Header = () => {
               </form>
             </li>
           )}
-          <li
-            className="cursor-pointer hover:underline"
-            onClick={() => navigate("/")}
-          >
-            Home
-          </li>
+          <Link href="/">
+            <li className="cursor-pointer hover:underline">Home</li>
+          </Link>
           <Tooltip.Provider>
             <Tooltip.Root>
               <Tooltip.Trigger asChild>
                 <li className="cursor-pointer flex items-center hover:underline">
-                  Busca recentes{" "}
+                  Busca recentes
                   <ChevronDoubleDownIcon
                     className="ml-1"
                     width={24}
@@ -108,7 +107,7 @@ const Header = () => {
                     action="submit"
                     onSubmit={e => {
                       e.preventDefault();
-                      navigate(`film/${query}`);
+                      router.push(`/search/${query}`);
                     }}
                   >
                     <input
@@ -122,17 +121,14 @@ const Header = () => {
                   </form>
                 </li>
               )}
-              <li
-                className="cursor-pointer hover:underline"
-                onClick={() => navigate("/")}
-              >
-                Home
-              </li>
+              <Link href="/">
+                <li className="cursor-pointer hover:underline">Home</li>
+              </Link>
               <Tooltip.Provider>
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
                     <li className="cursor-pointer flex items-center hover:underline">
-                      Busca recentes{" "}
+                      Busca recentes
                       <ChevronDoubleDownIcon
                         className="ml-1"
                         width={24}

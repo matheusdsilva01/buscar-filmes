@@ -1,13 +1,12 @@
+import { useRef } from "react";
+
 import ChevronLeftIcon from "@heroicons/react/20/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import { IFilm } from "../interfaces/Film";
 import CardFilm from "./CardFilm";
-
-import { useRef } from "react";
-import "swiper/swiper.min.css";
-import "swiper/modules/pagination/pagination.min.css";
 
 interface CarouselProps {
   items: IFilm[];

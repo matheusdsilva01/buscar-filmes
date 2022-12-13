@@ -1,19 +1,19 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import imgError from "../assets/icons/imgError.svg";
-import { IFilmDetails } from "../interfaces/Film";
-import { Iimages } from "../interfaces/Images";
-import { Providers } from "../interfaces/Providers";
-import api from "../service/api";
-import { translateStatusEnToPt } from "../util/translateStatusFilm";
-import { Navigation, Scrollbar } from "swiper";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { useContext, useEffect, useRef } from "react";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { Navigation, Scrollbar } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { ContextRecents } from "../../context/recents";
+import { IFilm, IFilmDetails } from "../../interfaces/Film";
+import { Iimages } from "../../interfaces/Images";
+import { Providers } from "../../interfaces/Providers";
+import api from "../../service/api";
+import { translateStatusEnToPt } from "../../util/translateStatusFilm";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
-import { ContextRecents } from "../context/recents";
 
 interface IVideos {
   iso_639_1: string;
@@ -28,38 +28,27 @@ interface IVideos {
   id: string;
 }
 
-export default function FilmDetails() {
-  const [film, setFilm] = useState<IFilmDetails>();
-  const [providersFilm, setProvidersFilm] = useState<Providers>();
-  const [videos, setVideos] = useState<IVideos[]>([]);
-  const [images, setImages] = useState<Iimages>();
+interface FilmDetailsProps {
+  film: IFilmDetails;
+  providersFilm: Providers;
+  videos: IVideos[];
+  images: Iimages;
+}
+
+const FilmDetails = ({
+  film,
+  images,
+  providersFilm,
+  videos
+}: FilmDetailsProps) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const { id } = useParams();
   const { addFilm } = useContext(ContextRecents);
 
   useEffect(() => {
-    api.get(`/movie/${id}`).then(response => {
-      setFilm(response.data);
-      addFilm(response.data);
-    });
-    api.get(`/movie/${id}/watch/providers`).then(response => {
-      setProvidersFilm(response.data.results.BR);
-    });
-    api.get(`/movie/${id}/videos`).then(response => {
-      setVideos(response.data.results);
-    });
-    api
-      .get(`/movie/${id}/images`, {
-        params: {
-          language: ""
-        }
-      })
-      .then(response => {
-        setImages(response.data);
-      });
-  }, [id]);
-
+    console.log(!!film);
+    console.log(providersFilm);
+  }, [film]);
   return (
     <>
       <div className="px-14 pt-5 min-h-screen text-white">
@@ -70,7 +59,7 @@ export default function FilmDetails() {
             alt={`Poster do filme: ${film?.title}`}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null;
-              currentTarget.src = imgError;
+              currentTarget.src = "/imgError.svg";
             }}
           />
           <div className="ml-0 lg:ml-4">
@@ -85,7 +74,6 @@ export default function FilmDetails() {
                   <iframe
                     className="aspect-video w-full max-w-screen-md"
                     src={`https://www.youtube.com/embed/${videos[0].key}`}
-                    frameBorder="0"
                     allowFullScreen
                     title={`Trailer ${film?.title}`}
                   ></iframe>
@@ -268,4 +256,55 @@ export default function FilmDetails() {
       </div>
     </>
   );
-}
+};
+
+export default FilmDetails;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const filmMostPopulars = await api
+    .get("/movie/popular")
+    .then(response => response.data.results);
+
+  const paths = filmMostPopulars.map((film: IFilm) => ({
+    params: { id: film.id.toString() }
+  }));
+
+  return {
+    paths,
+    fallback: true
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const { id } = params;
+  const film = await api.get(`/movie/${id}`).then(response => response.data);
+
+  const providersFilm = await api
+    .get(`/movie/${id}/watch/providers`)
+    .then(response =>
+      response.data.results.BR ? response.data.results.BR : {}
+    );
+
+  const videos = await api
+    .get(`/movie/${id}/videos`)
+    .then(response => response.data.results);
+
+  const images = await api
+    .get(`/movie/${id}/images`, {
+      params: {
+        language: ""
+      }
+    })
+    .then(response => response.data);
+
+  return {
+    props: {
+      film,
+      providersFilm,
+      videos,
+      images
+    },
+    // 604800 seg
+    revalidate: 60 * 60 * 24 * 7
+  };
+};
