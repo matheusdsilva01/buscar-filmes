@@ -46,8 +46,7 @@ const FilmDetails = ({
   const { addFilm } = useContext(ContextRecents);
 
   useEffect(() => {
-    console.log(!!film);
-    console.log(providersFilm);
+    addFilm(film);
   }, [film]);
   return (
     <>
@@ -195,6 +194,14 @@ const FilmDetails = ({
             navigation={{
               nextEl: nextRef?.current,
               prevEl: prevRef?.current
+            }}
+            onInit={swiper => {
+              //@ts-ignore
+              swiper.params.navigation.prevEl = prevRef.current!;
+              //@ts-ignore
+              swiper.params.navigation.nextEl = nextRef.current!;
+              swiper.navigation.init();
+              swiper.navigation.update();
             }}
             slidesPerView={2.3}
             spaceBetween={20}
