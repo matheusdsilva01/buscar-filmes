@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
-
+import Carousel from "components/Carousel";
 import { IFilm } from "interfaces/Film";
-import api from "service/api";
 
-import Carousel from "./Carousel";
+interface CardHighlightsHomeProps {
+  filmsHighlights: IFilm[];
+}
 
-const CardHighlightsHome = () => {
-  const [filmsDestaques, setFilmDestaques] = useState<IFilm[]>([]);
-
-  useEffect(() => {
-    api
-      .get("/discover/movie?sort_by=popularity.desc")
-      .then(response => {
-        setFilmDestaques(response.data.results);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
+const CardHighlightsHome = ({ filmsHighlights }: CardHighlightsHomeProps) => {
   return (
     <>
       <h1 className="text-[32px] text-white font-light pt-16 px-9">
         Em destaques
       </h1>
-      <Carousel items={filmsDestaques} />
+      <Carousel items={filmsHighlights} />
     </>
   );
 };

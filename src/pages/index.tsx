@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Film from "@heroicons/react/20/solid/FilmIcon";
@@ -7,11 +8,12 @@ import { IFilm } from "interfaces/Film";
 import api from "service/api";
 
 interface HomeProps {
-  filmCover: IFilm;
+  filmsHighlights: IFilm[];
 }
 
-const Home = ({ filmCover }: HomeProps) => {
+const Home = ({ filmsHighlights }: HomeProps) => {
   const router = useRouter();
+  const filmCover = filmsHighlights[0];
 
   const backgroundImage = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${filmCover?.backdrop_path})`
@@ -37,28 +39,34 @@ const Home = ({ filmCover }: HomeProps) => {
               <h2 className="text-4xl font-bold mb-2">{filmCover.title}</h2>
               <p className="font-light">{filmCover.overview}</p>
             </div>
-            <button
-              onClick={() => router.push(`film/${filmCover.id}`)}
+            <Link
+              href={`film/${filmCover.id}`}
               className="border-1 rounded-md bg flex items-center"
             >
               <Film className="h-10 w-10" />
               Ver mais detalhes
-            </button>
+            </Link>
           </section>
         </div>
       </div>
-      <CardHighlightsHome />
+      <CardHighlightsHome filmsHighlights={filmsHighlights} />
     </div>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const filmCover = await api
-    .get("/movie/popular")
-    .then(response => response.data.results[0]);
+  const filmsHighlights = await api
+    .get("/discover/movie?sort_by=popularity.desc")
+    .then(response => {
+      return response.data.results;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
   return {
     props: {
-      filmCover
+      filmsHighlights
     }
   };
 };

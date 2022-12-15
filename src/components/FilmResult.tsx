@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { IFilm } from "interfaces/Film";
 
@@ -7,12 +7,10 @@ interface FilmResultProps {
 }
 
 const FilmResult = ({ film }: FilmResultProps) => {
-  const router = useRouter();
-
   return (
-    <div
+    <Link
       key={film.id}
-      onClick={() => router.push(`/film/${film.id}`)}
+      href={`/film/${film.id}`}
       className="bg-black-bright text-white flex flex-col md:flex-row cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px] duration-200"
     >
       <img
@@ -30,7 +28,7 @@ const FilmResult = ({ film }: FilmResultProps) => {
           {film.overview ? film.overview : "Este filme não contem descrição :("}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
