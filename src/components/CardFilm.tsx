@@ -10,7 +10,7 @@ const CardFilm = ({ film }: cardFilmProps) => {
   return (
     <Link
       href={`film/${film.id}`}
-      className="w-[258px] m-auto pb-3 bg-black-bright cursor-pointer rounded-md hover:shadow-[0_1px_5px] shadow-slate-700 duration-200"
+      className="block w-[258px] m-auto pb-3 bg-black-bright cursor-pointer rounded-md hover:shadow-[0_1px_5px] shadow-slate-700 duration-200"
     >
       <img
         src={`https://image.tmdb.org/t/p/original${film.poster_path}`}
