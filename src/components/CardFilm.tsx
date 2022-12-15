@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 
-import { IFilm } from "../interfaces/Film";
+import { IFilm } from "interfaces/Film";
 
 interface cardFilmProps {
   film: IFilm;

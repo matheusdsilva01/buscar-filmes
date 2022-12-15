@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
-import FilmResult from "../../components/FilmResult";
-import Pagination from "../../components/Pagination";
-import { IFilm } from "../../interfaces/Film";
-import api from "../../service/api";
+import FilmResult from "components/FilmResult";
+import Pagination from "components/Pagination";
+import { IFilm } from "interfaces/Film";
+import api from "service/api";
 
 interface IResultResponse {
   results: IFilm[];

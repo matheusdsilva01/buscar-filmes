@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { IFilm } from "../interfaces/Film";
-import api from "../service/api";
+import { IFilm } from "interfaces/Film";
+import api from "service/api";
+
 import Carousel from "./Carousel";
 
-const CardDestaques = () => {
+const CardHighlightsHome = () => {
   const [filmsDestaques, setFilmDestaques] = useState<IFilm[]>([]);
 
   useEffect(() => {
@@ -28,4 +29,4 @@ const CardDestaques = () => {
   );
 };
 
-export default CardDestaques;
+export default CardHighlightsHome;

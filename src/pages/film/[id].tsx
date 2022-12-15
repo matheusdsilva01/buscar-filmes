@@ -2,15 +2,14 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { useContext, useEffect, useRef } from "react";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ContextRecents } from "context/recents";
+import { IFilm, IFilmDetails } from "interfaces/Film";
+import { Iimages } from "interfaces/Images";
+import { Providers } from "interfaces/Providers";
+import api from "service/api";
 import { Navigation, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import { ContextRecents } from "../../context/recents";
-import { IFilm, IFilmDetails } from "../../interfaces/Film";
-import { Iimages } from "../../interfaces/Images";
-import { Providers } from "../../interfaces/Providers";
-import api from "../../service/api";
-import { translateStatusEnToPt } from "../../util/translateStatusFilm";
+import { translateStatusEnToPt } from "util/translateStatusFilm";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";

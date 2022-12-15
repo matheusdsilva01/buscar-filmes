@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { IFilm } from "../interfaces/Film";
+import { IFilm } from "interfaces/Film";
 
 interface FilmResultProps {
   film: IFilm;

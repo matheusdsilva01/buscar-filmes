@@ -1,12 +1,10 @@
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
 import Film from "@heroicons/react/20/solid/FilmIcon";
-
-import CardDestaques from "../components/CardDestaques";
-import { IFilm } from "../interfaces/Film";
-import api from "../service/api";
+import CardHighlightsHome from "components/CardHighlightsHome";
+import { IFilm } from "interfaces/Film";
+import api from "service/api";
 
 interface HomeProps {
   filmCover: IFilm;
@@ -30,17 +28,17 @@ const Home = ({ filmCover }: HomeProps) => {
             <h3 className="lg:text-5xl mb-4">Destaque da semana</h3>
             <img
               className="w-80"
-              src={`https://image.tmdb.org/t/p/original/${filmCover?.poster_path}`}
+              src={`https://image.tmdb.org/t/p/original/${filmCover.poster_path}`}
               alt="Cover film most viewer"
             />
           </section>
           <section className="flex flex-col justify-between p-5 items-center md:items-start">
             <div className="md:max-w-sm">
-              <h2 className="text-4xl font-bold mb-2">{filmCover?.title}</h2>
-              <p className="font-light">{filmCover?.overview}</p>
+              <h2 className="text-4xl font-bold mb-2">{filmCover.title}</h2>
+              <p className="font-light">{filmCover.overview}</p>
             </div>
             <button
-              onClick={() => router.push(`film/${filmCover?.id}`)}
+              onClick={() => router.push(`film/${filmCover.id}`)}
               className="border-1 rounded-md bg flex items-center"
             >
               <Film className="h-10 w-10" />
@@ -49,7 +47,7 @@ const Home = ({ filmCover }: HomeProps) => {
           </section>
         </div>
       </div>
-      <CardDestaques />
+      <CardHighlightsHome />
     </div>
   );
 };
