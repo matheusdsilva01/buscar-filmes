@@ -35,16 +35,6 @@
         "endOfLine": "auto"
       }
     ],
-    "testing-library/no-debugging-utils": [
-      "error",
-      {
-        "utilsToCheckFor": {
-          "debug": false,
-          "logRoles": true,
-          "logDOM": true
-        }
-      }
-    ],
     "import-helpers/order-imports": [
       "warn",
       {
