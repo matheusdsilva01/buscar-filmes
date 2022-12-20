@@ -1,8 +1,8 @@
 import Carousel from "components/Carousel";
-import { IFilm } from "interfaces/Film";
+import { IFilmPopulars } from "types/Film";
 
 interface CardHighlightsHomeProps {
-  filmsHighlights: IFilm[];
+  filmsHighlights: IFilmPopulars[];
 }
 
 const CardHighlightsHome = ({ filmsHighlights }: CardHighlightsHomeProps) => {

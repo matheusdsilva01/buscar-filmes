@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode } from "react";
 
 import { useLocalStorage } from "hooks/useLocalStorage";
-import { IFilmDetails } from "interfaces/Film";
+import { IFilmDetails } from "types/Film";
 
 type RecentsMoviesContextType = {
   recentsFilms: any;

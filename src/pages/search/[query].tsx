@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { AxiosRequestConfig } from "axios";
 import FilmResult from "components/FilmResult";
 import Pagination from "components/Pagination";
-import { IFilm } from "interfaces/Film";
-import api from "service/api";
+import api from "services/api";
+import useSWR, { Fetcher } from "swr";
+import { IFilm } from "types/Film";
 
 interface IResultResponse {
   results: IFilm[];
@@ -15,22 +17,23 @@ interface IResultResponse {
 
 export default function ResultSearch() {
   const [page, setPage] = useState<number>(1);
-  const [resultFilms, setResultFilms] = useState<IResultResponse | null>();
   const input = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { query } = router.query;
 
-  useEffect(() => {
-    /* Query com paginação a aplicar:
-    https://api.themoviedb.org/3/search/movie?api_key=0caef4704a61b607b5b3b22d56a0056b&page=2&language=pt-BR&query=Batman
-    */
-    query &&
-      api
-        .get(`/search/movie?page=${page}`, { params: { query } })
-        .then(response => {
-          setResultFilms(response.data);
-        });
-  }, [page, query]);
+  const fetcher: Fetcher<
+    IResultResponse,
+    [string, AxiosRequestConfig<any>]
+  > = ([url, params]) => api.get(url, params).then(res => res.data);
+
+  const {
+    data: resultFilms,
+    isLoading,
+    error
+  } = useSWR(
+    query ? [`/search/movie?page=${page}`, { params: { query } }] : null,
+    fetcher
+  );
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function ResultSearch() {
       <Pagination
         onChangePage={setPage}
         page={page}
-        total_page={resultFilms?.total_pages}
+        totalPages={resultFilms?.total_pages}
       />
       <section className="flex flex-col gap-y-5 px-10">
         {resultFilms?.results.map(film => (
@@ -62,7 +65,7 @@ export default function ResultSearch() {
       <Pagination
         onChangePage={setPage}
         page={page}
-        total_page={resultFilms?.total_pages}
+        totalPages={resultFilms?.total_pages}
       />
     </>
   );

@@ -2,11 +2,15 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 interface PaginationProps {
   page: number;
-  total_page: number | undefined;
+  totalPages: number | undefined;
   onChangePage: (page: number) => void;
 }
 
-const Pagination = ({ page, total_page, onChangePage }: PaginationProps) => {
+const Pagination = ({
+  page,
+  totalPages: total_page,
+  onChangePage
+}: PaginationProps) => {
   return (
     <section className="w-full flex justify-between px-10 my-3">
       <button

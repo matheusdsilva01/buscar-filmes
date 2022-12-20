@@ -2,14 +2,14 @@ import { useRef } from "react";
 
 import ChevronLeftIcon from "@heroicons/react/20/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import { IFilm } from "interfaces/Film";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IFilm, IFilmPopulars } from "types/Film";
 
 import CardFilm from "./CardFilm";
 
 interface CarouselProps {
-  items: IFilm[];
+  items: IFilm[] | IFilmPopulars[];
 }
 
 const Carousel = ({ items }: CarouselProps) => {

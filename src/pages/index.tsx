@@ -1,18 +1,16 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 import Film from "@heroicons/react/20/solid/FilmIcon";
 import CardHighlightsHome from "components/CardHighlightsHome";
-import { IFilm } from "interfaces/Film";
-import api from "service/api";
+import api from "services/api";
+import { IFilmPopulars } from "types/Film";
 
 interface HomeProps {
-  filmsHighlights: IFilm[];
+  filmsHighlights: IFilmPopulars[];
 }
 
 const Home = ({ filmsHighlights }: HomeProps) => {
-  const router = useRouter();
   const filmCover = filmsHighlights[0];
 
   const backgroundImage = {
@@ -39,12 +37,11 @@ const Home = ({ filmsHighlights }: HomeProps) => {
               <h2 className="text-4xl font-bold mb-2">{filmCover.title}</h2>
               <p className="font-light">{filmCover.overview}</p>
             </div>
-            <Link
-              href={`film/${filmCover.id}`}
-              className="border-1 rounded-md bg flex items-center"
-            >
-              <Film className="h-10 w-10" />
-              Ver mais detalhes
+            <Link href={`film/${filmCover.id}`}>
+              <span className="border-1 rounded-md bg flex items-center">
+                <Film className="h-10 w-10" />
+                Ver mais detalhes
+              </span>
             </Link>
           </section>
         </div>

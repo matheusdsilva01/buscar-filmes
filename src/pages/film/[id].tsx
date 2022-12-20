@@ -3,12 +3,12 @@ import { useContext, useEffect, useRef } from "react";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { ContextRecents } from "context/recents";
-import { IFilm, IFilmDetails } from "interfaces/Film";
-import { Iimages } from "interfaces/Images";
-import { Providers } from "interfaces/Providers";
-import api from "service/api";
+import api from "services/api";
 import { Navigation, Scrollbar } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IFilm, IFilmDetails } from "types/Film";
+import { Iimages } from "types/Images";
+import { Providers } from "types/Providers";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
 import "swiper/css";
 import "swiper/css/navigation";

@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -9,7 +10,7 @@ import {
 } from "@heroicons/react/20/solid";
 import * as Tooltip from "@radix-ui/react-tooltip";
 
-const Header = () => {
+const Header: NextPage = () => {
   const [query, setQuery] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
   const router = useRouter();
