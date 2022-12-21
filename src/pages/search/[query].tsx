@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 import { AxiosRequestConfig } from "axios";
-import FilmResult from "components/FilmResult";
-import Pagination from "components/Pagination";
+import FilmResult from "components/FilmResult/FilmResult";
+import Pagination from "components/Pagination/Pagination";
 import api from "services/api";
 import useSWR, { Fetcher } from "swr";
 import { IFilm } from "types/Film";

@@ -6,7 +6,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IFilm, IFilmPopulars } from "types/Film";
 
-import CardFilm from "./CardFilm";
+import CardFilm from "../CardFilm/CardFilm";
 
 interface CarouselProps {
   items: IFilm[] | IFilmPopulars[];

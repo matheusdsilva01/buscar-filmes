@@ -6,8 +6,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import Head from "next/head";
 
-import Footer from "components/Footer";
-import Header from "components/Header";
+import Footer from "components/Footer/Footer";
+import Header from "components/Header/Header";
 import { RecentsMoviesContext } from "context/recents";
 
 export default function MyApp({ Component, pageProps }: AppProps) {

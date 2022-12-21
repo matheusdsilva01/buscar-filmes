@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 
 import Film from "@heroicons/react/20/solid/FilmIcon";
-import CardHighlightsHome from "components/CardHighlightsHome";
+import CardHighlightsHome from "components/CardHighlightsHome/CardHighlightsHome";
 import api from "services/api";
 import { IFilmPopulars } from "types/Film";
 
@@ -38,7 +38,7 @@ const Home = ({ filmsHighlights }: HomeProps) => {
               <p className="font-light">{filmCover.overview}</p>
             </div>
             <Link href={`film/${filmCover.id}`}>
-              <span className="border-1 rounded-md bg flex items-center">
+              <span className="border-1 rounded-md bg flex items-center cursor-pointer">
                 <Film className="h-10 w-10" />
                 Ver mais detalhes
               </span>
