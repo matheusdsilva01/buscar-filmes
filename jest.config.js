@@ -32,9 +32,7 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   collectCoverageFrom: [
     "./src/components/**/*.{ts,tsx}",
-    "./src/pages/**/*.{ts,tsx}",
-    "!./src/pages/_app.tsx",
-    "!./src/pages/_document.tsx"
+    "!./src/pages/**/*.{ts,tsx}"
   ]
 };
 
