@@ -1,6 +1,6 @@
 # 📽️ Buscar-Filmes
 
-Projeto feito e react, consumindo a API de filmes da www.themoviedb.org/ com intuito de praticar mais sobre consumo de api.
+Projeto feito com Next, consumindo a API de filmes da www.themoviedb.org/ com intuito de praticar mais sobre consumo de api e desenvolvimento utilizando Next.
 
 ![image](https://user-images.githubusercontent.com/85570707/193093769-c5c06bc2-f438-4040-89c1-2e7e742e9197.png)
 
