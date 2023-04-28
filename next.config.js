@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true
+  swcMinify: true,
+  images: {
+    remotePatterns: [
+      {
+        hostname: "image.tmdb.org"
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;
