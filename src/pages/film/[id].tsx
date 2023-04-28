@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import { useContext, useEffect, useRef } from "react";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
@@ -10,6 +11,7 @@ import { IFilm, IFilmDetails } from "types/Film";
 import { Iimages } from "types/Images";
 import { Providers } from "types/Providers";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
@@ -49,6 +51,16 @@ const FilmDetails = ({
   }, [film]);
   return (
     <>
+      {film && (
+        <Head>
+          <title>Buscar filmes | {`${film.title}`}</title>
+          <meta
+            property="og:title"
+            content={`Buscar filmes | ${film.title}`}
+            key={`Buscar filmes | ${film.title}`}
+          />
+        </Head>
+      )}
       <div className="px-14 pt-5 min-h-screen text-white">
         <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center lg:justify-start">
           <img
