@@ -23,6 +23,7 @@ export function createMockRouter(router: Partial<NextRouter>): NextRouter {
     isReady: true,
     isPreview: false,
     locale: undefined,
+    forward: jest.fn(),
     ...router
   };
 }
