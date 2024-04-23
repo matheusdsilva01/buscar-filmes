@@ -5,7 +5,10 @@ const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
 const api = axios.create({
   baseURL: baseURL,
-  params: { api_key: apiKey, language: "pt-BR" }
+  headers: {
+    Authorization: `Bearer ${apiKey}`
+  },
+  params: { language: "pt-BR" }
 });
 
 export default api;

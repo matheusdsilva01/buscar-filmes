@@ -1,5 +1,9 @@
+"use client";
+import Image from "next/image";
 import Link from "next/link";
 
+import { StarIcon as StarIconFilled } from "@heroicons/react/20/solid";
+import { StarIcon } from "@heroicons/react/24/outline";
 import { IFilm } from "types/Film";
 
 interface FilmResultProps {
@@ -7,23 +11,36 @@ interface FilmResultProps {
 }
 
 const FilmResult = ({ film }: FilmResultProps) => {
+  const srcImage = film.poster_path
+    ? `https://image.tmdb.org/t/p/original/${film.poster_path}`
+    : "/icons/imgError.svg";
+  // const blueImage = film.poster_path && (await getImageBase64(srcImage));
+  const voteAverage = Number(film.vote_average.toFixed());
+
   return (
     <Link
       key={film.id}
       href={`/film/${film.id}`}
       className="bg-black-bright text-white flex flex-col md:flex-row cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px] duration-200"
     >
-      <img
-        src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
+      <Image
+        src={srcImage}
+        // blurDataURL={film.poster_path ? blueImage! : undefined}
+        width={224}
+        height={336}
         alt={`Capa do filme ${film.title}`}
         className="w-56 mx-auto md:w-32 md:max-w-[128px] object-cover rounded-l-[5px]"
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = "/icons/imgError.svg";
-        }}
       />
       <div className="ml-2 py-3 flex-1">
         <h1 className="text-2xl font-bold">{film.title}</h1>
+        <div className="flex">
+          {Array.from({ length: voteAverage }).map((_, index) => (
+            <StarIconFilled key={index} className="w-3 h-3 text-yellow-400" />
+          ))}
+          {Array.from({ length: 10 - voteAverage }).map((_, index) => (
+            <StarIcon key={index} className="w-3 h-3 text-white" />
+          ))}
+        </div>
         <p className="text-sm md:text-base" data-testid="overview">
           {film.overview ? film.overview : "Este filme não contem descrição :("}
         </p>

@@ -19,7 +19,7 @@ const customJestConfig = {
     "^components/(.*)$": "<rootDir>/src/components/$1",
     "^context/(.*)$": "<rootDir>/src/context/$1",
     "^hooks/(.*)$": "<rootDir>/src/hooks/$1",
-    "^pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^app/(.*)$": "<rootDir>/src/pages/$1",
     "^services/(.*)$": "<rootDir>/src/services/$1",
     "^styles/(.*)$": "<rootDir>/src/styles/$1",
     "^tests/(.*)$": "<rootDir>/src/tests/$1",
@@ -32,7 +32,7 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   collectCoverageFrom: [
     "./src/components/**/*.{ts,tsx}",
-    "!./src/pages/**/*.{ts,tsx}"
+    "!./src/app/**/*.{ts,tsx}"
   ]
 };
 

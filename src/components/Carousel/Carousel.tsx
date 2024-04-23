@@ -1,8 +1,9 @@
+"use client";
 import { useRef } from "react";
 
 import ChevronLeftIcon from "@heroicons/react/20/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import { Navigation } from "swiper";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IFilm, IFilmPopulars } from "types/Film";
 
