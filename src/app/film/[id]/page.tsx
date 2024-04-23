@@ -1,21 +1,17 @@
-"use client";
-import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
-import { useContext, useEffect, useRef } from "react";
+import { Key } from "react";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  PromiseLikeOfReactNode
+} from "react";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { ContextRecents } from "context/recents";
 import api from "services/api";
-import { Navigation, Scrollbar } from "swiper/modules";
 import { IFilm, IFilmDetails } from "types/Film";
 import { Iimages } from "types/Images";
 import { Providers } from "types/Providers";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/scrollbar";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 interface IVideos {
   iso_639_1: string;
@@ -37,19 +33,28 @@ interface FilmDetailsProps {
   images: Iimages;
 }
 
-const FilmDetails = ({
-  film,
-  images,
-  providersFilm,
-  videos
-}: FilmDetailsProps) => {
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
-  const { addFilm } = useContext(ContextRecents);
+const FilmDetails = async () => {
+  const id = "823464";
+  const film = await api.get(`/movie/${id}`).then(response => response.data);
 
-  useEffect(() => {
-    addFilm(film);
-  }, [film]);
+  const providersFilm = await api
+    .get(`/movie/${id}/watch/providers`)
+    .then(response =>
+      response.data.results.BR ? response.data.results.BR : {}
+    );
+
+  const videos = await api
+    .get(`/movie/${id}/videos`)
+    .then(response => response.data.results);
+
+  const images = await api
+    .get(`/movie/${id}/images`, {
+      params: {
+        language: ""
+      }
+    })
+    .then(response => response.data);
+
   return (
     <>
       {film && (
@@ -68,10 +73,10 @@ const FilmDetails = ({
             className="w-96 object-cover flex"
             src={`https://image.tmdb.org/t/p/original${film?.poster_path}`}
             alt={`Poster do filme: ${film?.title}`}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null;
-              currentTarget.src = "/imgError.svg";
-            }}
+            // onError={({ currentTarget }) => {
+            //   currentTarget.onerror = null;
+            //   currentTarget.src = "/imgError.svg";
+            // }}
           />
           <div className="ml-0 lg:ml-4">
             <div>
@@ -113,7 +118,10 @@ const FilmDetails = ({
               </li>
               <li>
                 <strong>Gênero:</strong>{" "}
-                {film?.genres.map(genre => genre.name).join(", ")}.
+                {film?.genres
+                  .map((genre: { name: any }) => genre.name)
+                  .join(", ")}
+                .
               </li>
             </ul>
           </section>
@@ -125,21 +133,27 @@ const FilmDetails = ({
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.rent ? (
-                providersFilm?.rent.map(provider => (
-                  <li key={provider.provider_id} className="flex flex-row">
-                    <a
-                      href={providersFilm.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
-                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                        alt={provider.provider_name}
-                      />
-                    </a>
-                  </li>
-                ))
+                providersFilm?.rent.map(
+                  (provider: {
+                    provider_id: Key | null | undefined;
+                    logo_path: any;
+                    provider_name: string | undefined;
+                  }) => (
+                    <li key={provider.provider_id} className="flex flex-row">
+                      <a
+                        href={providersFilm.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                          src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                          alt={provider.provider_name}
+                        />
+                      </a>
+                    </li>
+                  )
+                )
               ) : (
                 <li>Nenhum provedor para aluguel disponível</li>
               )}
@@ -149,21 +163,27 @@ const FilmDetails = ({
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.flatrate ? (
-                providersFilm?.flatrate.map(provider => (
-                  <li key={provider.provider_id} className="flex flex-row">
-                    <a
-                      href={providersFilm.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
-                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                        alt={provider.provider_name}
-                      />
-                    </a>
-                  </li>
-                ))
+                providersFilm?.flatrate.map(
+                  (provider: {
+                    provider_id: Key | null | undefined;
+                    logo_path: any;
+                    provider_name: string | undefined;
+                  }) => (
+                    <li key={provider.provider_id} className="flex flex-row">
+                      <a
+                        href={providersFilm.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                          src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                          alt={provider.provider_name}
+                        />
+                      </a>
+                    </li>
+                  )
+                )
               ) : (
                 <li>Não há stream disponível</li>
               )}
@@ -173,21 +193,27 @@ const FilmDetails = ({
             </strong>
             <ul className="flex flex-row gap-10">
               {providersFilm?.buy ? (
-                providersFilm?.buy.map(provider => (
-                  <li key={provider.provider_id} className="flex flex-row">
-                    <a
-                      href={providersFilm.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
-                        src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                        alt={provider.provider_name}
-                      />
-                    </a>
-                  </li>
-                ))
+                providersFilm?.buy.map(
+                  (provider: {
+                    provider_id: Key | null | undefined;
+                    logo_path: any;
+                    provider_name: string | undefined;
+                  }) => (
+                    <li key={provider.provider_id} className="flex flex-row">
+                      <a
+                        href={providersFilm.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                          src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
+                          alt={provider.provider_name}
+                        />
+                      </a>
+                    </li>
+                  )
+                )
               ) : (
                 <li>Não há provedores para compra</li>
               )}
@@ -195,22 +221,14 @@ const FilmDetails = ({
           </section>
         </section>
         <section className="my-8">
-          <Swiper
+          {/* <Swiper
             modules={[Navigation, Scrollbar]}
             scrollbar={{
               hide: false,
               draggable: true,
               dragClass: "swiper-scrollbar-drag-custom-white"
             }}
-            navigation={{
-              nextEl: nextRef?.current,
-              prevEl: prevRef?.current
-            }}
             onInit={swiper => {
-              //@ts-ignore
-              swiper.params.navigation.prevEl = prevRef.current!;
-              //@ts-ignore
-              swiper.params.navigation.nextEl = nextRef.current!;
               swiper.navigation.init();
               swiper.navigation.update();
             }}
@@ -239,35 +257,42 @@ const FilmDetails = ({
                   />
                 </SwiperSlide>
               ))}
-            <button
-              ref={prevRef}
-              className="w-auto swiper-button-prev after:content-none drop-shadow-sm shadow-black"
-            >
+            <button className="w-auto swiper-button-prev after:content-none drop-shadow-sm shadow-black">
               <ChevronLeftIcon width={48} color="white" />
             </button>
-            <button
-              ref={nextRef}
-              className="w-auto swiper-button-next after:content-none drop-shadow-sm shadow-black"
-            >
+            <button className="w-auto swiper-button-next after:content-none drop-shadow-sm shadow-black">
               <ChevronRightIcon width={48} color="white" />
             </button>
-          </Swiper>
+          </Swiper> */}
         </section>
 
         <section className="my-6">
           <h3>Produzido por: </h3>
           <div className="flex items-center flex-wrap flex-row w-full py-6 px-3 gap-x-8 bg-black-bright">
-            {film?.production_companies.map(companie =>
-              companie.logo_path != null ? (
-                <img
-                  key={companie.id}
-                  className="object-contain max-h-[80px] w-full max-w-[100px]"
-                  src={`https://image.tmdb.org/t/p/original${companie.logo_path}`}
-                  alt={companie.name}
-                />
-              ) : (
-                <p key={companie.id}>{companie.name}</p>
-              )
+            {film?.production_companies.map(
+              (companie: {
+                logo_path: null;
+                id: Key | null | undefined;
+                name:
+                  | string
+                  | number
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | PromiseLikeOfReactNode
+                  | null
+                  | undefined;
+              }) =>
+                companie.logo_path != null ? (
+                  <img
+                    key={companie.id}
+                    className="object-contain max-h-[80px] w-full max-w-[100px]"
+                    src={`https://image.tmdb.org/t/p/original${companie.logo_path}`}
+                    alt={(companie.name as string) || "alt"}
+                  />
+                ) : (
+                  <p key={companie.id}>{companie.name}</p>
+                )
             )}
           </div>
         </section>
@@ -278,51 +303,51 @@ const FilmDetails = ({
 
 export default FilmDetails;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const filmMostPopulars = await api
-    .get("/movie/popular")
-    .then(response => response.data.results);
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const filmMostPopulars = await api
+//     .get("/movie/popular")
+//     .then(response => response.data.results);
 
-  const paths = filmMostPopulars.map((film: IFilm) => ({
-    params: { id: film.id.toString() }
-  }));
+//   const paths = filmMostPopulars.map((film: IFilm) => ({
+//     params: { id: film.id.toString() }
+//   }));
 
-  return {
-    paths,
-    fallback: true
-  };
-};
+//   return {
+//     paths,
+//     fallback: true
+//   };
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const { id } = params;
-  const film = await api.get(`/movie/${id}`).then(response => response.data);
+// export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+//   const { id } = params;
+//   const film = await api.get(`/movie/${id}`).then(response => response.data);
 
-  const providersFilm = await api
-    .get(`/movie/${id}/watch/providers`)
-    .then(response =>
-      response.data.results.BR ? response.data.results.BR : {}
-    );
+//   const providersFilm = await api
+//     .get(`/movie/${id}/watch/providers`)
+//     .then(response =>
+//       response.data.results.BR ? response.data.results.BR : {}
+//     );
 
-  const videos = await api
-    .get(`/movie/${id}/videos`)
-    .then(response => response.data.results);
+//   const videos = await api
+//     .get(`/movie/${id}/videos`)
+//     .then(response => response.data.results);
 
-  const images = await api
-    .get(`/movie/${id}/images`, {
-      params: {
-        language: ""
-      }
-    })
-    .then(response => response.data);
+//   const images = await api
+//     .get(`/movie/${id}/images`, {
+//       params: {
+//         language: ""
+//       }
+//     })
+//     .then(response => response.data);
 
-  return {
-    props: {
-      film,
-      providersFilm,
-      videos,
-      images
-    },
-    // 604800 seg
-    revalidate: 60 * 60 * 24 * 7
-  };
-};
+//   return {
+//     props: {
+//       film,
+//       providersFilm,
+//       videos,
+//       images
+//     },
+//     // 604800 seg
+//     revalidate: 60 * 60 * 24 * 7
+//   };
+// };

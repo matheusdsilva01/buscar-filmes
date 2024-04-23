@@ -9,7 +9,6 @@ import Pagination from "components/Pagination/Pagination";
 import api from "services/api";
 import useSWR, { Fetcher } from "swr";
 import { IFilm } from "types/Film";
-import addBlurredDataUrls from "util/getBase64";
 
 interface IResultResponse {
   results: IFilm[];
@@ -45,8 +44,6 @@ export default function ResultSearch({
               : null
           )
           .filter(Boolean) as string[];
-        const imagesBlur = await addBlurredDataUrls(images);
-        console.log(imagesBlur);
         return data;
       }
     }
