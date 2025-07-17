@@ -6,11 +6,12 @@ const FormSearchMovie = () => {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const pathname = usePathname();
-  const inHomePage = new RegExp("/search/*/").test(pathname);
+
+  const inSearchPage = pathname.includes("/search");
 
   return (
     <>
-      {!inHomePage && (
+      {!inSearchPage && (
         <li>
           <form
             action="submit"
@@ -19,19 +20,14 @@ const FormSearchMovie = () => {
               router.push(`/search/${query}`);
             }}
           >
-            <label
-              htmlFor="input"
-              className="bg-search-icon bg-no-repeat bg-bottom cursor-pointer"
-            >
-              <input
-                id="input"
-                name="input"
-                className="max-w-[250px] py-1 text-[16px] font-light w-10 opacity-0 bg-black-bright text-white rounded-sm outline-none border-1 border-transparent focus:border-white focus:w-auto focus:px-9 focus:opacity-100 bg-search-icon bg-no-repeat bg-[center_left_5px]"
-                type="text"
-                onChange={e => setQuery(e.target.value)}
-                placeholder="Busca..."
-              />
-            </label>
+            <input
+              id="input"
+              name="input"
+              className="max-w-[250px] font-light bg-black-bright text-white rounded-md outline-none border-1 border-transparent pl-9 pr-2 bg-search-icon bg-no-repeat bg-[length:14px] bg-[center_left_8px]"
+              type="text"
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Buscar..."
+            />
           </form>
         </li>
       )}

@@ -1,41 +1,31 @@
 import Head from "next/head";
-import { Key } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
-  ReactElement,
   JSXElementConstructor,
-  ReactNode,
-  PromiseLikeOfReactNode
+  Key,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactNode
 } from "react";
 
+import { CarouselImages } from "components/CarouselImages";
 import api from "services/api";
-import { IFilm, IFilmDetails } from "types/Film";
+import { IFilmDetails } from "types/Film";
 import { Iimages } from "types/Images";
-import { Providers } from "types/Providers";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
 
-interface IVideos {
-  iso_639_1: string;
-  iso_3166_1: string;
-  name: string;
-  key: string;
-  site: string;
-  size: number;
-  type: string;
-  official: boolean;
-  published_at: Date;
-  id: string;
-}
-
 interface FilmDetailsProps {
-  film: IFilmDetails;
-  providersFilm: Providers;
-  videos: IVideos[];
-  images: Iimages;
+  params: {
+    id: string;
+  };
 }
 
-const FilmDetails = async () => {
-  const id = "823464";
-  const film = await api.get(`/movie/${id}`).then(response => response.data);
+const FilmDetails = async ({ params }: FilmDetailsProps) => {
+  const id = params.id;
+  const film = await api
+    .get<IFilmDetails>(`/movie/${id}`)
+    .then(response => response.data);
 
   const providersFilm = await api
     .get(`/movie/${id}/watch/providers`)
@@ -47,14 +37,15 @@ const FilmDetails = async () => {
     .get(`/movie/${id}/videos`)
     .then(response => response.data.results);
 
-  const images = await api
-    .get(`/movie/${id}/images`, {
-      params: {
-        language: ""
-      }
-    })
-    .then(response => response.data);
-
+  const images =
+    (await api
+      .get<Iimages>(`/movie/${id}/images`, {
+        params: {
+          language: ""
+        }
+      })
+      .then(response => response.data)) || [];
+  console.log(`https://image.tmdb.org/t/p/original${film?.backdrop_path}`);
   return (
     <>
       {film && (
@@ -68,15 +59,29 @@ const FilmDetails = async () => {
         </Head>
       )}
       <div className="px-14 pt-5 min-h-screen text-white">
-        <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center lg:justify-start">
-          <img
+        <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center lg:justify-start relative">
+          {film?.backdrop_path && (
+            <div className="absolute h-full w-full -z-10 inset-0">
+              <Image
+                priority
+                width={1920}
+                height={1080}
+                className="w-full object-cover max-w-screen-2xl m-auto blur-3xl"
+                src={`https://image.tmdb.org/t/p/original${film?.backdrop_path}`}
+                alt={`Backdrop do filme: ${film?.title}`}
+              />
+            </div>
+          )}
+          <Image
+            width={500}
+            height={608}
             className="w-96 object-cover flex"
-            src={`https://image.tmdb.org/t/p/original${film?.poster_path}`}
+            src={
+              film?.poster_path
+                ? `https://image.tmdb.org/t/p/w500${film?.poster_path}`
+                : "/icons/imgError.svg"
+            }
             alt={`Poster do filme: ${film?.title}`}
-            // onError={({ currentTarget }) => {
-            //   currentTarget.onerror = null;
-            //   currentTarget.src = "/imgError.svg";
-            // }}
           />
           <div className="ml-0 lg:ml-4">
             <div>
@@ -200,7 +205,7 @@ const FilmDetails = async () => {
                     provider_name: string | undefined;
                   }) => (
                     <li key={provider.provider_id} className="flex flex-row">
-                      <a
+                      <Link
                         href={providersFilm.link}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -210,7 +215,7 @@ const FilmDetails = async () => {
                           src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
                           alt={provider.provider_name}
                         />
-                      </a>
+                      </Link>
                     </li>
                   )
                 )
@@ -221,78 +226,25 @@ const FilmDetails = async () => {
           </section>
         </section>
         <section className="my-8">
-          {/* <Swiper
-            modules={[Navigation, Scrollbar]}
-            scrollbar={{
-              hide: false,
-              draggable: true,
-              dragClass: "swiper-scrollbar-drag-custom-white"
-            }}
-            onInit={swiper => {
-              swiper.navigation.init();
-              swiper.navigation.update();
-            }}
-            slidesPerView={2.3}
-            spaceBetween={20}
-            breakpoints={{
-              768: {
-                slidesPerView: 2.3,
-                spaceBetween: 20,
-                speed: 500
-              },
-              1024: {
-                slidesPerView: 3.3,
-                spaceBetween: 30,
-                slidesPerGroup: 3,
-                speed: 700
-              }
-            }}
-          >
-            {images &&
-              images.backdrops.map(bd => (
-                <SwiperSlide key={bd.file_path}>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${bd.file_path}`}
-                    alt="backdrop"
-                  />
-                </SwiperSlide>
-              ))}
-            <button className="w-auto swiper-button-prev after:content-none drop-shadow-sm shadow-black">
-              <ChevronLeftIcon width={48} color="white" />
-            </button>
-            <button className="w-auto swiper-button-next after:content-none drop-shadow-sm shadow-black">
-              <ChevronRightIcon width={48} color="white" />
-            </button>
-          </Swiper> */}
+          {images.backdrops && <CarouselImages images={images.backdrops} />}
         </section>
 
         <section className="my-6">
           <h3>Produzido por: </h3>
           <div className="flex items-center flex-wrap flex-row w-full py-6 px-3 gap-x-8 bg-black-bright">
-            {film?.production_companies.map(
-              (companie: {
-                logo_path: null;
-                id: Key | null | undefined;
-                name:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | PromiseLikeOfReactNode
-                  | null
-                  | undefined;
-              }) =>
-                companie.logo_path != null ? (
-                  <img
-                    key={companie.id}
-                    className="object-contain max-h-[80px] w-full max-w-[100px]"
-                    src={`https://image.tmdb.org/t/p/original${companie.logo_path}`}
-                    alt={(companie.name as string) || "alt"}
-                  />
-                ) : (
-                  <p key={companie.id}>{companie.name}</p>
-                )
+            {film?.production_companies.map(companie =>
+              companie.logo_path ? (
+                <Image
+                  width={100}
+                  height={80}
+                  key={companie.id}
+                  className="object-contain max-h-[80px] w-full max-w-[100px]"
+                  src={`https://image.tmdb.org/t/p/original${companie.logo_path}`}
+                  alt={(companie.name as string) || "alt"}
+                />
+              ) : (
+                <p key={companie.id}>{companie.name}</p>
+              )
             )}
           </div>
         </section>
