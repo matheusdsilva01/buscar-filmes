@@ -1,16 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  JSXElementConstructor,
-  Key,
-  PromiseLikeOfReactNode,
-  ReactElement,
-  ReactNode
-} from "react";
+import { Key } from "react";
 
 import { CarouselImages } from "components/CarouselImages";
-import api from "services/api";
+import { api } from "services/api";
 import { IFilmDetails } from "types/Film";
 import { Iimages } from "types/Images";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
@@ -23,29 +17,21 @@ interface FilmDetailsProps {
 
 const FilmDetails = async ({ params }: FilmDetailsProps) => {
   const id = params.id;
-  const film = await api
-    .get<IFilmDetails>(`/movie/${id}`)
-    .then(response => response.data);
+  const film = await api.get<IFilmDetails>(`/movie/${id}`);
 
   const providersFilm = await api
-    .get(`/movie/${id}/watch/providers`)
-    .then(response =>
-      response.data.results.BR ? response.data.results.BR : {}
-    );
+    .get<any>(`/movie/${id}/watch/providers`)
+    .then(response => (response.results.BR ? response.results.BR : {}));
 
   const videos = await api
-    .get(`/movie/${id}/videos`)
-    .then(response => response.data.results);
+    .get<any>(`/movie/${id}/videos`)
+    .then(response => response.results);
 
   const images =
     (await api
-      .get<Iimages>(`/movie/${id}/images`, {
-        params: {
-          language: ""
-        }
-      })
-      .then(response => response.data)) || [];
-  console.log(`https://image.tmdb.org/t/p/original${film?.backdrop_path}`);
+      .get<Iimages>(`/movie/${id}/images`, {})
+      .then(response => response)) || [];
+
   return (
     <>
       {film && (

@@ -1,28 +1,29 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
-import CardHighlightsHome from "components/CardHighlightsHome/CardHighlightsHome";
-import api from "services/api";
-import { IFilmPopulars as IFilmPopular } from "types/Film";
+import { MoviesHighlights } from "components/MoviesHighlights";
+import { TabsFilterMovie } from "components/TabsFilterMovie";
+import { FilterOption, getPopularMovies } from "services/TMDB";
 
-interface ResponseFilmPopular {
-  results: IFilmPopular[];
-}
+type Props = {
+  searchParams: {
+    query?: FilterOption;
+  };
+};
 
-const Home = async () => {
-  const {
-    data: { results: filmsHighlights }
-  } = await api.get<ResponseFilmPopular>("/movie/popular");
-  const mostPopularMovie = filmsHighlights[0];
+const Home = async (props: Props) => {
+  const { query } = props.searchParams;
+
+  const { results } = await getPopularMovies();
+  const mostPopularMovie = results[0];
 
   const backgroundImage = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${mostPopularMovie?.backdrop_path})`
   };
 
   return (
-    <div className="mb-6">
+    <>
       <div
         style={backgroundImage}
         className="sm:min-h-[640px] text-white flex bg-no-repeat bg-center bg-cover"
@@ -57,8 +58,9 @@ const Home = async () => {
           </section>
         </div>
       </div>
-      <CardHighlightsHome filmsHighlights={filmsHighlights} />
-    </div>
+      <TabsFilterMovie />
+      <MoviesHighlights filter={query} />
+    </>
   );
 };
 

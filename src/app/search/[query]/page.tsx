@@ -2,11 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-import { AxiosRequestConfig } from "axios";
 import CardSkeleton from "components/CardSkeleton/CardSkeleton";
 import FilmResult from "components/FilmResult/FilmResult";
 import Pagination from "components/Pagination/Pagination";
-import api from "services/api";
+import { api } from "services/api";
 import useSWR, { Fetcher } from "swr";
 import { IFilm } from "types/Film";
 
@@ -27,10 +26,8 @@ export default function ResultSearch({
   const router = useRouter();
   const query = params.query;
 
-  const fetcher: Fetcher<
-    IResultResponse,
-    [string, AxiosRequestConfig<any>]
-  > = ([url, params]) => api.get(url, params).then(res => res.data);
+  const fetcher: Fetcher<IResultResponse, [string, any]> = ([url, params]) =>
+    api.get(url, params);
 
   const { data: resultFilms, isLoading } = useSWR(
     query ? [`/search/movie?page=${page}`, { params: { query } }] : null,
@@ -44,7 +41,7 @@ export default function ResultSearch({
               : null
           )
           .filter(Boolean) as string[];
-        return data;
+        return images;
       }
     }
   );

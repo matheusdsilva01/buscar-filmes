@@ -15,7 +15,7 @@ const FilmResult = ({ film }: FilmResultProps) => {
     ? `https://image.tmdb.org/t/p/original/${film.poster_path}`
     : "/icons/imgError.svg";
   // const blueImage = film.poster_path && (await getImageBase64(srcImage));
-  const voteAverage = Number(film.vote_average.toFixed());
+  const voteAverage = Number(film.vote_average.toFixed() || 0);
 
   return (
     <Link

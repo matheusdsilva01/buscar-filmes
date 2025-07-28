@@ -54,7 +54,7 @@ export interface IFilmDetails {
   vote_count: number;
 }
 
-export interface IFilmPopulars {
+export interface IFilmsPopular {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
