@@ -1,5 +1,4 @@
 "use client";
-import { NextPage } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -10,7 +9,6 @@ import {
   ChevronDoubleDownIcon,
   XMarkIcon
 } from "@heroicons/react/20/solid";
-import * as Tooltip from "@radix-ui/react-tooltip";
 
 const Sidebar = () => {
   const [query, setQuery] = useState("");

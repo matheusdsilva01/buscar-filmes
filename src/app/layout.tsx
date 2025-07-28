@@ -8,8 +8,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import Footer from "components/Footer/Footer";
-import Header from "components/Header/Header";
 import { RecentsMoviesContext } from "context/recents";
+import { Header } from "layouts/Header";
 
 export const metadata: Metadata = {
   title: "Buscar filmes",

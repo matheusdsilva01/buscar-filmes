@@ -10,12 +10,11 @@ interface FilmResultProps {
   film: IFilm;
 }
 
-const FilmResult = ({ film }: FilmResultProps) => {
+export const FilmResult = ({ film }: FilmResultProps) => {
   const srcImage = film.poster_path
     ? `https://image.tmdb.org/t/p/original/${film.poster_path}`
     : "/icons/imgError.svg";
-  // const blueImage = film.poster_path && (await getImageBase64(srcImage));
-  const voteAverage = Number(film.vote_average.toFixed() || 0);
+  const voteAverage = Number(film.vote_average?.toFixed() || 0);
 
   return (
     <Link
@@ -25,7 +24,6 @@ const FilmResult = ({ film }: FilmResultProps) => {
     >
       <Image
         src={srcImage}
-        // blurDataURL={film.poster_path ? blueImage! : undefined}
         width={224}
         height={336}
         alt={`Capa do filme ${film.title}`}
@@ -48,5 +46,3 @@ const FilmResult = ({ film }: FilmResultProps) => {
     </Link>
   );
 };
-
-export default FilmResult;

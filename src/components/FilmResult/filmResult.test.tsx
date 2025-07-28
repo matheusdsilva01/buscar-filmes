@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import { mockFilm } from "../../tests/mocks/mockFilm";
 import { createMockRouter } from "../../tests/mocks/useRouterMock";
-import FilmResult from "./FilmResult";
+import FilmResult from ".";
 
 describe("Test component filmResult", () => {
   it("Should render component filmResult", () => {

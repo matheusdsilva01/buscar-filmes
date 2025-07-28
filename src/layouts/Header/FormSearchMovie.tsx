@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const FormSearchMovie = () => {
   const [query, setQuery] = useState("");
@@ -9,17 +9,18 @@ const FormSearchMovie = () => {
 
   const inSearchPage = pathname.includes("/search");
 
+  function handleSearch(e: FormEvent) {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/search/${query}`);
+    }
+  }
+
   return (
     <>
       {!inSearchPage && (
         <li>
-          <form
-            action="submit"
-            onSubmit={e => {
-              e.preventDefault();
-              router.push(`/search/${query}`);
-            }}
-          >
+          <form action="submit" onSubmit={handleSearch}>
             <input
               id="input"
               name="input"

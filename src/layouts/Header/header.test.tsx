@@ -1,10 +1,8 @@
-import { RouterContext } from "next/dist/shared/lib/router-context";
-
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import Header from ".";
 import { createMockRouter } from "../../tests/mocks/useRouterMock";
-import Header from "./Header";
 
 describe("Test header", () => {
   it("Should render header", () => {

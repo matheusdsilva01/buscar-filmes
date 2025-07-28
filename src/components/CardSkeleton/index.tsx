@@ -1,4 +1,4 @@
-const CardSkeleton = () => {
+export const CardSkeleton = () => {
   return (
     <div
       role="status"
@@ -27,5 +27,3 @@ const CardSkeleton = () => {
     </div>
   );
 };
-
-export default CardSkeleton;
