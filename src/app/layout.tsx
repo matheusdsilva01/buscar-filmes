@@ -4,12 +4,11 @@ import { ReactNode } from "react";
 import "./index.css";
 
 import Footer from "components/Footer/Footer";
-import { RecentsMoviesContext } from "context/recents";
 import { Header } from "layouts/Header";
 
 export const metadata: Metadata = {
   title: "Buscar filmes",
-  description: "Project personal for films searches",
+  description: "Projeto pessoal para busca de filmes",
   keywords: "filmes, busca, filmes online, filmes grátis"
 };
 
@@ -31,11 +30,9 @@ export default function LayoutRoot({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${inter.variable} ${poppins.variable} font-inter`}>
-        <RecentsMoviesContext>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </RecentsMoviesContext>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

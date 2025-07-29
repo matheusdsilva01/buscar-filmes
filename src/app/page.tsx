@@ -17,17 +17,17 @@ const Home = async (props: Props) => {
   const { results } = await getPopularMovies();
   const mostPopularMovie = results[0];
 
-  const backgroundImage = {
+  const styleBackgroundImage = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${mostPopularMovie?.backdrop_path})`
   };
 
   return (
     <>
       <div
-        style={backgroundImage}
+        style={styleBackgroundImage}
         className="sm:min-h-[640px] text-white flex bg-no-repeat bg-center bg-cover"
       >
-        <div className="w-full flex-1 backdrop-brightness-50 px-6 py-4">
+        <div className="w-full flex-1 bg-gradient-to-r from-black/80 to-transparent px-6 py-4">
           <div className="flex items-center">
             <h3 className="text-xs w-fit bg-gray-600 rounded-full px-2 py-1">
               Destaque da semana
