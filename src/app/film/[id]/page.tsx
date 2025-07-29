@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Key } from "react";
 
-import { CarouselImages } from "components/CarouselImages";
 import { api } from "services/api";
 import { IFilmDetails } from "types/Film";
 import { Iimages } from "types/Images";
@@ -29,7 +28,11 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
 
   const images =
     (await api
-      .get<Iimages>(`/movie/${id}/images`, {})
+      .get<Iimages>(`/movie/${id}/images`, {
+        params: {
+          include_image_language: "en,null"
+        }
+      })
       .then(response => response)) || [];
 
   return (
@@ -211,8 +214,28 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
             </ul>
           </section>
         </section>
-        <section className="my-8">
-          {images.backdrops && <CarouselImages images={images.backdrops} />}
+        <section className="my-8 grid grid-flow-col gap-8 auto-cols-max grid-rows-2 overflow-auto">
+          {images.backdrops &&
+            images.backdrops.length > 0 &&
+            images.backdrops.map(
+              (image, index) =>
+                image.file_path && (
+                  <Link
+                    key={index}
+                    href={`https://image.tmdb.org/t/p/original${image.file_path}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      width={500}
+                      height={281}
+                      className="w-full max-w-[250px] object-cover rounded-lg mb-4"
+                      src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+                      alt={`Backdrop do filme: ${film?.title}`}
+                    />
+                  </Link>
+                )
+            )}
         </section>
 
         <section className="my-6">

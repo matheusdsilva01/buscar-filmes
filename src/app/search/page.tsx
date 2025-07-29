@@ -9,8 +9,8 @@ type PageProps = {
   };
 };
 
-export default async function ResultSearch({ searchParams }: PageProps) {
-  const { query, page = 1 } = searchParams;
+const ResultSearch = async ({ searchParams }: PageProps) => {
+  const { query = "", page = 1 } = searchParams;
   const { results, total_pages: totalPages } = await searchMovies({
     query,
     page
@@ -36,4 +36,6 @@ export default async function ResultSearch({ searchParams }: PageProps) {
       <Pagination page={Number(page)} totalPages={totalPages} query={query} />
     </>
   );
-}
+};
+
+export default ResultSearch;

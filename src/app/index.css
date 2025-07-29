@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    .swiper-scrollbar-drag-custom-white {
-        @apply h-full w-full relative bg-white rounded-xl left-0 top-0;
-    }
-}
 @layer utilities  {
   .tooltip {
     @apply invisible absolute opacity-0 transition-opacity;

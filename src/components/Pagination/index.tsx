@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 interface PaginationProps {
   page: number;

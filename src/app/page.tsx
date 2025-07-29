@@ -1,9 +1,8 @@
 import Link from "next/link";
 
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/24/solid";
 import { MoviesHighlights } from "components/MoviesHighlights";
 import { TabsFilterMovie } from "components/TabsFilterMovie";
+import { Info, Star } from "lucide-react";
 import { FilterOption, getPopularMovies } from "services/TMDB";
 
 type Props = {
@@ -34,7 +33,7 @@ const Home = async (props: Props) => {
               Destaque da semana
             </h3>
             <div className="flex items-center ml-2">
-              <StarIcon className="h-4 w-4 text-yellow-400" />
+              <Star fill="currentColor" className="h-4 w-4 text-yellow-400" />
               <p className="ml-1 text-xs flex">
                 {mostPopularMovie.vote_average}
               </p>
@@ -51,7 +50,7 @@ const Home = async (props: Props) => {
             </div>
             <Link href={`film/${mostPopularMovie.id}`}>
               <span className="bg-zinc-900 rounded-md p-4 gap-2 w-fit flex items-center cursor-pointer">
-                <InformationCircleIcon className="" width={20} height={20} />
+                <Info className="" width={20} height={20} />
                 Ver mais detalhes
               </span>
             </Link>

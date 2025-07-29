@@ -13,7 +13,7 @@ export const Header = () => {
             <img src="/logo.svg" alt="logo site" />
           </Link>
         </div>
-        <ul className="DESKTOP-MENU items-center text-lg gap-6 font-light hidden lg:flex">
+        <ul className="items-center text-lg gap-6 font-light hidden md:flex">
           <FormSearchMovie />
           <Link href="/">
             <li className="cursor-pointer hover:underline">Home</li>
