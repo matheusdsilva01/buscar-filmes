@@ -228,6 +228,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                   >
                     <Image
                       width={500}
+                      loading="lazy"
                       height={281}
                       className="w-full max-w-[250px] object-cover rounded-lg mb-4"
                       src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
