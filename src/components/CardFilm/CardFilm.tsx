@@ -11,7 +11,7 @@ const CardFilm = ({ film }: cardFilmProps) => {
   return (
     <Link
       href={`film/${film.id}`}
-      className="relative min-h-72 block w-[190px] cursor-pointer rounded-md hover:shadow-sm shadow-slate-700 duration-200"
+      className="relative min-h-72 block w-[190px] cursor-pointer rounded-md hover:shadow-sm hover:shadow-slate-700"
     >
       <Image
         key={`film-${film.id}`}
@@ -23,7 +23,7 @@ const CardFilm = ({ film }: cardFilmProps) => {
         width={258}
         height={367}
       />
-      <p className="pt-2.5 text-sm font-medium absolute bottom-0 left-0 bg-black-bright/70 w-full px-2.5 text-white">
+      <p className="pt-2.5 text-sm font-medium absolute bottom-0 left-0 bg-gray-4/70 line-clamp-2 w-full px-2.5 text-white">
         {film.title}
       </p>
     </Link>

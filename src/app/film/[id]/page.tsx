@@ -125,7 +125,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
             <strong>
               <h3>Alugar:</h3>
             </strong>
-            <ul className="flex flex-row gap-10">
+            <ul className="flex flex-row gap-2">
               {providersFilm?.rent ? (
                 providersFilm?.rent.map(
                   (provider: {
@@ -139,23 +139,27 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
-                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                        <Image
+                          className="w-7 h-7 rounded-md border border-gray-7"
                           src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                          alt={provider.provider_name}
+                          alt={provider.provider_name || "provider rent"}
+                          width={28}
+                          height={28}
                         />
                       </a>
                     </li>
                   )
                 )
               ) : (
-                <li>Nenhum provedor para aluguel disponível</li>
+                <li className="text-sm">
+                  Nenhum provedor para aluguel disponível
+                </li>
               )}
             </ul>
             <strong>
               <h3>Stream:</h3>
             </strong>
-            <ul className="flex flex-row gap-10">
+            <ul className="flex flex-row gap-2">
               {providersFilm?.flatrate ? (
                 providersFilm?.flatrate.map(
                   (provider: {
@@ -169,23 +173,25 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
-                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                        <Image
+                          width={28}
+                          height={28}
+                          className="w-7 h-7 rounded-md border border-gray-7"
                           src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                          alt={provider.provider_name}
+                          alt={provider.provider_name || "provider flatrate"}
                         />
                       </a>
                     </li>
                   )
                 )
               ) : (
-                <li>Não há stream disponível</li>
+                <li className="text-sm">Não há stream disponível</li>
               )}
             </ul>
             <strong>
               <h3>Comprar:</h3>
             </strong>
-            <ul className="flex flex-row gap-10">
+            <ul className="flex flex-row gap-2">
               {providersFilm?.buy ? (
                 providersFilm?.buy.map(
                   (provider: {
@@ -199,17 +205,19 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <img
-                          className="w-12 h-12 rounded-md duration-150 hover:shadow-gray-900 shadow-md"
+                        <Image
+                          width={28}
+                          height={28}
+                          className="w-7 h-7 rounded-md border border-gray-7"
                           src={`https://image.tmdb.org/t/p/original${provider.logo_path}`}
-                          alt={provider.provider_name}
+                          alt={provider.provider_name || "provider buy"}
                         />
                       </Link>
                     </li>
                   )
                 )
               ) : (
-                <li>Não há provedores para compra</li>
+                <li className="text-sm">Não há provedores para compra</li>
               )}
             </ul>
           </section>
