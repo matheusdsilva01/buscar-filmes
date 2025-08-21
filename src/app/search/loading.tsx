@@ -6,7 +6,7 @@ import { Pagination } from "components/Pagination";
 const Loading = () => {
   const { page, totalPages, query } = {
     page: 1,
-    totalPages: 1,
+    totalPages: 10,
     query: ""
   };
 

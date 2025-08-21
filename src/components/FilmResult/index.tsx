@@ -16,20 +16,24 @@ export const FilmResult = ({ film }: FilmResultProps) => {
   const voteAverage = Number(film.vote_average?.toFixed() || 0);
 
   return (
-    <Link
+    <div
       key={film.id}
-      href={`/film/${film.id}`}
-      className="bg-black-bright text-white flex flex-col md:flex-row cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px]"
+      className="bg-black-bright relative isolate text-white overflow-auto flex flex-col md:flex-row rounded-lg shadow-slate-700 shadow-[0_0_2px] hover:shadow-[0_0_5px]"
     >
       <Image
         src={srcImage}
         width={224}
         height={336}
         alt={`Capa do filme ${film.title}`}
-        className="w-56 mx-auto md:w-32 md:max-w-[128px] object-cover rounded-l-[5px]"
+        className="w-56 mx-auto md:w-32 md:max-w-[128px] object-cover"
       />
       <div className="ml-2 py-3 flex-1">
-        <h1 className="text-2xl font-bold">{film.title}</h1>
+        <h1 className="text-2xl font-bold">
+          <Link href={`/film/${film.id}`}>
+            <span className="absolute inset-0 z-10" />
+            {film.title}
+          </Link>
+        </h1>
         <div className="flex">
           {Array.from({ length: voteAverage }).map((_, index) => (
             <Star
@@ -46,6 +50,6 @@ export const FilmResult = ({ film }: FilmResultProps) => {
           {film.overview ? film.overview : "Este filme não contem descrição :("}
         </p>
       </div>
-    </Link>
+    </div>
   );
 };
