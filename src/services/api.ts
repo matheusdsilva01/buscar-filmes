@@ -6,7 +6,7 @@ interface InstanceHTTPClient {
 }
 
 interface RequestOptions extends RequestInit {
-  params?: object;
+  params?: Record<PropertyKey, string | number>;
 }
 
 class ApiClient implements InstanceHTTPClient {
