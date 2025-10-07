@@ -44,13 +44,15 @@ const Sidebar = () => {
                 action="submit"
                 onSubmit={e => {
                   e.preventDefault();
-                  router.push(`/search/${query}`);
+                  router.push(`/search?query=${query}`);
+                  setIsNavOpen(false);
                 }}
               >
                 <input
-                  id="input"
-                  name="input"
-                  className="w-[250px] py-1 pl-9 pr-2 font-light bg-black-bright text-white rounded-sm outline-none border-1 border-transparent bg-search-icon bg-no-repeat bg-[center_left_5px] hover:shadow-md focus:border-white"
+                  id="query"
+                  name="query"
+                  value={query}
+                  className="w-[250px] py-1 px-2 text-black font-light bg-black-bright rounded-sm outline-none border-1 border-transparent hover:shadow-md focus:border-white"
                   type="text"
                   onChange={e => setQuery(e.target.value)}
                   placeholder="Busca..."

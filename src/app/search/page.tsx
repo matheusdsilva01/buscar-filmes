@@ -24,7 +24,7 @@ const ResultSearch = async ({ searchParams }: PageProps) => {
           type="text"
           defaultValue={query}
           placeholder="Pesquise um filme"
-          className="w-full p-2 rounded-lg bg-black-bright text-white shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500"
+          className="w-full p-2 rounded-lg bg-black-bright shadow-slate-700 shadow-[0_0_2px] placeholder:text-zinc-500"
         />
       </form>
       <Pagination page={Number(page)} totalPages={totalPages} query={query} />
