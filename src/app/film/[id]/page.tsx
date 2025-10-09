@@ -3,9 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Key } from "react";
 
-import { api } from "services/api";
-import { IFilmDetails } from "types/Film";
-import { Iimages } from "types/Images";
+import { 
+  getMovieDetails, 
+  getMovieProviders, 
+  getMovieVideos,
+  getMovieImages 
+} from "services/TMDB";
 import { translateStatusEnToPt } from "util/translateStatusFilm";
 
 interface FilmDetailsProps {
@@ -16,24 +19,16 @@ interface FilmDetailsProps {
 
 const FilmDetails = async ({ params }: FilmDetailsProps) => {
   const id = params.id;
-  const film = await api.get<IFilmDetails>(`/movie/${id}`);
 
-  const providersFilm = await api
-    .get<any>(`/movie/${id}/watch/providers`)
-    .then(response => (response.results.BR ? response.results.BR : {}));
+  const [film, providersResponse, videosResponse, images] = await Promise.all([
+    getMovieDetails(id),
+    getMovieProviders(id),
+    getMovieVideos(id),
+    getMovieImages({ id })
+  ]);
 
-  const videos = await api
-    .get<any>(`/movie/${id}/videos`)
-    .then(response => response.results);
-
-  const images =
-    (await api
-      .get<Iimages>(`/movie/${id}/images`, {
-        params: {
-          include_image_language: "en,null"
-        }
-      })
-      .then(response => response)) || [];
+  const providersFilm = providersResponse.results.BR || {};
+  const videos = videosResponse.results;
 
   return (
     <>

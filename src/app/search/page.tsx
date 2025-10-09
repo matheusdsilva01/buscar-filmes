@@ -1,6 +1,6 @@
 import { FilmResult } from "components/FilmResult";
 import { Pagination } from "components/Pagination";
-import { searchMovies } from "services/TMDB/searchMovies";
+import { searchMovies } from "services/TMDB";
 
 type PageProps = {
   searchParams: {

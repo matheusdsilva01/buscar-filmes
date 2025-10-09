@@ -1,35 +1,10 @@
-import { api } from "services/api";
-import { IFilmsPopular } from "types/Film";
-
-interface ResponseFilmPopular {
-  results: IFilmsPopular[];
-}
-
-export type FilterOption = "trending" | "top_rated" | "popular";
-
-export const getPopularMovies = async () => {
-  return await api.get<ResponseFilmPopular>("/movie/popular", {
-    cache: "default",
-    next: {
-      tags: ["popular"]
-    }
-  });
-};
-
-export const getTrendingWeekMovies = async () => {
-  return await api.get<ResponseFilmPopular>("/trending/movie/week", {
-    cache: "default",
-    next: {
-      tags: ["trending"]
-    }
-  });
-};
-
-export const getTopRatedMovies = async () => {
-  return await api.get<ResponseFilmPopular>("/movie/top_rated", {
-    cache: "default",
-    next: {
-      tags: ["top_rated"]
-    }
-  });
-};
+export { searchMovies } from "./movie/searchMovies";
+export { getMovieDetails } from "./movie/getDetails";
+export { getMovieProviders, getMovieVideos } from "./movie/getExtras";
+export { getMovieImages } from "./movie/getImages";
+export { 
+  getPopularMovies, 
+  getTrendingWeekMovies, 
+  getTopRatedMovies,
+  type FilterOption 
+} from "./movie/getLists";

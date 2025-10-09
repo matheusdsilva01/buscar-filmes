@@ -8,12 +8,12 @@ interface IResultResponse {
   page: number;
 }
 
-type useSearchMoviesProps = {
+type SearchMoviesProps = {
   query: string;
   page?: number;
 };
 
-export function searchMovies({ query, page = 1 }: useSearchMoviesProps) {
+export function searchMovies({ query, page = 1 }: SearchMoviesProps) {
   return api.get<IResultResponse>("/search/movie", {
     params: { query, page }
   });
