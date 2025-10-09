@@ -27,7 +27,7 @@ const Home = async (props: Props) => {
         style={styleBackgroundImage}
         className="sm:min-h-[740px] lg:-mt-[70px] text-white flex bg-no-repeat bg-center bg-cover"
       >
-        <div className="w-full bg-gradient-to-r flex flex-col from-black/80 to-transparent px-6 py-4">
+        <div className="w-full bg-linear-to-r flex flex-col from-black/80 to-transparent px-6 py-4">
           <div className="mt-auto sm:p-5">
             <div className="flex items-center">
               <h3 className="text-xs w-fit bg-gray-9 rounded-full px-2 py-1">

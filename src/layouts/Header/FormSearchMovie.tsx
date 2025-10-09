@@ -19,7 +19,7 @@ const FormSearchMovie = () => {
             <input
               id="input"
               name="query"
-              className="max-w-[180px] font-light bg-transparent text-white outline-none border-1 border-transparent px-2"
+              className="max-w-[180px] font-light bg-transparent text-white outline-hidden border-1 border-transparent px-2"
               type="search"
               required
               placeholder="Buscar..."

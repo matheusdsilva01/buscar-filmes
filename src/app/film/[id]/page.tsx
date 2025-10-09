@@ -50,7 +50,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                 priority
                 width={1920}
                 height={1080}
-                className="w-full object-cover max-w-screen-2xl m-auto blur-3xl"
+                className="w-full object-cover max-w-(--breakpoint-2xl) m-auto blur-3xl"
                 src={`https://image.tmdb.org/t/p/original${film?.backdrop_path}`}
                 alt={`Backdrop do filme: ${film?.title}`}
               />
@@ -77,7 +77,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
               {videos?.length > 0 && (
                 <div className="mt-8 flex justify-center md:justify-start">
                   <iframe
-                    className="aspect-video w-full max-w-screen-md"
+                    className="aspect-video w-full max-w-(--breakpoint-md)"
                     src={`https://www.youtube.com/embed/${videos[0].key}`}
                     allowFullScreen
                     title={`Trailer ${film?.title}`}

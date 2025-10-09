@@ -7,7 +7,7 @@ export const Skeleton = () => {
         <Loader size={32} className="m-auto text-gray-500" />
       </div>
       <div className="ml-2 py-3 flex-1">
-        <div className="h-4 animate-pulse bg-gradient-to-r rounded to-slate-500 from-gray-600 mb-2 max-w-2xl w-full"></div>
+        <div className="h-4 animate-pulse bg-linear-to-r rounded-sm to-slate-500 from-gray-600 mb-2 max-w-2xl w-full"></div>
         <div className="flex animate-pulse">
           {Array.from({ length: 5 }).map((_, index) => (
             <Star
@@ -21,12 +21,12 @@ export const Skeleton = () => {
           ))}
         </div>
         <div>
-          <div className="h-2.5 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 w-48 mb-4"></div>
-          <div className="h-2 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 max-w-[360px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 mb-2.5 max-w-[460px]"></div>
-          <div className="h-2 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 max-w-[330px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 max-w-[300px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-gradient-to-r to-slate-500 from-gray-600 max-w-[360px]"></div>
+          <div className="h-2.5 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 w-48 mb-4"></div>
+          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[360px] mb-2.5"></div>
+          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 mb-2.5 max-w-[460px]"></div>
+          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[330px] mb-2.5"></div>
+          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[300px] mb-2.5"></div>
+          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[360px]"></div>
         </div>
       </div>
     </div>

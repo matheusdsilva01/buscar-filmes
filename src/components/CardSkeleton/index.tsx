@@ -4,7 +4,7 @@ export const CardSkeleton = () => {
       role="status"
       className="animate-pulse gap-x-8 flex flex-col md:flex-row items-center bg-black-bright rounded-lg"
     >
-      <div className="flex justify-center items-center md:h-48 mb-2 md:mb-auto rounded w-56 mx-auto md:max-w-[128px] h-[336px] bg-white/70">
+      <div className="flex justify-center items-center md:h-48 mb-2 md:mb-auto rounded-sm w-56 mx-auto md:max-w-[128px] h-[336px] bg-white/70">
         <svg
           className="w-12 h-12 text-gray-200"
           xmlns="http://www.w3.org/2000/svg"
