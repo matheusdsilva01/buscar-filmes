@@ -19,7 +19,7 @@ const CardFilm = ({ film }: cardFilmProps) => {
         alt={`Poster do filme: ${film.title}`}
         placeholder="blur"
         blurDataURL="/load.png"
-        className="w-auto h-auto rounded-md object-cover"
+        className="w-full h-full rounded-md"
         width={258}
         height={367}
       />

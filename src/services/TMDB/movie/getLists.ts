@@ -1,4 +1,4 @@
-import { api } from "services/api";
+import { api } from "lib/api";
 import { IFilmsPopular } from "types/Film";
 
 interface ResponseFilmPopular {

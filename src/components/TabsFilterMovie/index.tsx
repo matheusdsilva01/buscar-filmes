@@ -16,15 +16,15 @@ export const TabsFilterMovie = () => {
   ];
 
   return (
-    <div className="container mx-auto mt-6">
-      <section className="flex gap-4 border-b border-gray-6 text-white mb-4">
+    <div className="container mx-auto mt-6 px-2">
+      <section className="flex overflow-auto  gap-4 border-b border-gray-6 text-white mb-4">
         {options.map(option => (
           <Link
             href={`?query=${option.value}`}
             scroll={false}
             key={option.value}
             data-selected={option.value === selectedFilter}
-            className="px-5 py-3 rounded-t-md bg-gray-3 hover:bg-gray-4  data-[selected='true']:border-b-red-8 data-[selected='true']:border-b-2 data-[selected='true']:bg-gray-5 data-[selected='true']:hover:bg-zinc-800 transition-colors cursor-pointer data-[selected='true']:cursor-default"
+            className="px-5 py-3 flex-none rounded-t-md bg-gray-3 hover:bg-gray-4 data-[selected='true']:border-b-red-8 data-[selected='true']:border-b-2 data-[selected='true']:bg-gray-5 data-[selected='true']:hover:bg-zinc-800 transition-colors cursor-pointer data-[selected='true']:cursor-default"
           >
             {option.label}
           </Link>

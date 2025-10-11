@@ -45,7 +45,6 @@ class ApiClient implements InstanceHTTPClient {
     const url = this.buildURL(endpoint, params);
 
     const response = await fetch(url, {
-      cache: "no-store",
       ...fetchOptions,
       headers: new Headers({
         ...this.defaultHeaders,
