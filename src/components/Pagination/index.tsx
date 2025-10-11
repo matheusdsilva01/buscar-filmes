@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontal,
+} from "lucide-react";
 
 interface PaginationProps {
   page: number;
@@ -9,24 +13,25 @@ interface PaginationProps {
 }
 
 export const Pagination = ({ page, totalPages, query }: PaginationProps) => {
+  if (!totalPages || totalPages <= 1) return <></>;
+
   const isFirstPage = page === 1;
-  const hasMorePages = totalPages && page < totalPages;
+  const isLastPage = page === totalPages;
 
   const generatePageNumbers = () => {
     if (!totalPages) return [];
 
     const pages = [];
-    const showPages = 5; // Número de páginas para mostrar
+    const showPages = 5;
 
     let startPage = Math.max(1, page - Math.floor(showPages / 2));
     let endPage = Math.min(totalPages, startPage + showPages - 1);
 
-    // Ajusta o início se estivermos no final
     if (endPage - startPage < showPages - 1) {
       startPage = Math.max(1, endPage - showPages + 1);
     }
 
-    // Adiciona "..." no início se necessário
+    // First page
     if (startPage > 1) {
       pages.push(1);
       if (startPage > 2) {
@@ -34,12 +39,12 @@ export const Pagination = ({ page, totalPages, query }: PaginationProps) => {
       }
     }
 
-    // Adiciona as páginas do meio
+    // Pages in the middle
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
 
-    // Adiciona "..." no final se necessário
+    // Last page
     if (endPage < totalPages) {
       if (endPage < totalPages - 1) {
         pages.push("...");
@@ -52,131 +57,86 @@ export const Pagination = ({ page, totalPages, query }: PaginationProps) => {
 
   const pageNumbers = generatePageNumbers();
 
+  const baseButtonClass =
+    "flex items-center justify-center min-w-10 h-10 text-sm font-medium transition-all rounded-lg";
+  const activeButtonClass = `${baseButtonClass} bg-red-9 text-white`;
+  const inactiveButtonClass = `${baseButtonClass} bg-gray-3 px-1 text-gray-12 border border-gray-5 hover:bg-gray-4 hover:border-gray-6`;
+  const disabledButtonClass = `${baseButtonClass} bg-gray-2 px-1 text-gray-8 cursor-not-allowed border border-gray-4`;
+
   return (
-    <nav
-      role="navigation"
-      aria-label="Navegação de Paginação"
-      className="flex items-center justify-between container mx-auto my-4"
-    >
-      {/* Mobile view */}
-      <div className="flex justify-between flex-1 sm:hidden">
+    <div className="flex items-center justify-between gap-4 py-4">
+      <div className="flex items-center text-sm text-gray-11">
+        <span>
+          Página <span className="font-medium text-gray-12">{page}</span> de{" "}
+          <span className="font-medium text-gray-12">{totalPages}</span>
+        </span>
+      </div>
+
+      {/* Navigation controls */}
+      <div className="flex items-center gap-2">
+        {/* Previous button */}
         {isFirstPage ? (
-          <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md dark:text-gray-600 dark:bg-gray-800 dark:border-gray-600">
-            Anterior
+          <span className={disabledButtonClass}>
+            <ChevronLeftIcon className="size-4" />
+            <span className="hidden sm:inline ml-1">Anterior</span>
           </span>
         ) : (
           <Link
-            href={{
-              query: { page: page - 1, query }
-            }}
-            className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300"
+            href={{ query: { page: page - 1, query } }}
+            className={inactiveButtonClass}
           >
-            Anterior
+            <ChevronLeftIcon className="size-4" />
+            <span className="hidden sm:inline ml-1">Anterior</span>
           </Link>
         )}
 
-        {hasMorePages ? (
-          <Link
-            href={{
-              query: { page: page + 1, query }
-            }}
-            className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300"
-          >
-            Próximo
-          </Link>
-        ) : (
-          <span className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md dark:text-gray-600 dark:bg-gray-800 dark:border-gray-600">
-            Próximo
-          </span>
-        )}
-      </div>
-
-      {/* Desktop view */}
-      <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm text-gray-700 leading-5 dark:text-gray-400">
-            Mostrando página <span className="font-medium">{page}</span> de{" "}
-            <span className="font-medium">{totalPages || 0}</span>
-          </p>
-        </div>
-
-        <div>
-          <span className="relative z-0 inline-flex shadow-xs rounded-md">
-            {/* Previous Page Link */}
-            {isFirstPage ? (
-              <span aria-disabled="true" aria-label="Página anterior">
-                <span className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5 dark:bg-gray-800 dark:border-gray-600">
-                  <ChevronLeftIcon className="w-5 h-5" />
-                </span>
-              </span>
-            ) : (
-              <Link
-                href={`?page=${page - 1}`}
-                className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:active:bg-gray-700 dark:focus:border-blue-800"
-                aria-label="Página anterior"
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Link>
-            )}
-
-            {/* Page Numbers */}
-            {pageNumbers.map((pageNum, index) => {
-              if (pageNum === "...") {
-                return (
-                  <span
-                    key={`dots-${index}`}
-                    className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 cursor-default leading-5 dark:bg-gray-800 dark:border-gray-600"
-                  >
-                    ...
-                  </span>
-                );
-              }
-
-              const isCurrentPage = pageNum === page;
-
-              return isCurrentPage ? (
+        {/* Page numbers */}
+        <div className="hidden sm:flex items-center gap-1">
+          {pageNumbers.map((pageNum, index) => {
+            if (pageNum === "...") {
+              return (
                 <span
-                  key={pageNum}
-                  aria-current="page"
-                  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default leading-5 dark:bg-blue-700 dark:border-blue-700"
+                  key={`dots-${index}`}
+                  className="flex items-center justify-center min-w-[40px] h-10 text-gray-8"
                 >
-                  {pageNum}
+                  <MoreHorizontal className="size-4" />
                 </span>
-              ) : (
-                <Link
-                  key={pageNum}
-                  href={{
-                    query: { page: pageNum as number, query }
-                  }}
-                  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400 dark:hover:text-gray-300 dark:active:bg-gray-700 dark:focus:border-blue-800"
-                  aria-label={`Ir para página ${pageNum}`}
-                >
-                  {pageNum}
-                </Link>
               );
-            })}
+            }
 
-            {/* Next Page Link */}
-            {hasMorePages ? (
-              <Link
-                href={{
-                  query: { page: page + 1, query }
-                }}
-                className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-hidden focus:ring-3 ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:active:bg-gray-700 dark:focus:border-blue-800"
-                aria-label="Próxima página"
-              >
-                <ChevronRightIcon className="w-5 h-5" />
-              </Link>
-            ) : (
-              <span aria-disabled="true" aria-label="Próxima página">
-                <span className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5 dark:bg-gray-800 dark:border-gray-600">
-                  <ChevronRightIcon className="w-5 h-5" />
-                </span>
+            const isCurrentPage = pageNum === page;
+
+            return isCurrentPage ? (
+              <span key={pageNum} className={activeButtonClass}>
+                {pageNum}
               </span>
-            )}
-          </span>
+            ) : (
+              <Link
+                key={pageNum}
+                href={{ query: { page: pageNum as number, query } }}
+                className={inactiveButtonClass}
+              >
+                {pageNum}
+              </Link>
+            );
+          })}
         </div>
+
+        {isLastPage ? (
+          <span className={disabledButtonClass}>
+            <span className="hidden sm:inline mr-1">Próximo</span>
+            <ChevronRightIcon className="size-4" />
+          </span>
+        ) : (
+          <Link
+            href={{ query: { page: page + 1, query } }}
+            className={inactiveButtonClass}
+          >
+            <span className="hidden sm:inline">Próximo</span>
+            <ChevronRightIcon className="size-4" />
+          </Link>
+        )}
       </div>
-    </nav>
+    </div>
   );
 };

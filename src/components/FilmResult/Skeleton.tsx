@@ -1,32 +1,51 @@
-import { Loader, Star } from "lucide-react";
+import { Loader } from "lucide-react";
 
 export const Skeleton = () => {
   return (
-    <div className="bg-black-bright text-white flex flex-col md:flex-row cursor-pointer rounded-lg shadow-slate-700 shadow-[0_0_2px]">
-      <div className="w-56 h-[336px] bg-slate-200 animate-pulse md:h-48 mx-auto md:w-32 md:max-w-[128px] object-cover rounded-l-[5px] flex">
-        <Loader size={32} className="m-auto text-gray-500" />
-      </div>
-      <div className="ml-2 py-3 flex-1">
-        <div className="h-4 animate-pulse bg-linear-to-r rounded-sm to-slate-500 from-gray-600 mb-2 max-w-2xl w-full"></div>
-        <div className="flex animate-pulse">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <Star
-              fill="currentColor"
-              key={index}
-              className="w-3 h-3 text-yellow-400"
-            />
-          ))}
-          {Array.from({ length: 10 - 5 }).map((_, index) => (
-            <Star key={index} className="w-3 h-3 text-white" />
-          ))}
+    <div className="bg-gray-2/30 border border-gray-4 rounded-xl overflow-hidden animate-pulse">
+      <div className="flex flex-col sm:flex-row">
+        {/* Poster skeleton */}
+        <div className="relative sm:w-48 sm:flex-shrink-0">
+          <div className="aspect-[2/3] sm:h-64 bg-gray-5 flex items-center justify-center">
+            <Loader className="w-8 h-8 text-gray-8 animate-spin" />
+          </div>
         </div>
-        <div>
-          <div className="h-2.5 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 w-48 mb-4"></div>
-          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[360px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 mb-2.5 max-w-[460px]"></div>
-          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[330px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[300px] mb-2.5"></div>
-          <div className="h-2 animate-pulse rounded-full bg-linear-to-r to-slate-500 from-gray-600 max-w-[360px]"></div>
+        
+        {/* Conteúdo skeleton */}
+        <div className="flex-1 p-6">
+          <div className="space-y-3">
+            {/* Título */}
+            <div className="space-y-2">
+              <div className="h-7 bg-gray-5 rounded-lg w-3/4" />
+              <div className="flex gap-4">
+                <div className="h-4 bg-gray-5 rounded w-16" />
+                <div className="h-4 bg-gray-5 rounded w-12" />
+              </div>
+            </div>
+            
+            {/* Rating */}
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="w-4 h-4 bg-gray-5 rounded" />
+                ))}
+              </div>
+              <div className="h-4 bg-gray-5 rounded w-12" />
+              <div className="h-4 bg-gray-5 rounded w-20" />
+            </div>
+            
+            {/* Sinopse */}
+            <div className="space-y-2">
+              <div className="h-4 bg-gray-5 rounded w-full" />
+              <div className="h-4 bg-gray-5 rounded w-full" />
+              <div className="h-4 bg-gray-5 rounded w-3/4" />
+            </div>
+            
+            {/* Botões */}
+            <div className="flex gap-3 pt-2">
+              <div className="h-10 bg-gray-5 rounded-lg w-24" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
