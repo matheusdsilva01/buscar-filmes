@@ -20,7 +20,6 @@
     "react",
     "@typescript-eslint",
     "prettier",
-    "eslint-plugin-testing-library",
     "eslint-plugin-import-helpers"
   ],
   "rules": {

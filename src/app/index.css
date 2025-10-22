@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+@config '../../tailwind.config.js';
+
+body, html {
+    @apply bg-background leading-none;
+}
+
+.dark, .dark-theme, :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  --color-background: #111;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.dark, .dark-theme {
+  --gray-1: #111113;
+  --gray-2: #19191b;
+  --gray-3: #222325;
+  --gray-4: #292a2e;
+  --gray-5: #303136;
+  --gray-6: #393a40;
+  --gray-7: #46484f;
+  --gray-8: #5f606a;
+  --gray-9: #6c6e79;
+  --gray-10: #797b86;
+  --gray-11: #b2b3bd;
+  --gray-12: #eeeef0;
+
+  --gray-a1: #1111bb03;
+  --gray-a2: #cbcbf90b;
+  --gray-a3: #d6e2f916;
+  --gray-a4: #d1d9f920;
+  --gray-a5: #d7ddfd28;
+  --gray-a6: #d9defc33;
+  --gray-a7: #dae2fd43;
+  --gray-a8: #e0e3fd60;
+  --gray-a9: #e0e4fd70;
+  --gray-a10: #e3e7fd7e;
+  --gray-a11: #eff0feb9;
+  --gray-a12: #fdfdffef;
+
+  --gray-contrast: #FFFFFF;
+  --gray-surface: rgba(0, 0, 0, 0.05);
+  --gray-indicator: #6c6e79;
+  --gray-track: #6c6e79;
+}
+
+.dark, .dark-theme {
+  --red-1: #170f0e;
+  --red-2: #201311;
+  --red-3: #3c120e;
+  --red-4: #530b0a;
+  --red-5: #641210;
+  --red-6: #76201c;
+  --red-7: #8f312a;
+  --red-8: #b94038;
+  --red-9: #dc2626;
+  --red-10: #b63d36;
+  --red-11: #ff9083;
+  --red-12: #ffd1ca;
+
+  --red-a1: #ec000007;
+  --red-a2: #f22f1111;
+  --red-a3: #fb17012f;
+  --red-a4: #ff000047;
+  --red-a5: #ff140f59;
+  --red-a6: #fd342b6d;
+  --red-a7: #ff4e4187;
+  --red-a8: #ff5448b4;
+  --red-a9: #ff2a2ada;
+  --red-a10: #ff5147b1;
+  --red-a11: #ff9083;
+  --red-a12: #ffd1ca;
+
+  --red-contrast: #fff;
+  --red-surface: #2f151180;
+  --red-indicator: #dc2626;
+  --red-track: #dc2626;
+}

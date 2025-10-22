@@ -1,10 +1,10 @@
-export interface Iimages {
+export interface IImages {
   id: number;
-  backdrops: backdrops[];
-  posters: posters[];
+  backdrops: Backdrop[];
+  posters: Posters[];
 }
 
-interface backdrops {
+export interface Backdrop {
   aspect_ratio: number;
   height: number;
   iso_639_1: string | null;
@@ -14,7 +14,7 @@ interface backdrops {
   width: number;
 }
 
-interface posters {
+interface Posters {
   aspect_ratio: number;
   height: number;
   iso_639_1: string | null;

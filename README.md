@@ -7,10 +7,10 @@ Projeto feito com Next, consumindo a API de filmes da www.themoviedb.org/ com in
 ## Projeto desenvolvido utilizando as seguintes tecnologias
 
 - React
+- NextJs (v14.1.0)
 - Typescript
 - Tailwind css
-- Axios
-- Swiper
+- Fetch
 
 # Este projeto foi inicializado com [Create react app](https://create-react-app.dev/).
 
