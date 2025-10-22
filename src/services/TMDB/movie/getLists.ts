@@ -1,8 +1,8 @@
 import { api } from "lib/api";
-import { IFilmsPopular } from "types/Film";
+import { IMoviePopular } from "types/Movie";
 
 interface ResponseFilmPopular {
-  results: IFilmsPopular[];
+  results: IMoviePopular[];
 }
 
 export type FilterOption = "trending" | "top_rated" | "popular";

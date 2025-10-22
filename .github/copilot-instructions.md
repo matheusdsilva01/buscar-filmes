@@ -4,8 +4,8 @@
 Este projeto é uma aplicação Next.js (v14.1.0) que consome a API do TheMovieDB para busca e exibição de filmes. O foco é praticar consumo de APIs e desenvolvimento com Next.js, React, TypeScript e Tailwind CSS.
 
 ## Estrutura Principal
-- **src/app/**: Páginas principais, rotas dinâmicas (`film/[id]/`), busca (`search/`), layout global.
-- **src/components/**: Componentes reutilizáveis (Sidebar, CardFilm, FilmResult, Skeletons, Footer, etc).
+- **src/app/**: Páginas principais, rotas dinâmicas (`movie/[id]/`), busca (`search/`), layout global.
+- **src/components/**: Componentes reutilizáveis (Sidebar, CardMovie, MovieResult, Skeletons, Footer, etc).
 - **src/hooks/**: Hooks customizados, incluindo integração com TMDB (`useSearchMovies`).
 - **src/services/**: Serviços para chamadas à API, especialmente `TMDB/searchMovies.ts`.
 - **src/types/**: Tipos TypeScript para dados de filmes, imagens e providers.
@@ -18,7 +18,7 @@ Este projeto é uma aplicação Next.js (v14.1.0) que consome a API do TheMovieD
 - O padrão de comunicação entre componentes é via props e context quando necessário.
 
 ## Convenções Específicas
-- **Skeletons**: Componentes de loading são padronizados em `CardSkeleton` e `FilmResult/Skeleton.tsx`.
+- **Skeletons**: Componentes de loading são padronizados em `CardSkeleton` e `MovieFilmResult/Skeleton.tsx`.
 - **Paginação**: Implementada em `Pagination/index.tsx`.
 - **Filtros**: Tabs de filtro em `TabsFilterMovie/index.tsx`.
 - **Layout**: O layout global está em `app/layout.tsx` e o cabeçalho em `layouts/Header/`.
@@ -51,12 +51,12 @@ Este projeto é uma aplicação Next.js (v14.1.0) que consome a API do TheMovieD
 - Para buscar detalhes de filme:
   ```ts
   // src/services/TMDB/getMovieDetails.ts
-  const film = await getMovieDetails(id);
+  const movie = await getMovieDetails(id);
   ```
 - Para exibir resultados:
   ```tsx
-  // src/components/FilmResult/index.tsx
-  <FilmResult films={data} />
+  // src/components/MovieResult/index.tsx
+  <MovieResult movie={data} />
   ```
 - Para mostrar loading:
   ```tsx

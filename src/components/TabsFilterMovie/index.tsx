@@ -11,23 +11,23 @@ export const TabsFilterMovie = () => {
     "popular") as FilterOption;
 
   const options = [
-    { 
-      value: "popular", 
+    {
+      value: "popular",
       label: "Populares",
       icon: Flame,
-      description: "Os filmes mais assistidos" 
+      description: "Os filmes mais assistidos"
     },
-    { 
-      value: "trending", 
+    {
+      value: "trending",
       label: "Em alta",
       icon: TrendingUp,
-      description: "Tendências da semana" 
+      description: "Tendências da semana"
     },
-    { 
-      value: "top_rated", 
+    {
+      value: "top_rated",
       label: "Bem avaliados",
       icon: Star,
-      description: "Melhores notas do público" 
+      description: "Melhores notas do público"
     }
   ];
 
@@ -44,12 +44,12 @@ export const TabsFilterMovie = () => {
             </p>
           </div>
         </div>
-        
+
         <div className="flex overflow-x-auto gap-2 pb-4">
           {options.map(option => {
             const Icon = option.icon;
             const isSelected = option.value === selectedFilter;
-            
+
             return (
               <Link
                 href={`?query=${option.value}`}
@@ -57,8 +57,8 @@ export const TabsFilterMovie = () => {
                 key={option.value}
                 className={`relative inline-flex items-center shrink-0 gap-1.5 px-3 py-1.5 md:gap-3 md:px-6 md:py-3 rounded-md font-medium text-sm transition-all ${
                   isSelected
-                    ? 'bg-red-9 text-white'
-                    : 'bg-gray-3/50 hover:bg-gray-4/70 text-gray-11 hover:text-gray-12 border border-gray-5/50 hover:border-gray-6/50'
+                    ? "bg-red-9 text-white"
+                    : "bg-gray-3/50 hover:bg-gray-4/70 text-gray-11 hover:text-gray-12 border border-gray-5/50 hover:border-gray-6/50"
                 }`}
               >
                 <Icon className="size-4" />

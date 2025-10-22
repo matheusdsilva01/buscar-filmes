@@ -1,8 +1,8 @@
 import { api } from "lib/api";
-import { IFilm } from "types/Film";
+import { IMovie } from "types/Movie";
 
 interface IResultResponse {
-  results: IFilm[];
+  results: IMovie[];
   total_pages: number;
   total_results: number;
   page: number;

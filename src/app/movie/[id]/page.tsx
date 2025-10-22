@@ -3,56 +3,56 @@ import Image from "next/image";
 import Link from "next/link";
 import { Key } from "react";
 
-import { 
-  getMovieDetails, 
-  getMovieProviders, 
+import {
+  getMovieDetails,
+  getMovieProviders,
   getMovieVideos,
-  getMovieImages 
+  getMovieImages
 } from "services/TMDB";
-import { translateStatusEnToPt } from "util/translateStatusFilm";
+import { translateStatusEnToPt } from "util/translateStatusMovie";
 
-interface FilmDetailsProps {
+interface MovieDetailsProps {
   params: {
     id: string;
   };
 }
 
-const FilmDetails = async ({ params }: FilmDetailsProps) => {
+const MovieDetails = async ({ params }: MovieDetailsProps) => {
   const id = params.id;
 
-  const [film, providersResponse, videosResponse, images] = await Promise.all([
+  const [movie, providersResponse, videosResponse, images] = await Promise.all([
     getMovieDetails(id),
     getMovieProviders(id),
     getMovieVideos(id),
     getMovieImages({ id })
   ]);
 
-  const providersFilm = providersResponse.results.BR || {};
+  const providersMovie = providersResponse.results.BR || {};
   const videos = videosResponse.results;
 
   return (
     <>
-      {film && (
+      {movie && (
         <Head>
-          <title>Buscar filmes | {`${film.title}`}</title>
+          <title>Buscar filmes | {`${movie.title}`}</title>
           <meta
             property="og:title"
-            content={`Buscar filmes | ${film.title}`}
-            key={`Buscar filmes | ${film.title}`}
+            content={`Buscar filmes | ${movie.title}`}
+            key={`Buscar filmes | ${movie.title}`}
           />
         </Head>
       )}
       <div className="px-14 pt-5 min-h-screen text-white">
         <section className="flex px-2 py-1 flex-row flex-wrap lg:flex-nowrap justify-center lg:justify-start relative">
-          {film?.backdrop_path && (
+          {movie?.backdrop_path && (
             <div className="absolute h-full w-full -z-10 inset-0">
               <Image
                 priority
                 width={1920}
                 height={1080}
                 className="w-full object-cover max-w-(--breakpoint-2xl) m-auto blur-3xl"
-                src={`https://image.tmdb.org/t/p/original${film?.backdrop_path}`}
-                alt={`Backdrop do filme: ${film?.title}`}
+                src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
+                alt={`Backdrop do filme: ${movie?.title}`}
               />
             </div>
           )}
@@ -61,26 +61,26 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
             height={608}
             className="w-96 object-cover flex"
             src={
-              film?.poster_path
-                ? `https://image.tmdb.org/t/p/w500${film?.poster_path}`
+              movie?.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
                 : "/icons/imgError.svg"
             }
-            alt={`Poster do filme: ${film?.title}`}
+            alt={`Poster do filme: ${movie?.title}`}
           />
           <div className="ml-0 lg:ml-4">
             <div>
-              <h1 className="text-3xl lg:text-5xl">{film?.title}</h1>
-              <h6 className="italic">{film?.tagline}</h6>
+              <h1 className="text-3xl lg:text-5xl">{movie?.title}</h1>
+              <h6 className="italic">{movie?.tagline}</h6>
             </div>
             <div>
-              <p className="text-xl mt-4 font-thin">{film?.overview}</p>
+              <p className="text-xl mt-4 font-thin">{movie?.overview}</p>
               {videos?.length > 0 && (
                 <div className="mt-8 flex justify-center md:justify-start">
                   <iframe
                     className="aspect-video w-full max-w-(--breakpoint-md)"
                     src={`https://www.youtube.com/embed/${videos[0].key}`}
                     allowFullScreen
-                    title={`Trailer ${film?.title}`}
+                    title={`Trailer ${movie?.title}`}
                   ></iframe>
                 </div>
               )}
@@ -92,22 +92,22 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
             <h1 className="text-2xl">Informações:</h1>
             <ul>
               <li>
-                <strong>Status:</strong> {translateStatusEnToPt(film?.status)}
+                <strong>Status:</strong> {translateStatusEnToPt(movie?.status)}
               </li>
               <li>
                 <strong>Lançamento:</strong>{" "}
-                {film?.release_date
-                  ? new Date(film?.release_date).toLocaleDateString()
+                {movie?.release_date
+                  ? new Date(movie?.release_date).toLocaleDateString()
                   : "Sem data prevista"}
               </li>
               <li>
                 <strong>Duração:</strong>{" "}
-                {film?.runtime &&
-                  `${Math.floor(film.runtime / 60)}h ${film.runtime % 60}m`}
+                {movie?.runtime &&
+                  `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`}
               </li>
               <li>
                 <strong>Gênero:</strong>{" "}
-                {film?.genres
+                {movie?.genres
                   .map((genre: { name: any }) => genre.name)
                   .join(", ")}
                 .
@@ -121,8 +121,8 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
               <h3>Alugar:</h3>
             </strong>
             <ul className="flex flex-row gap-2">
-              {providersFilm?.rent ? (
-                providersFilm?.rent.map(
+              {providersMovie?.rent ? (
+                providersMovie?.rent.map(
                   (provider: {
                     provider_id: Key | null | undefined;
                     logo_path: any;
@@ -130,7 +130,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                   }) => (
                     <li key={provider.provider_id} className="flex flex-row">
                       <a
-                        href={providersFilm.link}
+                        href={providersMovie.link}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -155,8 +155,8 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
               <h3>Stream:</h3>
             </strong>
             <ul className="flex flex-row gap-2">
-              {providersFilm?.flatrate ? (
-                providersFilm?.flatrate.map(
+              {providersMovie?.flatrate ? (
+                providersMovie?.flatrate.map(
                   (provider: {
                     provider_id: Key | null | undefined;
                     logo_path: any;
@@ -164,7 +164,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                   }) => (
                     <li key={provider.provider_id} className="flex flex-row">
                       <a
-                        href={providersFilm.link}
+                        href={providersMovie.link}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -187,8 +187,8 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
               <h3>Comprar:</h3>
             </strong>
             <ul className="flex flex-row gap-2">
-              {providersFilm?.buy ? (
-                providersFilm?.buy.map(
+              {providersMovie?.buy ? (
+                providersMovie?.buy.map(
                   (provider: {
                     provider_id: Key | null | undefined;
                     logo_path: any;
@@ -196,7 +196,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                   }) => (
                     <li key={provider.provider_id} className="flex flex-row">
                       <Link
-                        href={providersFilm.link}
+                        href={providersMovie.link}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -235,7 +235,7 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
                       height={281}
                       className="w-full max-w-[250px] object-cover rounded-lg mb-4"
                       src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                      alt={`Backdrop do filme: ${film?.title}`}
+                      alt={`Backdrop do filme: ${movie?.title}`}
                     />
                   </Link>
                 )
@@ -245,18 +245,18 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
         <section className="my-6">
           <h3>Produzido por: </h3>
           <div className="flex items-center flex-wrap flex-row w-full py-6 px-3 gap-x-8 bg-black-bright">
-            {film?.production_companies.map(companie =>
-              companie.logo_path ? (
+            {movie?.production_companies.map(company =>
+              company.logo_path ? (
                 <Image
                   width={100}
                   height={80}
-                  key={companie.id}
+                  key={company.id}
                   className="object-contain max-h-[80px] w-full max-w-[100px]"
-                  src={`https://image.tmdb.org/t/p/original${companie.logo_path}`}
-                  alt={(companie.name as string) || "alt"}
+                  src={`https://image.tmdb.org/t/p/original${company.logo_path}`}
+                  alt={(company.name as string) || "alt"}
                 />
               ) : (
-                <p key={companie.id}>{companie.name}</p>
+                <p key={company.id}>{company.name}</p>
               )
             )}
           </div>
@@ -266,53 +266,4 @@ const FilmDetails = async ({ params }: FilmDetailsProps) => {
   );
 };
 
-export default FilmDetails;
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const filmMostPopulars = await api
-//     .get("/movie/popular")
-//     .then(response => response.data.results);
-
-//   const paths = filmMostPopulars.map((film: IFilm) => ({
-//     params: { id: film.id.toString() }
-//   }));
-
-//   return {
-//     paths,
-//     fallback: true
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-//   const { id } = params;
-//   const film = await api.get(`/movie/${id}`).then(response => response.data);
-
-//   const providersFilm = await api
-//     .get(`/movie/${id}/watch/providers`)
-//     .then(response =>
-//       response.data.results.BR ? response.data.results.BR : {}
-//     );
-
-//   const videos = await api
-//     .get(`/movie/${id}/videos`)
-//     .then(response => response.data.results);
-
-//   const images = await api
-//     .get(`/movie/${id}/images`, {
-//       params: {
-//         language: ""
-//       }
-//     })
-//     .then(response => response.data);
-
-//   return {
-//     props: {
-//       film,
-//       providersFilm,
-//       videos,
-//       images
-//     },
-//     // 604800 seg
-//     revalidate: 60 * 60 * 24 * 7
-//   };
-// };
+export default MovieDetails;

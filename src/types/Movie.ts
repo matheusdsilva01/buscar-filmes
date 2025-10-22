@@ -1,4 +1,4 @@
-export interface IFilm {
+export interface IMovie {
   adult: boolean;
   backdrop_path: string | null;
   belongs_to_collection: null;
@@ -26,7 +26,7 @@ export interface IFilm {
   vote_count: number;
 }
 
-export interface IFilmDetails {
+export interface IMovieDetails {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: BelongsToCollection;
@@ -54,7 +54,7 @@ export interface IFilmDetails {
   vote_count: number;
 }
 
-export interface IFilmsPopular {
+export interface IMoviePopular {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];

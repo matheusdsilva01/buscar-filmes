@@ -1,6 +1,6 @@
 import { api } from "lib/api";
-import { IFilmDetails } from "types/Film";
+import { IMovieDetails } from "types/Movie";
 
 export function getMovieDetails(id: string) {
-  return api.get<IFilmDetails>(`/movie/${id}`);
+  return api.get<IMovieDetails>(`/movie/${id}`);
 }

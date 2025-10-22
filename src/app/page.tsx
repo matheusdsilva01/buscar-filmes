@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { MoviesHighlights } from "components/MoviesHighlights";
 import { TabsFilterMovie } from "components/TabsFilterMovie";
-import { Info, Star, Play, Plus, TrendingUp } from "lucide-react";
+import { Info, Star, Play, TrendingUp } from "lucide-react";
 import { FilterOption, getPopularMovies } from "services/TMDB";
 
 type Props = {
@@ -55,16 +55,16 @@ const Home = async (props: Props) => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
-                href={`film/${mostPopularMovie.id}`}
+              <Link
+                href={`movie/${mostPopularMovie.id}`}
                 className="inline-flex items-center justify-center gap-3 bg-red-9 hover:bg-red-10 text-white md:px-8 md:py-4 px-4 py-2.5 rounded-lg font-semibold text-md transition-all"
               >
                 <Play className="w-4 h-4" />
                 Assistir agora
               </Link>
 
-              <Link 
-                href={`film/${mostPopularMovie.id}`}
+              <Link
+                href={`movie/${mostPopularMovie.id}`}
                 className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 text-white md:px-8 md:py-4 px-4 py-2.5 rounded-lg font-semibold text-md transition-all"
               >
                 <Info className="w-4 h-4" />

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Skeleton } from "components/FilmResult/Skeleton";
+import { Skeleton } from "components/MovieResult/Skeleton";
 import { Search } from "lucide-react";
 
 const Loading = () => {
@@ -23,7 +23,6 @@ const Loading = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
         <div className="mb-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4">
             <div className="w-32 h-4 bg-gray-5 rounded animate-pulse" />
@@ -31,7 +30,10 @@ const Loading = () => {
               <div className="w-20 h-10 bg-gray-5 rounded-lg animate-pulse" />
               <div className="hidden sm:flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="w-10 h-10 bg-gray-5 rounded-lg animate-pulse" />
+                  <div
+                    key={i}
+                    className="w-10 h-10 bg-gray-5 rounded-lg animate-pulse"
+                  />
                 ))}
               </div>
               <div className="w-20 h-10 bg-gray-5 rounded-lg animate-pulse" />
@@ -59,7 +61,10 @@ const Loading = () => {
               <div className="w-20 h-10 bg-gray-5 rounded-lg animate-pulse" />
               <div className="hidden sm:flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="w-10 h-10 bg-gray-5 rounded-lg animate-pulse" />
+                  <div
+                    key={i}
+                    className="w-10 h-10 bg-gray-5 rounded-lg animate-pulse"
+                  />
                 ))}
               </div>
               <div className="w-20 h-10 bg-gray-5 rounded-lg animate-pulse" />

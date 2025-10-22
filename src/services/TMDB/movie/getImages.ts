@@ -1,5 +1,5 @@
 import { api } from "lib/api";
-import { Iimages } from "types/Images";
+import { IImages } from "types/Images";
 
 type GetMovieImagesProps = {
   id: string;
@@ -10,7 +10,7 @@ export function getMovieImages({
   id, 
   includeImageLanguage = "en,null" 
 }: GetMovieImagesProps) {
-  return api.get<Iimages>(`/movie/${id}/images`, {
+  return api.get<IImages>(`/movie/${id}/images`, {
     params: {
       include_image_language: includeImageLanguage
     }

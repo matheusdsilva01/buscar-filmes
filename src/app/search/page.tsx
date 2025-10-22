@@ -1,8 +1,8 @@
-import { FilmResult } from "components/FilmResult";
+import { MovieResult } from "components/MovieResult";
 import { Pagination } from "components/Pagination";
 import { SearchForm } from "components/SearchForm";
-import { searchMovies } from "services/TMDB";
 import { Search } from "lucide-react";
+import { searchMovies } from "services/TMDB";
 
 type PageProps = {
   searchParams: {
@@ -13,7 +13,11 @@ type PageProps = {
 
 const ResultSearch = async ({ searchParams }: PageProps) => {
   const { query = "", page = 1 } = searchParams;
-  const { results, total_pages: totalPages, total_results: totalResults } = await searchMovies({
+  const {
+    results,
+    total_pages: totalPages,
+    total_results: totalResults
+  } = await searchMovies({
     query,
     page
   });
@@ -42,7 +46,8 @@ const ResultSearch = async ({ searchParams }: PageProps) => {
               Encontre seus filmes favoritos
             </h2>
             <p className="text-gray-11 max-w-md">
-              Digite o nome de um filme na busca acima para encontrar informações detalhadas, avaliações e mais.
+              Digite o nome de um filme na busca acima para encontrar
+              informações detalhadas, avaliações e mais.
             </p>
           </div>
         ) : !hasResults ? (
@@ -55,29 +60,39 @@ const ResultSearch = async ({ searchParams }: PageProps) => {
               Nenhum filme encontrado
             </h2>
             <p className="text-gray-11 max-w-md">
-              Tente usar palavras-chave diferentes ou verifique a ortografia da sua busca.
+              Tente usar palavras-chave diferentes ou verifique a ortografia da
+              sua busca.
             </p>
           </div>
         ) : (
           // Results state
           <>
             <div className="mb-6">
-              <Pagination page={currentPageNum} totalPages={totalPages} query={query} />
+              <Pagination
+                page={currentPageNum}
+                totalPages={totalPages}
+                query={query}
+              />
             </div>
 
             <div className="mb-2">
               <p className="text-gray-12 text-sm">
-                <span className="font-medium text-red-9">{totalResults}</span> resultados encontrados para "{query}"
+                <span className="font-medium text-red-9">{totalResults}</span>{" "}
+                resultados encontrados para &quot;{query}&quot;
               </p>
             </div>
             <div className="flex flex-col gap-y-4">
-              {results.map(film => (
-                <FilmResult key={film.id} film={film} />
+              {results.map(movie => (
+                <MovieResult key={movie.id} movie={movie} />
               ))}
             </div>
 
             <div>
-              <Pagination page={currentPageNum} totalPages={totalPages} query={query} />
+              <Pagination
+                page={currentPageNum}
+                totalPages={totalPages}
+                query={query}
+              />
             </div>
           </>
         )}

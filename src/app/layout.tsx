@@ -9,7 +9,8 @@ import { Header } from "layouts/Header";
 export const metadata: Metadata = {
   title: "Buscar filmes",
   description: "Projeto pessoal para busca de filmes",
-  keywords: "filmes, busca, filmes online, filmes grátis"
+  keywords:
+    "filmes, busca, filmes online, buscar filmes, avaliações de filmes, onde assistir filmes"
 };
 
 const inter = Inter({

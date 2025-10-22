@@ -2,29 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Star, Calendar, TrendingUp } from "lucide-react";
-import { IFilm, IFilmsPopular } from "types/Film";
+import { IMovie, IMoviePopular } from "types/Movie";
 
-interface cardFilmProps {
-  film: IFilm | IFilmsPopular;
+interface cardMovieProps {
+  movie: IMovie | IMoviePopular;
 }
 
-const CardFilm = ({ film }: cardFilmProps) => {
-  const rating = Number(film.vote_average?.toFixed(1)) || 0;
-  const year = film.release_date ? new Date(film.release_date).getFullYear() : null;
+const CardMovie = ({ movie }: cardMovieProps) => {
+  const rating = Number(movie.vote_average?.toFixed(1)) || 0;
+  const year = movie.release_date
+    ? new Date(movie.release_date).getFullYear()
+    : null;
   const isHighRated = rating >= 8.0;
-  const isPopular = film.popularity && film.popularity > 100;
+  const isPopular = movie.popularity && movie.popularity > 100;
 
   return (
     <Link
-      href={`film/${film.id}`}
+      href={`movie/${movie.id}`}
       className="group relative block cursor-pointer rounded-xl overflow-hidden bg-gray-2/50 border border-gray-5/50 hover:border-red-9/50 transition-all"
     >
       {/* Container da imagem */}
       <div className="relative overflow-hidden">
         <Image
-          key={`film-${film.id}`}
-          src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-          alt={`Poster do filme: ${film.title}`}
+          key={`film-${movie.id}`}
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={`Poster do filme: ${movie.title}`}
           placeholder="blur"
           blurDataURL="/load.png"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -63,15 +65,13 @@ const CardFilm = ({ film }: cardFilmProps) => {
                 <Star
                   key={i}
                   className={`size-3 ${
-                    i < Math.round(rating / 2) 
-                      ? "text-yellow-400 fill-current" 
+                    i < Math.round(rating / 2)
+                      ? "text-yellow-400 fill-current"
                       : "text-gray-6"
                   }`}
                 />
               ))}
-              <span className="text-xs text-gray-300 ml-1">
-                {rating}/10
-              </span>
+              <span className="text-xs text-gray-300 ml-1">{rating}/10</span>
             </div>
           </div>
         </div>
@@ -79,25 +79,19 @@ const CardFilm = ({ film }: cardFilmProps) => {
 
       <div className="p-4">
         <h3 className="font-semibold text-gray-12 text-sm leading-tight line-clamp-2 group-hover:text-red-9 transition-colors">
-          {film.title}
+          {movie.title}
         </h3>
-        
+
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-1">
             <Star className="size-3 text-yellow-400 fill-current" />
-            <span className="text-xs text-gray-11 font-medium">
-              {rating}
-            </span>
+            <span className="text-xs text-gray-11 font-medium">{rating}</span>
           </div>
-          {year && (
-            <span className="text-xs text-gray-10">
-              {year}
-            </span>
-          )}
+          {year && <span className="text-xs text-gray-10">{year}</span>}
         </div>
       </div>
     </Link>
   );
 };
 
-export default CardFilm;
+export default CardMovie;
