@@ -14,8 +14,8 @@ class ApiClient implements InstanceHTTPClient {
   private defaultHeaders: HeadersInit;
 
   constructor() {
-    const key = process.env.NEXT_PUBLIC_TMDB_API_KEY as string;
-    const url = process.env.NEXT_PUBLIC_TMDB_API_URL as string;
+    const key = process.env.TMDB_API_KEY as string;
+    const url = process.env.TMDB_API_URL as string;
 
     this.baseURL = url;
     this.defaultHeaders = {
