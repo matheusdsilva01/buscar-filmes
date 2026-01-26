@@ -52,7 +52,7 @@ const Sidebar = () => {
                   id="query"
                   name="query"
                   value={query}
-                  className="w-[250px] py-1 px-2 text-black font-light bg-black-bright rounded-xs outline-hidden border-1 border-transparent hover:shadow-md focus:border-white"
+                  className="w-[250px] py-1 px-2 text-black font-light rounded-xs outline-hidden border-1 border-transparent hover:shadow-md focus:border-white bg-zinc-50"
                   type="text"
                   onChange={e => setQuery(e.target.value)}
                   placeholder="Busca..."
