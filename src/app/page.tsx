@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 
-import { HeroSection } from "components/HeroSection";
-import { MoviesHighlights } from "components/MoviesHighlights";
-import { HeroSkeleton, MoviesGridSkeleton } from "components/Skeletons";
-import { TabsFilterMovie } from "components/TabsFilterMovie";
+import { HeroSection } from "components/pages/home/HeroSection";
+import { MoviesHighlights } from "components/pages/home/MoviesHighlights";
+import { TabsFilterMovie } from "components/pages/home/TabsFilterMovie";
+import { HeroSkeleton } from "components/ui/Skeletons/HeroSkeleton";
+import { MoviesGridSkeleton } from "components/ui/Skeletons/MoviesGridSkeleton";
 import { FilterOption } from "services/TMDB";
 
 type Props = {

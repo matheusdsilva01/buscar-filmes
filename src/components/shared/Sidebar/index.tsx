@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { Menu, X } from "lucide-react";
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [query, setQuery] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
   const pathname = usePathname();
@@ -68,5 +68,3 @@ const Sidebar = () => {
     </section>
   );
 };
-
-export default Sidebar;

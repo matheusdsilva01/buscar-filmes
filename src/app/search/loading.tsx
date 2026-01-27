@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Skeleton } from "components/MovieResult/Skeleton";
+import { MovieSkeleton } from "components/ui/Skeletons/MovieSkeleton";
 import { Search } from "lucide-react";
 
 const Loading = () => {
@@ -50,7 +50,7 @@ const Loading = () => {
 
         <div className="space-y-4 mb-8">
           {Array.from({ length: 10 }).map((_, index) => (
-            <Skeleton key={index} />
+            <MovieSkeleton key={index} />
           ))}
         </div>
 

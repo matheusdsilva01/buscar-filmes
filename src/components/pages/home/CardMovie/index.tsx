@@ -8,7 +8,7 @@ interface cardMovieProps {
   movie: IMovie | IMoviePopular;
 }
 
-const CardMovie = ({ movie }: cardMovieProps) => {
+export const CardMovie = ({ movie }: cardMovieProps) => {
   const rating = Number(movie.vote_average?.toFixed(1)) || 0;
   const year = movie.release_date
     ? new Date(movie.release_date).getFullYear()
@@ -93,5 +93,3 @@ const CardMovie = ({ movie }: cardMovieProps) => {
     </Link>
   );
 };
-
-export default CardMovie;

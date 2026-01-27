@@ -1,6 +1,6 @@
 import { Loader } from "lucide-react";
 
-export const Skeleton = () => {
+export const MovieSkeleton = () => {
   return (
     <div className="bg-gray-2/30 border border-gray-4 rounded-xl overflow-hidden animate-pulse">
       <div className="flex flex-col sm:flex-row">
@@ -10,7 +10,7 @@ export const Skeleton = () => {
             <Loader className="w-8 h-8 text-gray-8 animate-spin" />
           </div>
         </div>
-        
+
         {/* Conteúdo skeleton */}
         <div className="flex-1 p-6">
           <div className="space-y-3">
@@ -22,7 +22,7 @@ export const Skeleton = () => {
                 <div className="h-4 bg-gray-5 rounded w-12" />
               </div>
             </div>
-            
+
             {/* Rating */}
             <div className="flex items-center gap-2">
               <div className="flex gap-1">
@@ -33,14 +33,14 @@ export const Skeleton = () => {
               <div className="h-4 bg-gray-5 rounded w-12" />
               <div className="h-4 bg-gray-5 rounded w-20" />
             </div>
-            
+
             {/* Sinopse */}
             <div className="space-y-2">
               <div className="h-4 bg-gray-5 rounded w-full" />
               <div className="h-4 bg-gray-5 rounded w-full" />
               <div className="h-4 bg-gray-5 rounded w-3/4" />
             </div>
-            
+
             {/* Botões */}
             <div className="flex gap-3 pt-2">
               <div className="h-10 bg-gray-5 rounded-lg w-24" />

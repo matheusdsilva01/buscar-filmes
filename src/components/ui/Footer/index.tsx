@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Github, Heart } from "lucide-react";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="bg-gray-1 border-t border-gray-3 mt-20">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -32,5 +32,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;

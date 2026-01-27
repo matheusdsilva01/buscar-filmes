@@ -1,6 +1,6 @@
-import { MovieResult } from "components/MovieResult";
-import { Pagination } from "components/Pagination";
-import { SearchForm } from "components/SearchForm";
+import { MovieResult } from "components/pages/search/MovieResult";
+import { SearchForm } from "components/pages/search/SearchForm";
+import { Pagination } from "components/shared/Pagination";
 import { Search } from "lucide-react";
 import { searchMovies } from "services/TMDB";
 

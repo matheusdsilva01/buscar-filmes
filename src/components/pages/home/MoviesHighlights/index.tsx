@@ -1,4 +1,4 @@
-import CardMovie from "components/CardMovie/CardMovie";
+import { CardMovie } from "components/pages/home/CardMovie";
 import {
   FilterOption,
   getPopularMovies,
