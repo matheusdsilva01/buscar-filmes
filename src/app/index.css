@@ -1,12 +1,15 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @config '../../tailwind.config.js';
 
-body, html {
-    @apply bg-background leading-none;
+body,
+html {
+  @apply bg-background leading-none;
 }
 
-.dark, .dark-theme, :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+.dark,
+.dark-theme,
+:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
   --color-background: #111;
 }
 
@@ -14,7 +17,8 @@ html {
   scroll-behavior: smooth;
 }
 
-.dark, .dark-theme {
+.dark,
+.dark-theme {
   --gray-1: #111113;
   --gray-2: #19191b;
   --gray-3: #222325;
@@ -41,13 +45,14 @@ html {
   --gray-a11: #eff0feb9;
   --gray-a12: #fdfdffef;
 
-  --gray-contrast: #FFFFFF;
+  --gray-contrast: #ffffff;
   --gray-surface: rgba(0, 0, 0, 0.05);
   --gray-indicator: #6c6e79;
   --gray-track: #6c6e79;
 }
 
-.dark, .dark-theme {
+.dark,
+.dark-theme {
   --red-1: #170f0e;
   --red-2: #201311;
   --red-3: #3c120e;

@@ -1,21 +1,21 @@
-import { Suspense } from "react";
+import { Suspense } from "react"
 
 import {
   HeroSection,
   MoviesHighlights,
   TabsFilterMovie,
   FilterOption
-} from "features/movies";
-import { HeroSkeleton, MoviesGridSkeleton } from "shared/components";
+} from "@/features/movies"
+import { HeroSkeleton, MoviesGridSkeleton } from "@/shared/components"
 
 type Props = {
   searchParams: {
-    query?: FilterOption;
-  };
-};
+    query?: FilterOption
+  }
+}
 
 export default async function HomePage({ searchParams }: Props) {
-  const { query } = searchParams;
+  const { query } = searchParams
 
   return (
     <>
@@ -29,5 +29,5 @@ export default async function HomePage({ searchParams }: Props) {
         <MoviesHighlights filter={query} />
       </Suspense>
     </>
-  );
+  )
 }

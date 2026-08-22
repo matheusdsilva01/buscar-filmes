@@ -1,12 +1,12 @@
-export * from "./MovieCard";
-export { HeroSection } from "./HeroSection";
-export { MoviesHighlights } from "./MoviesHighlights";
-export { TabsFilterMovie } from "./TabsFilterMovie";
-export { SearchForm } from "./SearchForm";
-export { MovieHero } from "./MovieHero";
-export { MovieInfo } from "./MovieInfo";
-export { MovieCast } from "./MovieCast";
-export { MovieProviders } from "./MovieProviders";
-export { MovieGallery } from "./MovieGallery";
-export { SimilarMovies } from "./SimilarMovies";
-export { SectionHeader } from "./SectionHeader";
+export * from "./MovieCard"
+export { HeroSection } from "./HeroSection"
+export { MoviesHighlights } from "./MoviesHighlights"
+export { TabsFilterMovie } from "./TabsFilterMovie"
+export { SearchForm } from "./SearchForm"
+export { MovieHero } from "./MovieHero"
+export { MovieInfo } from "./MovieInfo"
+export { MovieCast } from "./MovieCast"
+export { MovieProviders } from "./MovieProviders"
+export { MovieGallery } from "./MovieGallery"
+export { SimilarMovies } from "./SimilarMovies"
+export { SectionHeader } from "./SectionHeader"

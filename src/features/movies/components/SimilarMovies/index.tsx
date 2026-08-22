@@ -1,25 +1,25 @@
-import { getMovieSimilar } from "../../api/get-movie-similar";
-import { Movie } from "../../types/Movie";
-import { MovieGridCard } from "../MovieCard";
-import { SectionHeader } from "../SectionHeader";
+import { getMovieSimilar } from "../../api/get-movie-similar"
+import { Movie } from "../../types/Movie"
+import { MovieGridCard } from "../MovieCard"
+import { SectionHeader } from "../SectionHeader"
 
 interface SimilarMoviesProps {
-  movieId?: string;
-  movies?: Movie[];
+  movieId?: string
+  movies?: Movie[]
 }
 
 export const SimilarMovies = async ({
   movieId,
   movies
 }: SimilarMoviesProps) => {
-  let list = movies;
+  let list = movies
   if (!list && movieId) {
-    const res = await getMovieSimilar(movieId);
-    list = res.results;
+    const res = await getMovieSimilar(movieId)
+    list = res.results
   }
 
-  const visibleMovies = list?.slice(0, 12) || [];
-  if (visibleMovies.length === 0) return null;
+  const visibleMovies = list?.slice(0, 12) || []
+  if (visibleMovies.length === 0) return null
 
   return (
     <section>
@@ -33,5 +33,5 @@ export const SimilarMovies = async ({
         ))}
       </div>
     </section>
-  );
-};
+  )
+}

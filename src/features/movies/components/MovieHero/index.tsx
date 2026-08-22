@@ -1,32 +1,32 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { Star, Play, Clock, Calendar, Users } from "lucide-react";
+import { Star, Play, Clock, Calendar, Users } from "lucide-react"
 
-import { MovieDetails } from "../../types/Movie";
-import { domainTranslator } from "../../utils/DomainTranslator";
+import { MovieDetails } from "../../types/Movie"
+import { domainTranslator } from "../../utils/DomainTranslator"
 
 interface MovieHeroProps {
-  movie: MovieDetails;
-  trailer?: { key: string; name: string };
+  movie: MovieDetails
+  trailer?: { key: string; name: string }
 }
 
 export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
-  const rating = Number(movie.vote_average?.toFixed(1)) || 0;
+  const rating = Number(movie.vote_average?.toFixed(1)) || 0
   const year = movie.release_date
     ? new Date(movie.release_date).getFullYear()
-    : null;
+    : null
 
-  const hours = movie.runtime ? Math.floor(movie.runtime / 60) : 0;
-  const minutes = movie.runtime ? movie.runtime % 60 : 0;
+  const hours = movie.runtime ? Math.floor(movie.runtime / 60) : 0
+  const minutes = movie.runtime ? movie.runtime % 60 : 0
 
   const styleBackgroundImage = movie.backdrop_path
     ? {
         backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`
       }
-    : undefined;
+    : undefined
 
   const trailerEmbedUrl =
-    trailer && `https://www.youtube.com/embed/${trailer.key}`;
+    trailer && `https://www.youtube.com/embed/${trailer.key}`
 
   return (
     <section
@@ -34,7 +34,7 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
       className="relative flex min-h-[50vh] overflow-hidden bg-cover bg-center bg-no-repeat text-white sm:min-h-[70vh] lg:-mt-[70px]"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
-      <div className="from-background absolute right-0 bottom-0 left-0 h-32 bg-gradient-to-t to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
       <div className="relative z-10 flex w-full items-end px-6 py-8 pt-24 sm:px-12 lg:px-16 lg:pt-32">
         <div className="mx-auto flex w-full max-w-7xl gap-8">
@@ -43,7 +43,7 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
               <Image
                 width={300}
                 height={450}
-                className="border-gray-5/50 w-64 rounded-xl border object-cover shadow-2xl"
+                className="w-64 rounded-xl border border-gray-5/50 object-cover shadow-2xl"
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={`Poster do filme: ${movie.title}`}
                 priority
@@ -53,12 +53,12 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
 
           <div className="flex min-w-0 flex-1 flex-col justify-end">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <div className="border-gray-6/30 flex items-center gap-2 rounded-full border bg-black/60 px-3 py-1.5 backdrop-blur-sm">
+              <div className="flex items-center gap-2 rounded-full border border-gray-6/30 bg-black/60 px-3 py-1.5 backdrop-blur-sm">
                 <Star fill="currentColor" className="size-4 text-yellow-400" />
                 <span className="text-sm font-medium">{rating}/10</span>
               </div>
               {movie.status && (
-                <div className="bg-red-9/90 border-red-8/30 flex items-center gap-2 rounded-full border px-3 py-1.5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 rounded-full border border-red-8/30 bg-red-9/90 px-3 py-1.5 backdrop-blur-sm">
                   <span className="text-xs font-medium">
                     {domainTranslator.translateMovieStatus(movie.status)}
                   </span>
@@ -66,11 +66,11 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
               )}
             </div>
 
-            <h1 className="mb-2 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-3xl leading-tight font-bold text-transparent sm:text-4xl lg:text-5xl">
+            <h1 className="mb-2 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-3xl font-bold leading-tight text-transparent sm:text-4xl lg:text-5xl">
               {movie.title}
             </h1>
             {movie.tagline && (
-              <p className="text-gray-11 mb-4 text-lg italic">
+              <p className="mb-4 text-lg italic text-gray-11">
                 {movie.tagline}
               </p>
             )}
@@ -89,7 +89,7 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
             )}
 
             {movie.overview && (
-              <p className="mb-6 line-clamp-4 max-w-3xl text-base leading-relaxed font-light text-gray-200 sm:text-lg">
+              <p className="mb-6 line-clamp-4 max-w-3xl text-base font-light leading-relaxed text-gray-200 sm:text-lg">
                 {movie.overview}
               </p>
             )}
@@ -97,7 +97,7 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
             <div className="mb-6 flex flex-wrap items-center gap-4 text-sm text-gray-300 sm:gap-6">
               {year && (
                 <div className="flex items-center gap-2">
-                  <Calendar className="text-red-9 size-4" />
+                  <Calendar className="size-4 text-red-9" />
                   <span>{year}</span>
                 </div>
               )}
@@ -123,7 +123,7 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
               {trailer && (
                 <a
                   href="#trailer"
-                  className="bg-red-9 hover:bg-red-10 inline-flex items-center gap-3 rounded-lg px-6 py-3 font-semibold text-white transition-all"
+                  className="inline-flex items-center gap-3 rounded-lg bg-red-9 px-6 py-3 font-semibold text-white transition-all hover:bg-red-10"
                 >
                   <Play className="size-4" />
                   Assistir Trailer
@@ -155,5 +155,5 @@ export const MovieHero = ({ movie, trailer }: MovieHeroProps) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

@@ -1,20 +1,20 @@
-import { Movie } from "../../types/Movie";
+import { Movie } from "../../types/Movie"
 
 export interface MovieMetrics {
-  rating: number;
-  starCount: number;
-  releaseYear: number | null;
-  posterUrl: string;
-  isHighRated: boolean;
-  isPopular: boolean;
+  rating: number
+  starCount: number
+  releaseYear: number | null
+  posterUrl: string
+  isHighRated: boolean
+  isPopular: boolean
 }
 
 export interface MovieGridCardProps {
-  movie: Movie;
-  className?: string;
+  movie: Movie
+  className?: string
 }
 
 export interface MovieListCardProps {
-  movie: Movie;
-  className?: string;
+  movie: Movie
+  className?: string
 }

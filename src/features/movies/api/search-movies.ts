@@ -1,6 +1,6 @@
-import { api } from "shared/api";
+import { api } from "@/shared/api"
 
-import { Movie, PaginatedResponse, SearchMovieParams } from "../types";
+import { Movie, PaginatedResponse, SearchMovieParams } from "../types"
 
 export async function searchMovies(
   query: string,
@@ -9,5 +9,5 @@ export async function searchMovies(
   return api.get<PaginatedResponse<Movie>, SearchMovieParams>("/search/movie", {
     params: { query, page },
     next: { tags: ["search"] }
-  });
+  })
 }

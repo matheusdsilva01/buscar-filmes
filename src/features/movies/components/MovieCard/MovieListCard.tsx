@@ -1,21 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { Star, Calendar } from "lucide-react";
+import { Star, Calendar } from "lucide-react"
 
-import { formatMovieMetrics } from "./formatMovieMetrics";
-import { MovieListCardProps } from "./types";
+import { formatMovieMetrics } from "./formatMovieMetrics"
+import { MovieListCardProps } from "./types"
 
 export const MovieListCard = ({
   movie,
   className = ""
 }: MovieListCardProps) => {
   const { rating, starCount, releaseYear, posterUrl } =
-    formatMovieMetrics(movie);
+    formatMovieMetrics(movie)
 
   return (
     <div
-      className={`bg-gray-2/50 border-gray-5 hover:border-red-9/50 overflow-hidden rounded-md border transition-all ${className}`}
+      className={`overflow-hidden rounded-md border border-gray-5 bg-gray-2/50 transition-all hover:border-red-9/50 ${className}`}
     >
       <div className="flex flex-col sm:flex-row">
         <div className="sm:w-48 sm:shrink-0">
@@ -31,11 +31,11 @@ export const MovieListCard = ({
         <div className="flex-1 p-6">
           <div className="flex flex-col gap-y-3">
             <div>
-              <h2 className="text-gray-12 text-xl font-bold sm:text-2xl">
+              <h2 className="text-xl font-bold text-gray-12 sm:text-2xl">
                 <Link href={`/movie/${movie.id}`}>{movie.title}</Link>
               </h2>
 
-              <div className="text-gray-11 mt-2 text-sm">
+              <div className="mt-2 text-sm text-gray-11">
                 {releaseYear && (
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
@@ -58,16 +58,16 @@ export const MovieListCard = ({
                   />
                 ))}
               </div>
-              <span className="text-gray-12 text-sm font-medium">
+              <span className="text-sm font-medium text-gray-12">
                 {rating}/10
               </span>
-              <span className="text-gray-11 text-xs">
+              <span className="text-xs text-gray-11">
                 ({movie.vote_count} votos)
               </span>
             </div>
 
             <div>
-              <p className="text-gray-11 line-clamp-3 leading-relaxed">
+              <p className="line-clamp-3 leading-relaxed text-gray-11">
                 {movie.overview ||
                   "Este filme ainda não possui uma sinopse disponível."}
               </p>
@@ -76,7 +76,7 @@ export const MovieListCard = ({
             <div className="pt-2">
               <Link
                 href={`/movie/${movie.id}`}
-                className="bg-red-9 hover:bg-red-10 inline-block rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
+                className="inline-block rounded-lg bg-red-9 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-10"
               >
                 Ver detalhes
               </Link>
@@ -85,5 +85,5 @@ export const MovieListCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
