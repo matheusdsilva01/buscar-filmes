@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MovieSkeleton } from "components/ui/Skeletons/MovieSkeleton";
 import { Search } from "lucide-react";
+import { MovieSkeleton } from "shared/components/Skeletons";
 
 const Loading = () => {
   return (
