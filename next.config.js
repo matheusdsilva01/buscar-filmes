@@ -9,6 +9,7 @@ const nextConfig = {
     }
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         hostname: "image.tmdb.org"

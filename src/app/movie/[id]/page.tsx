@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import {
@@ -26,11 +27,16 @@ export default async function MovieDetailsPage({
 
   const [movie, videosResponse] = await Promise.all([
     getMovieDetails(id),
-    getMovieVideos(id)
+    getMovieVideos(id).catch(() => ({ id: Number(id), results: [] }))
   ]);
+
+  if (!movie) {
+    notFound();
+  }
 
   const videos = videosResponse.results || [];
   const trailer = videos.find(v => v.type === "Trailer") || videos[0];
+
 
   return (
     <>
