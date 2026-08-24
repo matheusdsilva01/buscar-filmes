@@ -3,7 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import { ReactNode } from "react";
 import "./index.css";
 
-import { Home } from "layouts/Home";
+import { Footer, Header } from "shared/components";
 
 export const metadata: Metadata = {
   title: "Buscar filmes",
@@ -30,7 +30,9 @@ export default function LayoutRoot({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className={`${inter.variable} ${poppins.variable} font-inter`}>
-        <Home>{children}</Home>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

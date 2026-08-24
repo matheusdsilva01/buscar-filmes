@@ -1,48 +1,43 @@
-import { MovieResult } from "components/pages/search/MovieResult";
-import { SearchForm } from "components/pages/search/SearchForm";
-import { Pagination } from "components/shared/Pagination";
+import { searchMovies, SearchForm, MovieListCard } from "features/movies";
 import { Search } from "lucide-react";
-import { searchMovies } from "services/TMDB";
+import { Pagination } from "shared/components";
 
 type PageProps = {
   searchParams: {
-    query: string;
-    page?: number;
+    query?: string;
+    page?: string | number;
   };
 };
 
-const ResultSearch = async ({ searchParams }: PageProps) => {
-  const { query = "", page = 1 } = searchParams;
+export default async function SearchPage({ searchParams }: PageProps) {
+  const query = searchParams.query || "";
+  const page = Number(searchParams.page) || 1;
+
   const {
     results,
     total_pages: totalPages,
     total_results: totalResults
-  } = await searchMovies({
-    query,
-    page
-  });
+  } = await searchMovies(query, page);
 
   const hasResults = results.length > 0;
-  const currentPageNum = Number(page);
 
   return (
     <div className="min-h-screen">
-      <div className="bg-gray-2/80 border-b border-gray-5">
-        <div className="mx-auto px-4 container sm:px-5 lg:px-8 py-6">
+      <div className="bg-gray-2/80 border-gray-5 border-b">
+        <div className="container mx-auto px-4 py-6 sm:px-5 lg:px-8">
           <div className="max-w-2xl">
             <SearchForm initialQuery={query} />
           </div>
         </div>
       </div>
 
-      <div className="mx-auto px-4 py-8 container sm:px-5 lg:px-8">
+      <div className="container mx-auto px-4 py-8 sm:px-5 lg:px-8">
         {!query ? (
-          // Initial state - no search
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-gray-5 flex items-center justify-center mb-4">
-              <Search className="w-8 h-8 text-gray-11" />
+            <div className="bg-gray-5 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+              <Search className="text-gray-11 h-8 w-8" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-12 mb-2">
+            <h2 className="text-gray-12 mb-2 text-xl font-semibold">
               Encontre seus filmes favoritos
             </h2>
             <p className="text-gray-11 max-w-md">
@@ -51,12 +46,11 @@ const ResultSearch = async ({ searchParams }: PageProps) => {
             </p>
           </div>
         ) : !hasResults ? (
-          // No results state
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-gray-5 flex items-center justify-center mb-4">
-              <Search className="w-8 h-8 text-gray-8" />
+            <div className="bg-gray-5 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+              <Search className="text-gray-8 h-8 w-8" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-12 mb-2">
+            <h2 className="text-gray-12 mb-2 text-xl font-semibold">
               Nenhum filme encontrado
             </h2>
             <p className="text-gray-11 max-w-md">
@@ -65,40 +59,30 @@ const ResultSearch = async ({ searchParams }: PageProps) => {
             </p>
           </div>
         ) : (
-          // Results state
           <>
             <div className="mb-6">
-              <Pagination
-                page={currentPageNum}
-                totalPages={totalPages}
-                query={query}
-              />
+              <Pagination page={page} totalPages={totalPages} query={query} />
             </div>
 
             <div className="mb-2">
               <p className="text-gray-12 text-sm">
-                <span className="font-medium text-red-9">{totalResults}</span>{" "}
+                <span className="text-red-9 font-medium">{totalResults}</span>{" "}
                 resultados encontrados para &quot;{query}&quot;
               </p>
             </div>
+
             <div className="flex flex-col gap-y-4">
               {results.map(movie => (
-                <MovieResult key={movie.id} movie={movie} />
+                <MovieListCard key={movie.id} movie={movie} />
               ))}
             </div>
 
-            <div>
-              <Pagination
-                page={currentPageNum}
-                totalPages={totalPages}
-                query={query}
-              />
+            <div className="mt-6">
+              <Pagination page={page} totalPages={totalPages} query={query} />
             </div>
           </>
         )}
       </div>
     </div>
   );
-};
-
-export default ResultSearch;
+}
