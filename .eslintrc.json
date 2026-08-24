@@ -1,54 +1,52 @@
 {
+  "$schema": "https://json.schemastore.org/eslintrc.json",
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "extends": ["plugin:react/recommended"],
   "parser": "@typescript-eslint/parser",
-  "overrides": [],
   "parserOptions": {
-    "ecmaFeatures": { "jsx": true },
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "plugins": [
-    "react",
     "@typescript-eslint",
-    "prettier",
     "eslint-plugin-import-helpers"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": [
-      "warn",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
       {
-        "semiQuote": true,
-        "semi": true,
-        "arrowParens": "avoid",
-        "trailingComma": "none",
-        "endOfLine": "auto"
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
       }
     ],
     "import-helpers/order-imports": [
       "warn",
       {
-          "newlinesBetween": "always",
-          "groups": [
-              ["/^react/", "/^next/"],
-              "/^@stiches/",
-              "module",
-              ["/^styles/", "/./*.styles/"],
-              ["parent", "sibling", "index"]
-          ],
-          "alphabetize": {
-              "order": "asc",
-              "ignoreCase": true
-          }
+        "newlinesBetween": "always",
+        "groups": [
+          ["/^react/", "/^next/"],
+          "module",
+          ["/^@\\//", "/^features\\//", "/^shared\\//"],
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
       }
     ]
   }

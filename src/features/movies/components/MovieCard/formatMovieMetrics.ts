@@ -1,10 +1,10 @@
-import { assetResolver } from "shared/utils/AssetResolver";
+import { assetResolver } from "@/shared/utils/AssetResolver"
 
-import { Movie } from "../../types/Movie";
-import { MovieMetrics } from "./types";
+import { Movie } from "../../types/Movie"
+import { MovieMetrics } from "./types"
 
 export function formatMovieMetrics(movie: Movie): MovieMetrics {
-  const rating = Number(movie.vote_average?.toFixed(1)) || 0;
+  const rating = Number(movie.vote_average?.toFixed(1)) || 0
 
   return {
     rating,
@@ -15,5 +15,5 @@ export function formatMovieMetrics(movie: Movie): MovieMetrics {
     posterUrl: assetResolver.getMovieImage(movie.poster_path, "POSTER_MD"),
     isHighRated: rating >= 8.0,
     isPopular: Boolean(movie.popularity && movie.popularity > 100)
-  };
+  }
 }

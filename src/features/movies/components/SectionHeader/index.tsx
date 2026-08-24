@@ -1,6 +1,6 @@
 interface SectionHeaderProps {
-  title: string;
-  subtitle?: string;
+  title: string
+  subtitle?: string
 }
 
 export const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => {
@@ -12,5 +12,5 @@ export const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => {
       </div>
       {subtitle && <p className="max-w-2xl text-gray-11">{subtitle}</p>}
     </div>
-  );
-};
+  )
+}

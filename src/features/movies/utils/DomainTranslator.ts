@@ -6,12 +6,12 @@ export class DomainTranslator {
     Planned: "Planejado",
     Rumored: "Rumor",
     Canceled: "Cancelado"
-  };
+  }
 
   translateMovieStatus(status: string | null | undefined): string {
-    if (!status) return "";
-    return this.STATUS_MAP[status] || status;
+    if (!status) return ""
+    return this.STATUS_MAP[status] || status
   }
 }
 
-export const domainTranslator = new DomainTranslator();
+export const domainTranslator = new DomainTranslator()

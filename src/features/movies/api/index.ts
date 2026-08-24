@@ -1,8 +1,8 @@
-export { getMovieDetails } from "./get-movie-details";
-export { getMovieHighlights } from "./get-movie-highlights";
-export { searchMovies } from "./search-movies";
-export { getMovieCredits } from "./get-movie-credits";
-export { getMovieProviders } from "./get-movie-providers";
-export { getMovieVideos } from "./get-movie-videos";
-export { getMovieImages } from "./get-movie-images";
-export { getMovieSimilar } from "./get-movie-similar";
+export { getMovieDetails } from "./get-movie-details"
+export { getMovieHighlights } from "./get-movie-highlights"
+export { searchMovies } from "./search-movies"
+export { getMovieCredits } from "./get-movie-credits"
+export { getMovieProviders } from "./get-movie-providers"
+export { getMovieVideos } from "./get-movie-videos"
+export { getMovieImages } from "./get-movie-images"
+export { getMovieSimilar } from "./get-movie-similar"

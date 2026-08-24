@@ -7,6 +7,7 @@
 
 #next
 .next
+tsconfig.tsbuildinfo
 
 # testing
 /coverage

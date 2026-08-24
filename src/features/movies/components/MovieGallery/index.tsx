@@ -1,17 +1,18 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { ExternalLink } from "lucide-react";
-import { assetResolver } from "shared/utils/AssetResolver";
+import { ExternalLink } from "lucide-react"
 
-import { getMovieImages } from "../../api/get-movie-images";
-import { Backdrop } from "../../types/Images";
-import { SectionHeader } from "../SectionHeader";
+import { assetResolver } from "@/shared/utils/AssetResolver"
+
+import { getMovieImages } from "../../api/get-movie-images"
+import { Backdrop } from "../../types/Images"
+import { SectionHeader } from "../SectionHeader"
 
 interface MovieGalleryProps {
-  movieId?: string;
-  images?: Backdrop[];
-  title: string;
+  movieId?: string
+  images?: Backdrop[]
+  title: string
 }
 
 export const MovieGallery = async ({
@@ -19,14 +20,14 @@ export const MovieGallery = async ({
   images,
   title
 }: MovieGalleryProps) => {
-  let list = images;
+  let list = images
   if (!list && movieId) {
-    const imagesResponse = await getMovieImages(movieId);
-    list = imagesResponse.backdrops;
+    const imagesResponse = await getMovieImages(movieId)
+    list = imagesResponse.backdrops
   }
 
-  const visibleImages = list?.slice(0, 12) || [];
-  if (visibleImages.length === 0) return null;
+  const visibleImages = list?.slice(0, 12) || []
+  if (visibleImages.length === 0) return null
 
   return (
     <section>
@@ -55,5 +56,5 @@ export const MovieGallery = async ({
         ))}
       </div>
     </section>
-  );
-};
+  )
+}

@@ -1,21 +1,21 @@
 export interface Provider {
-  logo_path: string;
-  provider_id: number;
-  provider_name: string;
-  display_priority: number;
+  logo_path: string
+  provider_id: number
+  provider_name: string
+  display_priority: number
 }
 
 export interface CountryProviders {
-  link?: string;
-  flatrate?: Provider[];
-  rent?: Provider[];
-  buy?: Provider[];
+  link?: string
+  flatrate?: Provider[]
+  rent?: Provider[]
+  buy?: Provider[]
 }
 
 export interface ProviderResponse {
-  id: number;
+  id: number
   results: {
-    BR?: CountryProviders;
-    [countryCode: string]: CountryProviders | undefined;
-  };
+    BR?: CountryProviders
+    [countryCode: string]: CountryProviders | undefined
+  }
 }

@@ -1,22 +1,22 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { Star, Calendar, TrendingUp } from "lucide-react";
+import { Star, Calendar, TrendingUp } from "lucide-react"
 
-import { formatMovieMetrics } from "./formatMovieMetrics";
-import { MovieGridCardProps } from "./types";
+import { formatMovieMetrics } from "./formatMovieMetrics"
+import { MovieGridCardProps } from "./types"
 
 export const MovieGridCard = ({
   movie,
   className = ""
 }: MovieGridCardProps) => {
   const { rating, starCount, releaseYear, posterUrl, isHighRated, isPopular } =
-    formatMovieMetrics(movie);
+    formatMovieMetrics(movie)
 
   return (
     <Link
       href={`/movie/${movie.id}`}
-      className={`group bg-gray-2/50 border-gray-5/50 hover:border-red-9/50 relative block cursor-pointer overflow-hidden rounded-xl border transition-all ${className}`}
+      className={`group relative block cursor-pointer overflow-hidden rounded-xl border border-gray-5/50 bg-gray-2/50 transition-all hover:border-red-9/50 ${className}`}
     >
       <div className="relative overflow-hidden">
         <Image
@@ -31,7 +31,7 @@ export const MovieGridCard = ({
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
+        <div className="absolute left-3 top-3 flex flex-col gap-2">
           {isHighRated && (
             <div className="flex items-center gap-1 rounded-full bg-yellow-500/90 px-2 py-1 text-xs font-bold text-black backdrop-blur-sm">
               <Star className="size-3 fill-current" />
@@ -39,14 +39,14 @@ export const MovieGridCard = ({
             </div>
           )}
           {isPopular && (
-            <div className="bg-red-9/90 flex items-center gap-1 rounded-full px-2 py-1 text-xs font-bold text-white backdrop-blur-sm">
+            <div className="flex items-center gap-1 rounded-full bg-red-9/90 px-2 py-1 text-xs font-bold text-white backdrop-blur-sm">
               <TrendingUp className="size-3" />
               Em alta
             </div>
           )}
         </div>
 
-        <div className="absolute right-0 bottom-0 left-0 translate-y-2 p-4 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+        <div className="absolute bottom-0 left-0 right-0 translate-y-2 p-4 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
           <div className="space-y-2">
             {releaseYear && (
               <div className="flex items-center gap-1 text-xs text-gray-300">
@@ -72,20 +72,20 @@ export const MovieGridCard = ({
       </div>
 
       <div className="p-4">
-        <h3 className="text-gray-12 group-hover:text-red-9 line-clamp-2 text-sm leading-tight font-semibold transition-colors">
+        <h3 className="line-clamp-2 text-sm font-semibold leading-tight text-gray-12 transition-colors group-hover:text-red-9">
           {movie.title}
         </h3>
 
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center gap-1">
             <Star className="size-3 fill-current text-yellow-400" />
-            <span className="text-gray-11 text-xs font-medium">{rating}</span>
+            <span className="text-xs font-medium text-gray-11">{rating}</span>
           </div>
           {releaseYear && (
-            <span className="text-gray-10 text-xs">{releaseYear}</span>
+            <span className="text-xs text-gray-10">{releaseYear}</span>
           )}
         </div>
       </div>
     </Link>
-  );
-};
+  )
+}

@@ -1,26 +1,27 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { User } from "lucide-react";
-import { assetResolver } from "shared/utils/AssetResolver";
+import { User } from "lucide-react"
 
-import { getMovieCredits } from "../../api/get-movie-credits";
-import { CastMember } from "../../types/Credits";
-import { SectionHeader } from "../SectionHeader";
+import { assetResolver } from "@/shared/utils/AssetResolver"
+
+import { getMovieCredits } from "../../api/get-movie-credits"
+import { CastMember } from "../../types/Credits"
+import { SectionHeader } from "../SectionHeader"
 
 interface MovieCastProps {
-  movieId?: string;
-  cast?: CastMember[];
+  movieId?: string
+  cast?: CastMember[]
 }
 
 export const MovieCast = async ({ movieId, cast }: MovieCastProps) => {
-  let list = cast;
+  let list = cast
   if (!list && movieId) {
-    const credits = await getMovieCredits(movieId);
-    list = credits.cast;
+    const credits = await getMovieCredits(movieId)
+    list = credits.cast
   }
 
-  const visibleCast = list?.slice(0, 15) || [];
-  if (visibleCast.length === 0) return null;
+  const visibleCast = list?.slice(0, 15) || []
+  if (visibleCast.length === 0) return null
 
   return (
     <section>
@@ -34,7 +35,7 @@ export const MovieCast = async ({ movieId, cast }: MovieCastProps) => {
             key={member.id}
             className="group flex w-32 shrink-0 flex-col items-center"
           >
-            <div className="border-gray-5/50 group-hover:border-red-9/50 mb-2 h-28 w-28 overflow-hidden rounded-full border-2 transition-all">
+            <div className="mb-2 h-28 w-28 overflow-hidden rounded-full border-2 border-gray-5/50 transition-all group-hover:border-red-9/50">
               {member.profile_path ? (
                 <Image
                   width={112}
@@ -47,20 +48,20 @@ export const MovieCast = async ({ movieId, cast }: MovieCastProps) => {
                   alt={member.name}
                 />
               ) : (
-                <div className="bg-gray-3 flex h-full w-full items-center justify-center">
-                  <User className="text-gray-8 size-8" />
+                <div className="flex h-full w-full items-center justify-center bg-gray-3">
+                  <User className="size-8 text-gray-8" />
                 </div>
               )}
             </div>
-            <p className="text-gray-12 line-clamp-1 text-center text-sm font-medium">
+            <p className="line-clamp-1 text-center text-sm font-medium text-gray-12">
               {member.name}
             </p>
-            <p className="text-gray-11 line-clamp-1 text-center text-xs">
+            <p className="line-clamp-1 text-center text-xs text-gray-11">
               {member.character}
             </p>
           </div>
         ))}
       </div>
     </section>
-  );
-};
+  )
+}

@@ -4,10 +4,10 @@ export type ImageIntent =
   | "BACKDROP_LG"
   | "PROFILE_SM"
   | "LOGO_MD"
-  | "ORIGINAL";
+  | "ORIGINAL"
 
 class AssetResolver {
-  private readonly TMDB_BASE_URL = "https://image.tmdb.org/t/p";
+  private readonly TMDB_BASE_URL = "https://image.tmdb.org/t/p"
 
   private readonly SIZE_MAP: Record<ImageIntent, string> = {
     POSTER_SM: "w342",
@@ -16,17 +16,17 @@ class AssetResolver {
     PROFILE_SM: "w185",
     LOGO_MD: "w154",
     ORIGINAL: "original"
-  };
+  }
 
   getMovieImage(path: string | null | undefined, intent: ImageIntent): string {
-    if (!path) return "/icons/imgError.svg";
-    const size = this.SIZE_MAP[intent];
-    return `${this.TMDB_BASE_URL}/${size}${path}`;
+    if (!path) return "/icons/imgError.svg"
+    const size = this.SIZE_MAP[intent]
+    return `${this.TMDB_BASE_URL}/${size}${path}`
   }
 
   getHeroBackground(path: string | null | undefined): string {
-    return this.getMovieImage(path, "BACKDROP_LG");
+    return this.getMovieImage(path, "BACKDROP_LG")
   }
 }
 
-export const assetResolver = new AssetResolver();
+export const assetResolver = new AssetResolver()
