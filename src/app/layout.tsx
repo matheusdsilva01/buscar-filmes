@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 import { Inter, Poppins } from "next/font/google"
 import { ReactNode } from "react"
+
+import { Analytics } from "@vercel/analytics/next"
 import "./index.css"
 
 import { Footer, Header } from "@/shared/components"
@@ -33,6 +35,7 @@ export default function LayoutRoot({ children }: { children: ReactNode }) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
