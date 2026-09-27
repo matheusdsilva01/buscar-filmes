@@ -89,7 +89,7 @@ export class ApiClient implements InstanceHTTPClient {
         const errorData = await response.json()
         tmdbMessage = errorData.status_message
         tmdbCode = errorData.status_code
-      } catch (e) {}
+      } catch {}
 
       const status = response.status
 

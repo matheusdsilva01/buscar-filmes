@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default async function HomePage({ searchParams }: Props) {
-  const { query } = searchParams
+  const { query } = await searchParams
 
   return (
     <>
@@ -23,7 +23,9 @@ export default async function HomePage({ searchParams }: Props) {
         <HeroSection />
       </Suspense>
 
-      <TabsFilterMovie />
+      <Suspense fallback={null}>
+        <TabsFilterMovie />
+      </Suspense>
 
       <Suspense fallback={<MoviesGridSkeleton />}>
         <MoviesHighlights filter={query} />
