@@ -4,15 +4,15 @@ import { searchMovies, SearchForm, MovieListCard } from "@/features/movies"
 import { Pagination } from "@/shared/components"
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     query?: string
     page?: string | number
-  }
+  }>
 }
 
 export default async function SearchPage({ searchParams }: PageProps) {
-  const query = searchParams.query || ""
-  const page = Number(searchParams.page) || 1
+  const query = (await searchParams).query || ""
+  const page = Number((await searchParams).page) || 1
 
   const {
     results,

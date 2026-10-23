@@ -15,15 +15,15 @@ import {
 import { assetResolver } from "@/shared/utils/AssetResolver"
 
 interface MovieDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function MovieDetailsPage({
   params
 }: MovieDetailsPageProps) {
-  const { id } = params
+  const { id } = await params
 
   const [movie, videosResponse] = await Promise.all([
     getMovieDetails(id),

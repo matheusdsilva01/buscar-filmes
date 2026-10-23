@@ -9,9 +9,9 @@ import {
 import { HeroSkeleton, MoviesGridSkeleton } from "@/shared/components"
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     query?: FilterOption
-  }
+  }>
 }
 
 export default async function HomePage({ searchParams }: Props) {
